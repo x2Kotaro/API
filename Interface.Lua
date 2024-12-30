@@ -1,55 +1,41 @@
-_G.SettingsTable = {
-    Tranpsy = 0,
-    Acrylic = false,
-    HotKey = nil
-}
-
-for i, v in pairs(_G.SettingsTable) do
-
-end
-
-local filename = "Venuz Hub/TheMimic.json";
-
-function loadSettings()
-    local HttpService = game:GetService("HttpService")
-    if (readfile and isfile and isfile(filename)) then
-        _G.SettingsTable = HttpService:JSONDecode(readfile(filename));
-        for i, v in pairs(_G.SettingsTable) do
-        end
-    end
-end
-
-loadSettings()
-
-function saveSettings()
-    local json;
-    local HttpService = game:GetService("HttpService");
-    if (writefile) then
-        json = HttpService:JSONEncode(_G.SettingsTable);
-        writefile(filename, json);
-    else
-    end
-end
-
 local httpService = game:GetService("HttpService")
 
-local InterfaceManager = {}
-do
+local InterfaceManager = {} do
+	InterfaceManager.Folder = "Venuz Hub"
     InterfaceManager.Settings = {
         Theme = "Dark",
-        Acrylic = _G.SettingsTable.Acrylic,
-        Transparency = _G.SettingsTable.Tranpsy,
-        MenuKeybind = _G.SettingsTable.HotKey
+        Acrylic = true,
+        Transparency = true,
+        MenuKeybind = "LeftControl"
     }
 
     function InterfaceManager:SetFolder(folder)
-        self.Folder = folder;
-        self:BuildFolderTree()
-    end
+		self.Folder = folder;
+		self:BuildFolderTree()
+	end
 
     function InterfaceManager:SetLibrary(library)
-        self.Library = library
-    end
+		self.Library = library
+	end
+
+    function InterfaceManager:BuildFolderTree()
+		local paths = {}
+
+		local parts = self.Folder:split("/")
+		for idx = 1, #parts do
+			paths[#paths + 1] = table.concat(parts, "/", 1, idx)
+		end
+
+		table.insert(paths, self.Folder)
+		table.insert(paths, self.Folder .. "/settings")
+
+		for i = 1, #paths do
+			local str = paths[i]
+			if not isfolder(str) then
+				makefolder(str)
+			end
+		end
+	end
 
     function InterfaceManager:SaveSettings()
         writefile(self.Folder .. "/options.json", httpService:JSONEncode(InterfaceManager.Settings))
@@ -71,69 +57,57 @@ do
 
     function InterfaceManager:BuildInterfaceSection(tab)
         assert(self.Library, "Must set InterfaceManager.Library")
-        local Library = self.Library
+		local Library = self.Library
         local Settings = InterfaceManager.Settings
 
         InterfaceManager:LoadSettings()
 
-        local section = tab:AddSection("Interface")
+		local section = tab:AddSection("Interface")
 
-        local InterfaceTheme = section:AddDropdown("InterfaceTheme", {
-            Title = "Theme",
-            Description = "Changes the interface theme.",
-            Values = Library.Themes,
-            Default = Settings.Theme,
-            Callback = function(Value)
-                Library:SetTheme(Value)
+		local InterfaceTheme = section:AddDropdown("InterfaceTheme", {
+			Title = "Theme",
+			Description = "Changes the interface theme.",
+			Values = Library.Themes,
+			Default = Settings.Theme,
+			Callback = function(Value)
+				Library:SetTheme(Value)
                 Settings.Theme = Value
-            end
-        })
+                InterfaceManager:SaveSettings()
+			end
+		})
 
         InterfaceTheme:SetValue(Settings.Theme)
-
-        if Library.UseAcrylic then
-            section:AddToggle("AcrylicToggle", {
-                Title = "Acrylic",
-                Description = "The blurred background requires graphic quality 8+",
-                Default = Settings.Acrylic,
-                Callback = function(Value)
-                    Library:ToggleAcrylic(Value)
+	
+		if Library.UseAcrylic then
+			section:AddToggle("AcrylicToggle", {
+				Title = "Acrylic",
+				Description = "The blurred background requires graphic quality 8+",
+				Default = Settings.Acrylic,
+				Callback = function(Value)
+					Library:ToggleAcrylic(Value)
                     Settings.Acrylic = Value
-                end
-            })
-        end
-
-        section:AddToggle("TransparentToggle", {
-            Title = "Transparency",
-            Description = "Makes the interface transparent.",
-            Default = Settings.Transparency,
-            Callback = function(Value)
-                Library:ToggleTransparency(Value)
-                Settings.Transparency = Value
-            end
-        })
-
-        section:Slider({
-            Title = "Transparency",
-            Description = "Makes the interface transparent.",
-            Min = 0,
-            Max = 100,
-            default = _G.SettingsTable.Tranpsy,
-            Callback = function(Value)
-                Library:SetTransparency(Value / 100)
-                Settings.Transparency = Value > 0
-                saveSettings()
-            end
-        })
-
-        local MenuKeybind = section:AddKeybind("MenuKeybind", {
-            Title = "Minimize Bind",
-            Default = "LeftControl"
-        })
-        MenuKeybind:OnChanged(function()
-            Settings.MenuKeybind = MenuKeybind.Value
-        end)
-        Library.MinimizeKeybind = MenuKeybind
+                    InterfaceManager:SaveSettings()
+				end
+			})
+		end
+	
+		section:AddToggle("TransparentToggle", {
+			Title = "Transparency",
+			Description = "Makes the interface transparent.",
+			Default = Settings.Transparency,
+			Callback = function(Value)
+				Library:ToggleTransparency(Value)
+				Settings.Transparency = Value
+                InterfaceManager:SaveSettings()
+			end
+		})
+	
+		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Default = Settings.MenuKeybind })
+		MenuKeybind:OnChanged(function()
+			Settings.MenuKeybind = MenuKeybind.Value
+            InterfaceManager:SaveSettings()
+		end)
+		Library.MinimizeKeybind = MenuKeybind
     end
 end
 
