@@ -1,13 +1,45 @@
+_G.SettingsTable = {
+    Tranpsy = 0,
+    Acrylic = false,
+    HotKey = nil
+}
+
+for i, v in pairs(_G.SettingsTable) do
+
+end
+
+local filename = "Venuz Hub/TheMimic.json";
+
+function loadSettings()
+    local HttpService = game:GetService("HttpService")
+    if (readfile and isfile and isfile(filename)) then
+        _G.SettingsTable = HttpService:JSONDecode(readfile(filename));
+        for i, v in pairs(_G.SettingsTable) do
+        end
+    end
+end
+
+loadSettings()
+
+function saveSettings()
+    local json;
+    local HttpService = game:GetService("HttpService");
+    if (writefile) then
+        json = HttpService:JSONEncode(_G.SettingsTable);
+        writefile(filename, json);
+    else
+    end
+end
+
 local httpService = game:GetService("HttpService")
 
 local InterfaceManager = {}
 do
-    InterfaceManager.Folder = "Venuz Hub"
     InterfaceManager.Settings = {
         Theme = "Dark",
-        Acrylic = true,
-        Transparency = true,
-        MenuKeybind = "LeftControl"
+        Acrylic = _G.SettingsTable.Acrylic,
+        Transparency = _G.SettingsTable.Tranpsy,
+        MenuKeybind = _G.SettingsTable.HotKey
     }
 
     function InterfaceManager:SetFolder(folder)
@@ -17,25 +49,6 @@ do
 
     function InterfaceManager:SetLibrary(library)
         self.Library = library
-    end
-
-    function InterfaceManager:BuildFolderTree()
-        local paths = {}
-
-        local parts = self.Folder:split("/")
-        for idx = 1, #parts do
-            paths[#paths + 1] = table.concat(parts, "/", 1, idx)
-        end
-
-        table.insert(paths, self.Folder)
-        table.insert(paths, self.Folder .. "/settings")
-
-        for i = 1, #paths do
-            local str = paths[i]
-            if not isfolder(str) then
-                makefolder(str)
-            end
-        end
     end
 
     function InterfaceManager:SaveSettings()
@@ -73,7 +86,6 @@ do
             Callback = function(Value)
                 Library:SetTheme(Value)
                 Settings.Theme = Value
-                InterfaceManager:SaveSettings()
             end
         })
 
@@ -87,7 +99,6 @@ do
                 Callback = function(Value)
                     Library:ToggleAcrylic(Value)
                     Settings.Acrylic = Value
-                    InterfaceManager:SaveSettings()
                 end
             })
         end
@@ -99,17 +110,28 @@ do
             Callback = function(Value)
                 Library:ToggleTransparency(Value)
                 Settings.Transparency = Value
-                InterfaceManager:SaveSettings()
+            end
+        })
+
+        section:Slider({
+            Title = "Transparency",
+            Description = "Makes the interface transparent.",
+            Min = 0,
+            Max = 100,
+            default = _G.SettingsTable.Tranpsy,
+            Callback = function(Value)
+                Library:SetTransparency(Value / 100)
+                Settings.Transparency = Value > 0
+                saveSettings()
             end
         })
 
         local MenuKeybind = section:AddKeybind("MenuKeybind", {
             Title = "Minimize Bind",
-            Default = Settings.MenuKeybind
+            Default = "LeftControl"
         })
         MenuKeybind:OnChanged(function()
             Settings.MenuKeybind = MenuKeybind.Value
-            InterfaceManager:SaveSettings()
         end)
         Library.MinimizeKeybind = MenuKeybind
     end
