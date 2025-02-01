@@ -119,7 +119,7 @@ local aa = {
         local t, u, v = e(s.Notification), p.New, protectgui or (syn and syn.protect_gui) or function()
                 end
         local w = u("ScreenGui", {Parent = i:IsStudio() and j.PlayerGui or game:GetService "CoreGui"})
-        w.Name = "MyCustomScreenGui"
+        w.Name = "     "
         v(w)
         t:Init(w)
         local x = {
