@@ -3336,7 +3336,8 @@ local aa = {
         function aj.New(c, d)
             assert(d.Title, "Paragraph - Missing Title")
             d.Content = d.Content or ""
-            local e = ac(ag.Element)(d.Title, d.Content, nil, false)
+    
+            local e = ac(ag.Element)(d.Title, d.Content, aj.Container, false)
             e.Frame.BackgroundTransparency = 0.92
             e.Border.Transparency = 0.6
             function e:UpdateText(newTitle)
@@ -3345,7 +3346,7 @@ local aa = {
             return e
         end
         return aj
-    end,    
+    end,   
     [26] = function()
         local aa, ab, ac, ad, ae = b(26)
         local af, ag = game:GetService "UserInputService", ab.Parent.Parent
