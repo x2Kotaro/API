@@ -3333,6 +3333,7 @@ local aa = {
         local ag, ah, ai, aj = af.Components, ac(af.Packages.Flipper), ac(af.Creator), {}
         aj.__index = aj
         aj.__type = "Paragraph"
+    
         function aj.New(c, d)
             assert(d.Title, "Paragraph - Missing Title")
             d.Content = d.Content or ""
@@ -3340,13 +3341,19 @@ local aa = {
             local e = ac(ag.Element)(d.Title, d.Content, aj.Container, false)
             e.Frame.BackgroundTransparency = 0.92
             e.Border.Transparency = 0.6
+    
+            -- ✅ แก้ไขให้สามารถอัปเดต Title ได้
             function e:UpdateText(newTitle)
-                if newTitle then self.Title.Text = newTitle end
+                if newTitle then 
+                    self.Title = newTitle  -- 🔥 เปลี่ยนค่าของ Title โดยตรง
+                    self:SetTitle(newTitle) -- ✅ ใช้ฟังก์ชัน SetTitle หากมี
+                end
             end
+    
             return e
         end
         return aj
-    end,   
+    end,
     [26] = function()
         local aa, ab, ac, ad, ae = b(26)
         local af, ag = game:GetService "UserInputService", ab.Parent.Parent
