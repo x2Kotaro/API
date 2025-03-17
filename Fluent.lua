@@ -3482,25 +3482,28 @@ local aa = {
     end,
     [27] = function()
         local aa, ab, ac, ad, ae = b(27)
-        local af, ag = game:GetService "TweenService", ab.Parent.Parent
+        local af, ag = game:GetService("TweenService"), ab.Parent.Parent
         local ah = ac(ag.Creator)
         local ai, aj, c = ah.New, ag.Components, {}
+    
         c.__index = c
         c.__type = "Toggle"
+    
         function c.New(d, e, f)
             local g = d.Library
             assert(f.Title, "Toggle - Missing Title")
+    
             local h, i = {
                 Value = f.Default or false,
                 Callback = f.Callback or function() end,
                 Keybind = f.Keybind or nil, -- เพิ่ม Keybind
                 Type = "Toggle"
             }, ac(aj.Element)(f.Title, f.Description, d.Container, true)
-            
+    
             i.DescLabel.Size = UDim2.new(1, -54, 0, 14)
             h.SetTitle = i.SetTitle
             h.SetDesc = i.SetDesc
-        
+    
             local j, k = ai("ImageLabel", {
                 AnchorPoint = Vector2.new(0, 0.5),
                 Size = UDim2.fromOffset(14, 14),
@@ -3509,7 +3512,7 @@ local aa = {
                 ImageTransparency = 0.5,
                 ThemeTag = {ImageColor3 = "ToggleSlider"}
             }), ai("UIStroke", {Transparency = 0.5, ThemeTag = {Color = "ToggleSlider"}})
-        
+    
             local l = ai("Frame", {
                 Size = UDim2.fromOffset(36, 18),
                 AnchorPoint = Vector2.new(1, 0.5),
@@ -3518,12 +3521,12 @@ local aa = {
                 BackgroundTransparency = 1,
                 ThemeTag = {BackgroundColor3 = "Accent"}
             }, {ai("UICorner", {CornerRadius = UDim.new(0, 9)}), k, j})
-        
+    
             function h.OnChanged(m, n)
                 h.Changed = n
                 n(h.Value)
             end
-        
+    
             function h.SetValue(m, n)
                 n = not (not n)
                 h.Value = n
@@ -3535,28 +3538,40 @@ local aa = {
                 g:SafeCallback(h.Callback, h.Value)
                 g:SafeCallback(h.Changed, h.Value)
             end
-        
+    
             function h.Destroy(m)
                 i:Destroy()
                 g.Options[e] = nil
             end
-        
+    
+            -- คลิกเปลี่ยนค่า Toggle
             ah.AddSignal(i.Frame.MouseButton1Click, function()
                 h:SetValue(not h.Value)
             end)
-
+    
+            -- กด Keybind เพื่อเปลี่ยนค่า Toggle
             ah.AddSignal(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
-                if not gameProcessed and h.Keybind and input.KeyCode.Name == h.Keybind then
-                    h:SetValue(not h.Value)
+                if gameProcessed then return end
+                local keybind = tostring(h.Keybind) -- แปลงเป็น string เพื่อความปลอดภัย
+    
+                if keybind ~= "nil" then
+                    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode.Name == keybind then
+                        h:SetValue(not h.Value)
+                    elseif input.UserInputType == Enum.UserInputType.MouseButton1 and keybind == "MouseLeft" then
+                        h:SetValue(not h.Value)
+                    elseif input.UserInputType == Enum.UserInputType.MouseButton2 and keybind == "MouseRight" then
+                        h:SetValue(not h.Value)
+                    end
                 end
             end)
-        
+    
             h:SetValue(h.Value)
             g.Options[e] = h
             return h
         end
+    
         return c
-    end,
+    end,    
     [28] = function()
         local aa, ab, ac, ad, ae = b(28)
         return {
