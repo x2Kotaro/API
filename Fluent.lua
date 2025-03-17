@@ -3493,7 +3493,7 @@ local aa = {
             local h, i = {
                 Value = f.Default or false,
                 Callback = f.Callback or function() end,
-                Keybind = f.Keybind or nil,
+                Keybind = f.Keybind or nil, -- เพิ่ม Keybind
                 Type = "Toggle"
             }, ac(aj.Element)(f.Title, f.Description, d.Container, true)
             
@@ -3544,23 +3544,13 @@ local aa = {
             ah.AddSignal(i.Frame.MouseButton1Click, function()
                 h:SetValue(not h.Value)
             end)
-        
+
             ah.AddSignal(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
                 if not gameProcessed and h.Keybind and input.KeyCode.Name == h.Keybind then
                     h:SetValue(not h.Value)
                 end
             end)
         
-            h:SetValue(h.Value)
-            g.Options[e] = h
-            return h
-        end        
-            ah.AddSignal(
-                i.Frame.MouseButton1Click,
-                function()
-                    h:SetValue(not h.Value)
-                end
-            )
             h:SetValue(h.Value)
             g.Options[e] = h
             return h
