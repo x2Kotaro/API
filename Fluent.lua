@@ -2934,7 +2934,7 @@ local aa = {
                             P(N and 0.85 or 0.89)
                         end
                     )
-                    function J.UpdateButton(T)
+                    function J.UpdateButton()
                         if j.Multi then
                             N = l.Value[I]
                             if N then
@@ -2944,36 +2944,33 @@ local aa = {
                             N = l.Value == I
                             P(N and 0.89 or 1)
                         end
+                        local tweenSize = af:Create(M, TweenInfo.new(0.15, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = UDim2.new(1, -5, 0, N and 36 or 32)})
+                        tweenSize:Play()
                         S:setGoal(d.Spring.new(N and 14 or 6, {frequency = 6}))
                         R(N and 0 or 1)
-                    end
-                    L.InputBegan:Connect(
-                        function(T)
-                            if
-                                T.UserInputType == Enum.UserInputType.MouseButton1 or
-                                    T.UserInputType == Enum.UserInputType.Touch
-                             then
-                                local U = not N
-                                if l:GetActiveValues() == 1 and not U and not j.AllowNull then
+                    end                    
+                    L.InputBegan:Connect(function(T)
+                        if T.UserInputType == Enum.UserInputType.MouseButton1 or T.UserInputType == Enum.UserInputType.Touch then
+                            local U = not N
+                            if l:GetActiveValues() == 1 and not U and not j.AllowNull then
+                            else
+                                if j.Multi then
+                                    N = U
+                                    l.Value[I] = N and true or nil
                                 else
-                                    if j.Multi then
-                                        N = U
-                                        l.Value[I] = N and true or nil
-                                    else
-                                        N = U
-                                        l.Value = N and I or nil
-                                        for V, W in next, D do
-                                            W:UpdateButton()
-                                        end
+                                    N = U
+                                    l.Value = N and I or nil
+                                    for V, W in next, D do
+                                        W:UpdateButton()
                                     end
-                                    J:UpdateButton()
-                                    l:Display()
-                                    k:SafeCallback(l.Callback, l.Value)
-                                    k:SafeCallback(l.Changed, l.Value)
                                 end
+                                J:UpdateButton()
+                                l:Display()
+                                k:SafeCallback(l.Callback, l.Value)
+                                k:SafeCallback(l.Changed, l.Value)
                             end
                         end
-                    )
+                    end)                    
                     J:UpdateButton()
                     l:Display()
                     D[M] = J
@@ -3342,11 +3339,10 @@ local aa = {
             e.Frame.BackgroundTransparency = 0.92
             e.Border.Transparency = 0.6
     
-            -- ✅ แก้ไขให้สามารถอัปเดต Title ได้
             function e:UpdateText(newTitle)
                 if newTitle then 
-                    self.Title = newTitle  -- 🔥 เปลี่ยนค่าของ Title โดยตรง
-                    self:SetTitle(newTitle) -- ✅ ใช้ฟังก์ชัน SetTitle หากมี
+                    self.Title = newTitle
+                    self:SetTitle(newTitle)
                 end
             end
     
