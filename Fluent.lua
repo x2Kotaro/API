@@ -3534,17 +3534,17 @@ local aa = {
                 h.Value = n
                 ah.OverrideTag(k, {Color = h.Value and "Accent" or "ToggleSlider"})
                 ah.OverrideTag(j, {ImageColor3 = h.Value and "ToggleToggled" or "ToggleSlider"})
-                af:Create(
-                    j,
-                    TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 0),
-                    {Position = UDim2.new(0, h.Value and 19 or 2, 0.5, 0)}
-                ):Play()
-                
-                af:Create(
-                    l,
-                    TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 0),
-                    {BackgroundTransparency = h.Value and 0 or 1}
-                ):Play()
+af:Create(
+    j,
+    TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 1),
+    {Position = UDim2.new(0, h.Value and 19 or 2, 0.5, 0)}
+):Play()
+
+af:Create(
+    l,
+    TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 1),
+    {BackgroundTransparency = h.Value and 0 or 1}
+):Play()
                 j.ImageTransparency = h.Value and 0 or 0.5
                 g:SafeCallback(h.Callback, h.Value)
                 g:SafeCallback(h.Changed, h.Value)
