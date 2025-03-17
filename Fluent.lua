@@ -3490,65 +3490,71 @@ local aa = {
         function c.New(d, e, f)
             local g = d.Library
             assert(f.Title, "Toggle - Missing Title")
-            local h, i = {Value = f.Default or false, Callback = f.Callback or function(h)
-                        end, Type = "Toggle"}, ac(aj.Element)(f.Title, f.Description, d.Container, true)
+            local h, i = {
+                Value = f.Default or false,
+                Callback = f.Callback or function() end,
+                Keybind = f.Keybind or nil,
+                Type = "Toggle"
+            }, ac(aj.Element)(f.Title, f.Description, d.Container, true)
+            
             i.DescLabel.Size = UDim2.new(1, -54, 0, 14)
             h.SetTitle = i.SetTitle
             h.SetDesc = i.SetDesc
-            local j, k =
-                ai(
-                    "ImageLabel",
-                    {
-                        AnchorPoint = Vector2.new(0, 0.5),
-                        Size = UDim2.fromOffset(14, 14),
-                        Position = UDim2.new(0, 2, 0.5, 0),
-                        Image = "http://www.roblox.com/asset/?id=12266946128",
-                        ImageTransparency = 0.5,
-                        ThemeTag = {ImageColor3 = "ToggleSlider"}
-                    }
-                ),
-                ai("UIStroke", {Transparency = 0.5, ThemeTag = {Color = "ToggleSlider"}})
-            local l =
-                ai(
-                "Frame",
-                {
-                    Size = UDim2.fromOffset(36, 18),
-                    AnchorPoint = Vector2.new(1, 0.5),
-                    Position = UDim2.new(1, -10, 0.5, 0),
-                    Parent = i.Frame,
-                    BackgroundTransparency = 1,
-                    ThemeTag = {BackgroundColor3 = "Accent"}
-                },
-                {ai("UICorner", {CornerRadius = UDim.new(0, 9)}), k, j}
-            )
+        
+            local j, k = ai("ImageLabel", {
+                AnchorPoint = Vector2.new(0, 0.5),
+                Size = UDim2.fromOffset(14, 14),
+                Position = UDim2.new(0, 2, 0.5, 0),
+                Image = "http://www.roblox.com/asset/?id=12266946128",
+                ImageTransparency = 0.5,
+                ThemeTag = {ImageColor3 = "ToggleSlider"}
+            }), ai("UIStroke", {Transparency = 0.5, ThemeTag = {Color = "ToggleSlider"}})
+        
+            local l = ai("Frame", {
+                Size = UDim2.fromOffset(36, 18),
+                AnchorPoint = Vector2.new(1, 0.5),
+                Position = UDim2.new(1, -10, 0.5, 0),
+                Parent = i.Frame,
+                BackgroundTransparency = 1,
+                ThemeTag = {BackgroundColor3 = "Accent"}
+            }, {ai("UICorner", {CornerRadius = UDim.new(0, 9)}), k, j})
+        
             function h.OnChanged(m, n)
                 h.Changed = n
                 n(h.Value)
             end
+        
             function h.SetValue(m, n)
                 n = not (not n)
                 h.Value = n
                 ah.OverrideTag(k, {Color = h.Value and "Accent" or "ToggleSlider"})
                 ah.OverrideTag(j, {ImageColor3 = h.Value and "ToggleToggled" or "ToggleSlider"})
-                af:Create(
-                    j,
-                    TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 0),
-                    {Position = UDim2.new(0, h.Value and 19 or 2, 0.5, 0)}
-                ):Play()
-                
-                af:Create(
-                    l,
-                    TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 0),
-                    {BackgroundTransparency = h.Value and 0 or 1}
-                ):Play()
+                af:Create(j, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, h.Value and 19 or 2, 0.5, 0)}):Play()
+                af:Create(l, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = h.Value and 0 or 1}):Play()
                 j.ImageTransparency = h.Value and 0 or 0.5
                 g:SafeCallback(h.Callback, h.Value)
                 g:SafeCallback(h.Changed, h.Value)
             end
+        
             function h.Destroy(m)
                 i:Destroy()
                 g.Options[e] = nil
             end
+        
+            ah.AddSignal(i.Frame.MouseButton1Click, function()
+                h:SetValue(not h.Value)
+            end)
+        
+            ah.AddSignal(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
+                if not gameProcessed and h.Keybind and input.KeyCode.Name == h.Keybind then
+                    h:SetValue(not h.Value)
+                end
+            end)
+        
+            h:SetValue(h.Value)
+            g.Options[e] = h
+            return h
+        end        
             ah.AddSignal(
                 i.Frame.MouseButton1Click,
                 function()
