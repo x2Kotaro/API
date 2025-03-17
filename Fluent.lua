@@ -3496,7 +3496,7 @@ local aa = {
             local h, i = {
                 Value = f.Default or false,
                 Callback = f.Callback or function() end,
-                Keybind = f.Keybind or nil, -- เพิ่ม Keybind
+                Keybind = f.Keybind or nil,
                 Type = "Toggle"
             }, ac(aj.Element)(f.Title, f.Description, d.Container, true)
     
@@ -3522,39 +3522,6 @@ local aa = {
                 ThemeTag = {BackgroundColor3 = "Accent"}
             }, {ai("UICorner", {CornerRadius = UDim.new(0, 9)}), k, j})
     
-            -- เพิ่มปุ่มให้ผู้ใช้เลือก Keybind
-            local keybindButton = ai("TextButton", {
-                Text = "Set Keybind",
-                Size = UDim2.fromOffset(100, 30),
-                Position = UDim2.new(0, 10, 1, -40),
-                BackgroundTransparency = 0.9,
-                Parent = i.Frame,
-                AutomaticSize = Enum.AutomaticSize.X,
-                ThemeTag = {BackgroundColor3 = "KeybindButton"}
-            })
-    
-            -- ฟังก์ชันที่ใช้ตั้งค่า Keybind
-            keybindButton.MouseButton1Click:Connect(function()
-                local waitingForInput = true
-                keybindButton.Text = "Press a key..."
-    
-                -- รอให้ผู้ใช้กดปุ่ม
-                game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
-                    if gameProcessed or not waitingForInput then return end
-                    waitingForInput = false
-                    if input.UserInputType == Enum.UserInputType.Keyboard then
-                        h.Keybind = input.KeyCode.Name
-                        keybindButton.Text = "Keybind: " .. h.Keybind
-                    elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
-                        h.Keybind = "MouseLeft"
-                        keybindButton.Text = "Keybind: Mouse Left"
-                    elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-                        h.Keybind = "MouseRight"
-                        keybindButton.Text = "Keybind: Mouse Right"
-                    end
-                end)
-            end)
-    
             function h.OnChanged(m, n)
                 h.Changed = n
                 n(h.Value)
@@ -3577,15 +3544,13 @@ local aa = {
                 g.Options[e] = nil
             end
     
-            -- คลิกเปลี่ยนค่า Toggle
             ah.AddSignal(i.Frame.MouseButton1Click, function()
                 h:SetValue(not h.Value)
             end)
     
-            -- กด Keybind เพื่อเปลี่ยนค่า Toggle
             ah.AddSignal(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
                 if gameProcessed then return end
-                local keybind = tostring(h.Keybind) -- แปลงเป็น string เพื่อความปลอดภัย
+                local keybind = tostring(h.Keybind)
     
                 if keybind ~= "nil" then
                     if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode.Name == keybind then
@@ -3602,7 +3567,6 @@ local aa = {
             g.Options[e] = h
             return h
         end
-    
         return c
     end,    
     [28] = function()
