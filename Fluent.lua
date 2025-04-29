@@ -3503,7 +3503,7 @@ local aa = {
                 AnchorPoint = Vector2.new(0, 0.5),
                 Size = UDim2.fromOffset(14, 14),
                 Position = UDim2.new(0, 2, 0.5, 0),
-                Image = "http://www.roblox.com/asset/?id=12266946128",
+                Image = "http://www.roblox.com/asset/?id=17652426428",
                 ImageTransparency = 0.5,
                 ThemeTag = {ImageColor3 = "ToggleSlider"}
             }), ai("UIStroke", {Transparency = 0.5, ThemeTag = {Color = "ToggleSlider"}})
@@ -5351,7 +5351,7 @@ local aa = {
             DialogInput = Color3.fromRGB(35, 35, 35),
             DialogInputLine = Color3.fromRGB(0, 255, 127)
         }
-    end   
+    end,   
 }
 do
     local ab, ac, ad, ae, af, ag, ah, aj, c, e, f, g, h, i, j, k =
