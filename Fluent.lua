@@ -1,12 +1,3 @@
---[[
-    Fluent Interface Suite
-    This script is not intended to be modified.
-    To view the source code, see the 'src' folder on GitHub!
-
-    Author: dawid
-    License: MIT
-    GitHub: https://github.com/dawid-scripts/Fluent
---]]
 local a, b = {
     {
         1,
@@ -3533,7 +3524,7 @@ local aa = {
             function h.SetValue(m, n)
                 n = not (not n)
                 h.Value = n
-                ah.OverrideTag(k, {Color = h.Value and "Accent" or "ToggleSlider"})
+                ah.OverrideTag(k, {Color = h.Value and "Success" or "ToggleSlider"})
                 ah.OverrideTag(j, {ImageColor3 = h.Value and "ToggleToggled" or "ToggleSlider"})
                 af:Create(j, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, h.Value and 19 or 2, 0.5, 0)}):Play()
                 af:Create(l, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = h.Value and 0 or 1}):Play()
