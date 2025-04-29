@@ -5316,37 +5316,42 @@ local aa = {
         return {
             Name = "Venuz",
     
-            -- ✅ เปลี่ยน Accent เป็นเขียวสด
-            Accent = Color3.fromRGB(0, 255, 127), -- เขียวสด (Emerald Green)
+            -- ✅ Accent: สีเขียวนีออนแบบ Cyber
+            Accent = Color3.fromRGB(0, 255, 140), -- เขียวมิ้นต์เรืองแสง
     
-            AcrylicMain = Color3.fromRGB(20, 20, 20), -- ดำสนิท
+            -- 🌑 พื้นหลัง UI แบบดำลึก + Gradient
+            AcrylicMain = Color3.fromRGB(15, 15, 15),
             AcrylicBorder = Color3.fromRGB(40, 40, 40),
-            AcrylicGradient = ColorSequence.new(Color3.fromRGB(25, 25, 25), Color3.fromRGB(10, 10, 10)),
-            AcrylicNoise = 0.88, -- ลด Noise ให้นุ่มขึ้น
+            AcrylicGradient = ColorSequence.new({
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 25)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(10, 10, 10))
+            }),
+            AcrylicNoise = 0.85, -- ทำให้ดูเนียนขึ้น
     
-            TitleBarLine = Color3.fromRGB(45, 45, 45),
-    
-            Tab = Color3.fromRGB(80, 80, 80), -- ปรับให้มี contrast กับฉากหลัง
-            Element = Color3.fromRGB(55, 55, 55),
+            -- 🧱 โครง UI
+            TitleBarLine = Color3.fromRGB(35, 35, 35),
+            Tab = Color3.fromRGB(100, 255, 140), -- แถบ Tab ใช้สีเดียวกับ Accent (ดูโดดเด่น)
+            Element = Color3.fromRGB(35, 35, 35),
             ElementBorder = Color3.fromRGB(20, 20, 20),
-            InElementBorder = Color3.fromRGB(45, 45, 45),
+            InElementBorder = Color3.fromRGB(55, 55, 55),
+            ElementTransparency = 0.78,
     
-            ElementTransparency = 0.85,
-    
-            DropdownFrame = Color3.fromRGB(110, 110, 110),
-            DropdownHolder = Color3.fromRGB(30, 30, 30),
+            -- 📋 Dropdown
+            DropdownFrame = Color3.fromRGB(90, 90, 90),
+            DropdownHolder = Color3.fromRGB(25, 25, 25),
             DropdownBorder = Color3.fromRGB(20, 20, 20),
     
+            -- 💬 Dialog / Popup
             Dialog = Color3.fromRGB(30, 30, 30),
             DialogHolder = Color3.fromRGB(20, 20, 20),
-            DialogHolderLine = Color3.fromRGB(15, 15, 15),
-            DialogButton = Color3.fromRGB(30, 30, 30),
-            DialogButtonBorder = Color3.fromRGB(50, 50, 50),
-            DialogBorder = Color3.fromRGB(40, 40, 40),
+            DialogHolderLine = Color3.fromRGB(25, 255, 150), -- แถบขอบเขียวเรืองแสง
+            DialogButton = Color3.fromRGB(40, 40, 40),
+            DialogButtonBorder = Color3.fromRGB(80, 255, 180),
+            DialogBorder = Color3.fromRGB(50, 50, 50),
             DialogInput = Color3.fromRGB(35, 35, 35),
-            DialogInputLine = Color3.fromRGB(100, 255, 150) -- เขียวอ่อนขอบ input
+            DialogInputLine = Color3.fromRGB(0, 255, 127)
         }
-    end    
+    end   
 }
 do
     local ab, ac, ad, ae, af, ag, ah, aj, c, e, f, g, h, i, j, k =
