@@ -16,7 +16,8 @@ local a, b = {
                     {51, "ModuleScript", {"Darker"}},
                     {53, "ModuleScript", {"Rose"}},
                     {49, "ModuleScript", {"Aqua"}},
-                    {48, "ModuleScript", {"Amethyst"}}
+                    {48, "ModuleScript", {"Amethyst"}},
+                    {54, "ModuleScript", {"Venuz"}}
                 }
             },
             {
@@ -3524,7 +3525,7 @@ local aa = {
             function h.SetValue(m, n)
                 n = not (not n)
                 h.Value = n
-                ah.OverrideTag(k, {Color = h.Value and "Success" or "ToggleSlider"})
+                ah.OverrideTag(k, {Color = h.Value and "Accent" or "ToggleSlider"})
                 ah.OverrideTag(j, {ImageColor3 = h.Value and "ToggleToggled" or "ToggleSlider"})
                 af:Create(j, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, h.Value and 19 or 2, 0.5, 0)}):Play()
                 af:Create(l, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = h.Value and 0 or 1}):Play()
@@ -5309,7 +5310,43 @@ local aa = {
             Hover = Color3.fromRGB(200, 120, 170),
             HoverChange = 0.04
         }
-    end
+    end,
+    [54] = function()
+        local aa, ab, ac, ad, ae = b(51)
+        return {
+            Name = "Venuz",
+    
+            -- ✅ เปลี่ยน Accent เป็นเขียวสด
+            Accent = Color3.fromRGB(0, 255, 127), -- เขียวสด (Emerald Green)
+    
+            AcrylicMain = Color3.fromRGB(20, 20, 20), -- ดำสนิท
+            AcrylicBorder = Color3.fromRGB(40, 40, 40),
+            AcrylicGradient = ColorSequence.new(Color3.fromRGB(25, 25, 25), Color3.fromRGB(10, 10, 10)),
+            AcrylicNoise = 0.88, -- ลด Noise ให้นุ่มขึ้น
+    
+            TitleBarLine = Color3.fromRGB(45, 45, 45),
+    
+            Tab = Color3.fromRGB(80, 80, 80), -- ปรับให้มี contrast กับฉากหลัง
+            Element = Color3.fromRGB(55, 55, 55),
+            ElementBorder = Color3.fromRGB(20, 20, 20),
+            InElementBorder = Color3.fromRGB(45, 45, 45),
+    
+            ElementTransparency = 0.85,
+    
+            DropdownFrame = Color3.fromRGB(110, 110, 110),
+            DropdownHolder = Color3.fromRGB(30, 30, 30),
+            DropdownBorder = Color3.fromRGB(20, 20, 20),
+    
+            Dialog = Color3.fromRGB(30, 30, 30),
+            DialogHolder = Color3.fromRGB(20, 20, 20),
+            DialogHolderLine = Color3.fromRGB(15, 15, 15),
+            DialogButton = Color3.fromRGB(30, 30, 30),
+            DialogButtonBorder = Color3.fromRGB(50, 50, 50),
+            DialogBorder = Color3.fromRGB(40, 40, 40),
+            DialogInput = Color3.fromRGB(35, 35, 35),
+            DialogInputLine = Color3.fromRGB(100, 255, 150) -- เขียวอ่อนขอบ input
+        }
+    end    
 }
 do
     local ab, ac, ad, ae, af, ag, ah, aj, c, e, f, g, h, i, j, k =
