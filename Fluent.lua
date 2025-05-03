@@ -1205,14 +1205,6 @@ local aa = {
                     )
                 }
             )
-            local textLabelTabs = x.Frame:FindFirstChildOfClass("TextLabel")
-
-        function x.SetTabsName(_, TitleNew)
-            if textLabelTabs then
-            textLabelTabs.Text = TitleNew
-             x.Name = TitleNew
-           end
-        end
             local y = k("UIListLayout", {Padding = UDim.new(0, 5), SortOrder = Enum.SortOrder.LayoutOrder})
             x.ContainerFrame =
                 k(
