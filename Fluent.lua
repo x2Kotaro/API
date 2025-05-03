@@ -1297,9 +1297,6 @@ local aa = {
                 B.ScrollFrame = x.Container
                 setmetatable(B, v)
                 return B
-            end
-            setmetatable(x, v)
-            return x
          end
             setmetatable(x, v)
             return x
