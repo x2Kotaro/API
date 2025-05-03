@@ -1205,6 +1205,14 @@ local aa = {
                     )
                 }
             )
+            local textLabel = x.Frame:FindFirstChildOfClass("TextLabel")
+
+        function x.SetTitleTabsVenuz(_, newTitle)
+            if textLabel then
+             textLabel.Text = newTitle
+             x.Name = newTitle
+           end
+        end
             local y = k("UIListLayout", {Padding = UDim.new(0, 5), SortOrder = Enum.SortOrder.LayoutOrder})
             x.ContainerFrame =
                 k(
@@ -1282,6 +1290,13 @@ local aa = {
                 local B, C = {Type = "Section"}, e(n.Section)(A, x.Container)
                 B.Container = C.Container
                 B.ScrollFrame = x.Container
+                function B:SetTitle(newTitle)
+                    if C.SetTitle then
+                        C:SetTitle(newTitle)
+                    elseif C.UpdateText then
+                        C:UpdateText(newTitle)
+                    end
+                end
                 setmetatable(B, v)
                 return B
             end
