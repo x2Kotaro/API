@@ -1120,6 +1120,11 @@ local aa = {
                     m.Container
                 }
             )
+
+            function m:SetTitle(newTitle)
+                self.TitleLabel.Text = newTitle
+            end
+
             i.AddSignal(
                 m.Layout:GetPropertyChangedSignal "AbsoluteContentSize",
                 function()
@@ -1290,24 +1295,12 @@ local aa = {
                 local B, C = {Type = "Section"}, e(n.Section)(A, x.Container)
                 B.Container = C.Container
                 B.ScrollFrame = x.Container
-                for _, child in ipairs(B.Container:GetChildren()) do
-                    print(child.Name, child.ClassName)
-                end
-                
-                function B:SetTitle(newTitle)
-                    local titleLabel = self.Container:FindFirstChild("Title") 
-                                     or self.Container:FindFirstChild("SectionTitle")
-                                     or self.Container:FindFirstChildWhichIsA("TextLabel")
-                    if titleLabel then
-                        titleLabel.Text = newTitle
-                    else
-                        warn("Could not find title label in section")
-                    end
-                end
-                
                 setmetatable(B, v)
                 return B
             end
+            setmetatable(x, v)
+            return x
+         end
             setmetatable(x, v)
             return x
         end
