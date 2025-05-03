@@ -1087,44 +1087,45 @@ local aa = {
         return function(k, l)
             local m = {}
             m.Layout = j("UIListLayout", {Padding = UDim.new(0, 5)})
-            m.Container =
-                j(
-                "Frame",
-                {Size = UDim2.new(1, 0, 0, 26), Position = UDim2.fromOffset(0, 24), BackgroundTransparency = 1},
-                {m.Layout}
-            )
-            m.Root =
-                j(
-                "Frame",
-                {BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 26), LayoutOrder = 7, Parent = l},
-                {
-                    j(
-                        "TextLabel",
-                        {
-                            RichText = true,
-                            Text = k,
-                            TextTransparency = 0,
-                            FontFace = Font.new(
-                                "rbxassetid://12187365364",
-                                Enum.FontWeight.SemiBold,
-                                Enum.FontStyle.Normal
-                            ),
-                            TextSize = 18,
-                            TextXAlignment = "Left",
-                            TextYAlignment = "Center",
-                            Size = UDim2.new(1, -16, 0, 18),
-                            Position = UDim2.fromOffset(0, 2),
-                            ThemeTag = {TextColor3 = "Text"}
-                        }
-                    ),
-                    m.Container
-                }
-            )
-
+            
+            m.Container = j("Frame", {
+                Size = UDim2.new(1, 0, 0, 26),
+                Position = UDim2.fromOffset(0, 24),
+                BackgroundTransparency = 1
+            }, {m.Layout})
+            
+            local titleLabel = j("TextLabel", {
+                Name = "TitleLabel",
+                RichText = true,
+                Text = k,
+                TextTransparency = 0,
+                FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+                TextSize = 18,
+                TextXAlignment = "Left",
+                TextYAlignment = "Center",
+                Size = UDim2.new(1, -16, 0, 18),
+                Position = UDim2.fromOffset(0, 2),
+                ThemeTag = {TextColor3 = "Text"}
+            })
+        
+            m.Root = j("Frame", {
+                BackgroundTransparency = 1,
+                Size = UDim2.new(1, 0, 0, 26),
+                LayoutOrder = 7,
+                Parent = l
+            }, {
+                titleLabel,
+                m.Container
+            })
+        
+            m.TitleLabel = titleLabel
+        
             function m:SetTitle(newTitle)
-                self.TitleLabel.Text = newTitle
+                if self.TitleLabel then
+                    self.TitleLabel.Text = newTitle
+                end
             end
-
+        
             i.AddSignal(
                 m.Layout:GetPropertyChangedSignal "AbsoluteContentSize",
                 function()
@@ -1134,6 +1135,7 @@ local aa = {
             )
             return m
         end
+        
     end,
     [14] = function()
         local c, d, e, f, g = b(14)
