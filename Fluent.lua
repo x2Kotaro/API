@@ -1295,14 +1295,15 @@ local aa = {
                         C:SetTitle(newTitle)
                     elseif C.UpdateText then
                         C:UpdateText(newTitle)
+                    elseif C.TitleLabel then
+                        C.TitleLabel.Text = newTitle
+                    else
+                        warn("Section ไม่มีฟังก์ชัน SetTitle หรือ TitleLabel")
                     end
                 end
                 setmetatable(B, v)
                 return B
-            end
-            setmetatable(x, v)
-            return x
-        end
+            end            
         function o.SelectTab(p, q)
             local r = o.Window
             o.SelectedTab = q
