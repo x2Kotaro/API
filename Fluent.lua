@@ -1207,7 +1207,7 @@ local aa = {
             )
             local textLabel = x.Frame:FindFirstChildOfClass("TextLabel")
 
-        function x.SetTitle(_, newTitle)
+        function x.SetTitleTabsVenuz(_, newTitle)
             if textLabel then
             textLabel.Text = newTitle
            x.Name = newTitle
