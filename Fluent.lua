@@ -1297,9 +1297,14 @@ local aa = {
                 local B, C = {Type = "Section"}, e(n.Section)(A, x.Container)
                 B.Container = C.Container
                 B.ScrollFrame = x.Container
+                if typeof(C.SetTitle) == "function" then
+                    B.SetTitle = function(_, newTitle)
+                        C:SetTitle(newTitle)
+                    end
+                end
                 setmetatable(B, v)
                 return B
-         end
+            end            
             setmetatable(x, v)
             return x
         end
