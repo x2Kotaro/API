@@ -3523,7 +3523,7 @@ local aa = {
                 AnchorPoint = Vector2.new(0, 0.5),
                 Size = UDim2.fromOffset(14, 14),
                 Position = UDim2.new(0, 2, 0.5, 0),
-                Image = "rbxassetid://377245171",
+                Image = "rbxassetid://71728481403534",
                 ImageTransparency = 0.5,
                 ThemeTag = {ImageColor3 = "ToggleSlider"}
             }), ai("UIStroke", {Transparency = 0.5, ThemeTag = {Color = "ToggleSlider"}})
