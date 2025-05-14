@@ -581,7 +581,7 @@ do
 
         s.MouseButton1Up:Connect(function()
             if p then
-                p:Close()--()
+                p:Close()()
             end
             if k then
                 k()
