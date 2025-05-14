@@ -205,8 +205,8 @@ do
                     end
                      
                     for v,w in pairs(k) do
-                         w.InputBegan:Connect(function(x)\
-                         if(x.UserInputType==Enum.UserInputType.MouseButton1 or x.UserInputType==Enum.UserInputType.Touch)and o.CanDraggable then
+                         w.InputBegan:Connect(function(x)
+                         if(x.UserInputType == Enum.UserInputType.MouseButton1 or x.UserInputType==Enum.UserInputType.Touch) and o.CanDraggable then
                              if p == nil then
                                  p = w
                                  q = true 
@@ -442,7 +442,7 @@ do
                         n = ''
                         p = false
                     elseif j:sub(r - 1,r) == ']]' and q then
-                        n.. = ']'
+                        n = n..']'
                         table.insert(k,n)
                         n = ''
                         p = false
@@ -563,7 +563,7 @@ do
                     BackgroundTransparency = 1,
                     FontFace = Font.new(f.Font,Enum.FontWeight.SemiBold),
                     Text = i or 'Button',
-                    ThemeTag = {TextColor3 = (n~ = 'Primary' and n ~= 'White') and 'Text'},
+                    ThemeTag = {TextColor3 = (n ~= 'Primary' and n ~= 'White') and 'Text'},
                     TextColor3 = n == 'Primary' and Color3.new(1,1,1) or n == 'White' and Color3.new(0,0,0) or nil,
                     AutomaticSize = 'XY',
                     TextSize = 18
