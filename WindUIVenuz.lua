@@ -1498,8 +1498,8 @@ end
                     d('UIListLayout',{
                         Padding = UDim.new(0,18),
                         FillDirection = 'Vertical'
-                    }),w,y,x,z,d
-                    ('UIPadding',{
+                    }),w,y,x,z,
+                    d('UIPadding',{
                         PaddingTop = UDim.new(0,16),
                         PaddingLeft = UDim.new(0,16),
                         PaddingRight = UDim.new(0,16),
@@ -1510,7 +1510,7 @@ end
             
             if A then
                 C.Parent = A C.Size = UDim2.new(0,0,0,42)
-                C.Position = UDim2.new(0,16,1,-16
+                C.Position = UDim2.new(0,16,1,-16)
                 C.AnchorPoint = Vector2.new(0,1)
             end 
             
@@ -1879,8 +1879,8 @@ end
                 d('UIListLayout',{
                     Padding = UDim.new(0,18),
                     FillDirection = 'Vertical'
-            }),q,r,s,d
-            ('UIPadding',{
+            }),q,r,s,
+            d('UIPadding',{
                 PaddingTop=UDim.new(0,16),
                 PaddingLeft=UDim.new(0,16),
                 PaddingRight=UDim.new(0,16),
@@ -1942,8 +1942,8 @@ function a.i()
         Position = UDim2.new(0.5,0,0.5,0),
         Visible = false,BackgroundTransparency=1
     },{
-        c('UIScale',{Scale=0.98}),p,o,c
-        ('Frame',{
+        c('UIScale',{Scale=0.98}),p,o,
+        c('Frame',{
             Size = UDim2.new(1,h.Image and -(i+h.UIPadding),0,0),
             AutomaticSize = 'Y',
             AnchorPoint = Vector2.new(0,0),
@@ -3477,26 +3477,26 @@ function a.o()
                             local aa,ab,ac = game:GetService'UserInputService',game.Players.LocalPlayer:GetMouse(),a.load'a'
                             local ad,ae,af = ac.New,ac.Tween,a.load'd'
                             local ag,b,c = af.Button,af.ScrollSlider,{
-                                Window=nil,
-                                WindUI=nil,
-                                Tabs={},
-                                Containers={},
-                                SelectedTab=nil,
-                                TabCount=0,
-                                ToolTipParent=nil,
-                                TabHighlight=nil,
+                                Window = nil,
+                                WindUI = nil,
+                                Tabs = {},
+                                Containers = {},
+                                SelectedTab = nil,
+                                TabCount = 0,
+                                ToolTipParent = nil,
+                                TabHighlight = nil,
                                 OnChangeFunc=function(ag)end
                             }
                             
                             function c.Init(d,e,f,g)
-                                c.Window=d 
-                                c.WindUI=e 
-                                c.ToolTipParent=f 
-                                c.TabHighlight=g 
+                                c.Window = d 
+                                c.WindUI = e 
+                                c.ToolTipParent=  f 
+                                c.TabHighlight = g 
                                 return c 
-                            end f
+                            end
                             
-                            unction c.New(d)
+                            function c.New(d)
                             local e,f,g = {
                                 Title = d.Title or'Tab',
                                 Desc = d.Desc,
@@ -3567,7 +3567,7 @@ function a.o()
                                 j = ad('ImageLabel',{
                                     ImageTransparency = not e.Locked and 0.5 or 0.7,
                                     Image = e.Icon,
-                                    Siz e= UDim2.new(0,18,0,18),
+                                    Size= UDim2.new(0,18,0,18),
                                     LayoutOrder = 1,
                                     ThemeTag = {ImageColor3 = 'Text'},
                                     BackgroundTransparency = 1,
@@ -4051,7 +4051,7 @@ function a.o()
                                                     ImageRectOffset = ac.Icon(j)[2].ImageRectPosition,
                                                     BackgroundTransparency = 1,
                                                     ThemeTag = {ImageColor3 = 'Text'},
-                                                    ImageTransparenc y= 0.2,
+                                                    ImageTransparency = 0.2,
                                                     Size = UDim2.new(0,c.IconSize,0,c.IconSize)
                                                 }),
                                                 ad('Frame',{
@@ -4286,7 +4286,7 @@ function a.o()
                                     UIElements = {},
                                     CanDropdown = true,
                                     Closed = false,
-                                    HasOutline a g.HasOutline or false,
+                                    HasOutline = g.HasOutline or false,
                                     SuperParent = ag.Parent,
                                     Destroyed=false,
                                     IsFullscreen = false,
@@ -4344,7 +4344,7 @@ function a.o()
                                     ZIndex = 999,
                                     Active = false
                                 }),
-                                ac.NewRoundFrame(b.UICorner-(b.UIPadding/2),'Squircle',{
+                                (ac.NewRoundFrame(b.UICorner-(b.UIPadding/2),'Squircle',{
                                     Size = UDim2.new(1,0,0,0),
                                     ImageTransparency = 0.95,
                                     ThemeTag = {ImageColor3 = 'Text'
