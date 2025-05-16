@@ -5360,36 +5360,42 @@ function a.o()
 
                                         aa.Themes = ad 
 
-                                        local protectgui = protectgui or (syn and syn.protect_gui) or function(g) return g end
-                                        local coreGui = game:GetService("CoreGui")
+                                        local protectgui = protectgui or (syn and syn.protect_gui) or function() end
+                                        local d = game:FindFirstChild("CoreGui")
                                         
-                                        if coreGui:FindFirstChild("WindUI") then
-                                            coreGui:FindFirstChild("WindUI"):Destroy()
+                                        -- ตรวจสอบและลบ WindUI ที่มีอยู่ก่อนหน้า ถ้ามี (เพื่อป้องกันซ้อนกัน)
+                                        local existingWindUI = d:FindFirstChild("WindUI")
+                                        if existingWindUI then
+                                            existingWindUI:Destroy()
                                         end
                                         
+                                        -- สร้าง WindUI ใหม่
                                         aa.ScreenGui = af("ScreenGui", {
                                             Name = "WindUI",
-                                            Parent = protectgui(coreGui),
+                                            Parent = d,
                                             IgnoreGuiInset = true,
                                             ScreenInsets = "None"
                                         }, {
-                                            af("Folder", {Name = "Window"}),
-                                            af("Folder", {Name = "Dropdowns"}),
-                                            af("Folder", {Name = "KeySystem"}),
-                                            af("Folder", {Name = "Popups"}),
-                                            af("Folder", {Name = "ToolTips"})
+                                            af("Folder", { Name = "Window" }),
+                                            af("Folder", { Name = "Dropdowns" }),
+                                            af("Folder", { Name = "KeySystem" }),
+                                            af("Folder", { Name = "Popups" }),
+                                            af("Folder", { Name = "ToolTips" })
                                         })
                                         
-                                        if not coreGui:FindFirstChild("WindUI-Notifications") then
+                                        -- ตรวจสอบก่อนสร้าง NotificationGui
+                                        local existingNotif = d:FindFirstChild("WindUI-Notifications")
+                                        if not existingNotif then
                                             aa.NotificationGui = af("ScreenGui", {
                                                 Name = "WindUI-Notifications",
-                                                Parent = protectgui(coreGui),
+                                                Parent = d,
                                                 IgnoreGuiInset = true
                                             })
-                                        end                                        
-                                    
-                                    c(aa.ScreenGui)
-                                    c(aa.NotificationGui)
+                                            protectgui(aa.NotificationGui)
+                                        end
+                                        
+                                        -- ป้องกัน GUI จากการถูกถอดออกถ้าใช้ Synapse
+                                        protectgui(aa.ScreenGui)                                        
                                     math.clamp(aa.TransparencyValue,0,0.4)
                                     
                                     local e = a.load'g'
