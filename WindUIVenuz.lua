@@ -2226,10 +2226,6 @@ function a.j()
             Callback = j.Callback or function()end,
             UIElements = {}
         }
-
-        if not i.AddToggle then
-            i.AddToggle = i.Toggle
-        end
         
         k.ToggleFrame = a.load'i'{
             Title = k.Title,
@@ -2926,7 +2922,9 @@ function a.o()
                 o.UIElements.Dropdown:GetPropertyChangedSignal'AbsolutePosition':Connect(UpdatePosition)
                 return o.__type,o 
             end 
-            return j 
+            return {
+                AddDropdown = j.New
+            }
         end 
         
         function a.p()
