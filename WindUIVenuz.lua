@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.ๅ-/ๅๅ-/
 ]]
 
 
@@ -3699,6 +3699,9 @@ function a.o()
                                 Section = a.load'r'
                             }
                             
+                            local optsForLoad = table.clone(o)
+                            optsForLoad.Desc = nil
+
                             function e.Paragraph(n,o)
                                 o.Parent = e.UIElements.ContainerFrame 
                                 o.Window = f 
@@ -3710,7 +3713,7 @@ function a.o()
                                     Title = o.Title or'Paragraph',
                                     Desc = o.Desc or nil,
                                     Locked = o.Locked or false
-                                },a.load'i'(o)
+                                },a.load'i'(optsForLoad)
                                 
                                 p.ParagraphFrame = q
                                 
