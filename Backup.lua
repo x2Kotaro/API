@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.2
 ]]
 
 
@@ -3367,8 +3367,8 @@ function a.o()
                                     Hover = false
                                 }
                                 
-                                ac.UIElements.Colorpicker=b.NewRoundFrame(q.UICorner,'Squircle',{
-                                    ImageTransparency=0,
+                                ac.UIElements.Colorpicker = b.NewRoundFrame(q.UICorner,'Squircle',{
+                                    ImageTransparency = 0,
                                     Active = true,
                                     ImageColor3 = ac.Default,
                                     Parent = ac.ColorpickerFrame.UIElements.Main,
@@ -4341,6 +4341,24 @@ function a.o()
                                 
                                 local c,d,e,f,g,h = 
                                 ad('UICorner',{CornerRadius = UDim.new(0,b.UICorner)}),
+                                ad('Frame',{ 
+                                    Size = UDim2.new(0,32,0,32),
+                                    Position = UDim2.new(1,0,1,0),
+                                    AnchorPoint = Vector2.new(0.5,0.5),
+                                    BackgroundTransparency = 1,ZIndex=99,
+                                    Active = true,
+                                    Visible = false
+                                },{
+                                    ad('ImageLabel',{
+                                        Size = UDim2.new(0,96,0,96),
+                                        BackgroundTransparency = 1,
+                                        Image = 'rbxassetid://120997033468887',
+                                        Position = UDim2.new(0.5,-16,0.5,-16),
+                                        AnchorPoint = Vector2.new(0.5,0.5),
+                                        ImageTransparency = 0.8,
+                                        Visible = false
+                                    })
+                                }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
                                     Size = UDim2.new(1,0,1,0),
                                     ImageTransparency = 1,
@@ -4677,7 +4695,8 @@ function a.o()
                                 ImageColor3 = Color3.new(1,1,1),
                                 Size = UDim2.new(0,200,0,4),
                                 Position = UDim2.new(0.5,0,1,4),
-                                AnchorPoint = Vector2.new(0.5,0)
+                                AnchorPoint = Vector2.new(0.5,0),
+                                Visible = false
                             },{
                                 ad('Frame',{
                                     Size = UDim2.new(1,12,1,12),
@@ -4685,7 +4704,8 @@ function a.o()
                                     Position = UDim2.new(0.5,0,0.5,0),
                                     AnchorPoint = Vector2.new(0.5,0.5),
                                     Active = true,
-                                    ZIndex = 99
+                                    ZIndex = 99,
+                                    Visible = false
                                 })
                             }),
                             (ad('TextLabel',{
