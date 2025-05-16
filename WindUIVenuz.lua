@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.131232313
 ]]
 
 
@@ -4389,12 +4389,12 @@ function a.o()
                                 }}
                             ))
 
-                            d.MouseEnter:Connect(function()
-                                d[1].ImageTransparency = 0.8
+                            d.ImageLabel.MouseEnter:Connect(function()
+                                d.ImageLabel.ImageTransparency = 0.8
                             end)
                             
-                            d.MouseLeave:Connect(function()
-                                d[1].ImageTransparency = 1
+                            d.ImageLabel.MouseLeave:Connect(function()
+                                d.ImageLabel.ImageTransparency = 1
                             end)
 
                             b.UIElements.SideBar = ad('ScrollingFrame',{
