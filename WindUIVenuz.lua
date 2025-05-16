@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.ๅๅๅๅๅ
+    This script is modified by Phoenix Version 0.0.1111
 ]]
 
 
@@ -4392,15 +4392,15 @@ function a.o()
                             local TweenService = game:GetService("TweenService")
 
                             local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-                            local tweenEnter = TweenService:Create(e, tweenInfo, {ImageTransparency = 0.8})
-                            local tweenLeave = TweenService:Create(e, tweenInfo, {ImageTransparency = 1})
+                            local tweenEnter = TweenService:Create(d, tweenInfo, {ImageTransparency = 0.8})
+                            local tweenLeave = TweenService:Create(d, tweenInfo, {ImageTransparency = 1})
 
-                            e.MouseEnter:Connect(function()
+                            d.MouseEnter:Connect(function()
                                 tweenLeave:Cancel()
                                 tweenEnter:Play()
                             end)
 
-                            e.MouseLeave:Connect(function()
+                            d.MouseLeave:Connect(function()
                                 tweenEnter:Cancel()
                                 tweenLeave:Play()
                             end)
