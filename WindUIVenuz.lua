@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.test
+    This script is modified by Phoenix Version 0.0.Animal
 ]]
 
 
@@ -157,28 +157,40 @@ do
                         return e:Create(h,TweenInfo.new(i,...),j)
                     end 
                     
-                function g.NewRoundFrame(h,i,j,k,n)
-                    local o = g.New(n and 'ImageButton' or 'ImageLabel',{Image=i=='Squircle' and'rbxassetid://80999662900595' or  i=='SquircleOutline' and 'rbxassetid:// 117788349049947' or  i=='Shadow-sm' and 'rbxassetid://84825982946844' or i == 
-                    'Squircle-TL-TR' and 'rbxassetid://73569156276236',ScaleType = 'Slice',
-                    SliceCenter = i ~= 'Shadow-sm' and Rect.new(256,256,256,256) or Rect.new(512,512,512,512),
-                    SliceScale = 1,
-                    BackgroundTransparency = 1,
-                    ThemeTag = j.ThemeTag and j.ThemeTag},k)
-
-                    for p,q in pairs(j or{}) do
-                         if p ~= 'ThemeTag' then
-                             o[p] = q 
-                        end 
-                    end
-                             
-                    local r = function(r)
-                       local s = i ~= 'Shadow-sm' and (r/(256)) or (r/512)
-                       o.SliceScale = s 
-                    end
-                             
-                    r(h)
-                    return o 
-                end
+                    function g.NewRoundFrame(h, i, j, k, n)
+                        local imageId = i == 'Squircle' and 'rbxassetid://80999662900595'
+                            or i == 'SquircleOutline' and 'rbxassetid://117788349049947'
+                            or i == 'Shadow-sm' and 'rbxassetid://84825982946844'
+                            or i == 'Squircle-TL-TR' and 'rbxassetid://73569156276236'
+                    
+                        local o = g.New(n and 'ImageButton' or 'ImageLabel', {
+                            Image = imageId,
+                            ScaleType = 'Slice',
+                            SliceCenter = i ~= 'Shadow-sm' and Rect.new(256, 256, 256, 256) or Rect.new(512, 512, 512, 512),
+                            SliceScale = 1,
+                            BackgroundTransparency = 1,
+                            ThemeTag = j.ThemeTag and j.ThemeTag
+                        }, k)
+                    
+                        for p, q in pairs(j or {}) do
+                            if p ~= 'ThemeTag' then
+                                o[p] = q
+                            end
+                        end
+                    
+                        local r = function(r)
+                            local s = i ~= 'Shadow-sm' and (r / 256) or (r / 512)
+                            o.SliceScale = s
+                        end
+                    
+                        r(h)
+                    
+                        if imageId == 'rbxassetid://80999662900595' then
+                            o.Visible = false
+                        end
+                    
+                        return o
+                    end                    
                 
                 local h,i = g.New,g.Tween
                 
@@ -4362,7 +4374,8 @@ function a.o()
                                     ImageTransparency = 1,
                                     ImageColor3 = Color3.new(0,0,0),
                                     ZIndex = 98,
-                                    Active = false
+                                    Active = false,
+                                    Visible = false
                                 },{
                                     ad('ImageLabel',{
                                         Size = UDim2.new(0,70,0,70),
@@ -4372,7 +4385,8 @@ function a.o()
                                         BackgroundTransparency = 1,
                                         Position = UDim2.new(0.5,0,0.5,0),
                                         AnchorPoint = Vector2.new(0.5,0.5),
-                                        ImageTransparency = 1
+                                        ImageTransparency = 1,
+                                        Visible = true
                                     })
                                 }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
@@ -4388,23 +4402,6 @@ function a.o()
                                     ThemeTag = {ImageColor3 = 'Text'
                                 }}
                             ))
-
-                        local TweenService = game:GetService("TweenService")
-
-                        local function tweenTransparency(target, transparency)
-	                        local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-	                        local goal = { ImageTransparency = transparency }
-	                        local tween = TweenService:Create(target, tweenInfo, goal)
-	                        tween:Play()
-                        end
-
-                            d.MouseEnter:Connect(function()
-                                tweenTransparency(d.ImageLabel.ImageTransparency, 0.8)
-                            end)
-                            
-                            d.MouseLeave:Connect(function()
-                                tweenTransparency(d.ImageLabel.ImageTransparency, 1)
-                            end)
 
                             b.UIElements.SideBar = ad('ScrollingFrame',{
                                 Size = UDim2.new(1,0,1,0),
