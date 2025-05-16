@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.2
 ]]
 
 
@@ -2221,6 +2221,7 @@ function a.j()
             Title = j.Title or'Toggle',
             Desc = j.Desc or nil,
             Value = j.Value,
+            Locked = j.Locked or nil,
             Icon = j.Icon or nil,
             Type = j.Type or 'Toggle',
             Callback = j.Callback or function()end,
