@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.2
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -505,7 +505,7 @@ do
                     ImageRectOffset = f.Icon(j)[2].ImageRectPosition,
                     Size = UDim2.new(0,21,0,21),
                     BackgroundTransparency = 1,
-                    ThemeTag = {ImageColor3='Icon'}
+                    ThemeTag = {ImageColor3 = 'Icon'}
                 })
             end
 
@@ -572,16 +572,16 @@ do
             h(s.Frame,0.047,{ImageTransparency=1}):Play()
         end)
 
-        s.MouseButton1Up:Connect(function()
-            if p then
-                p:Close()()
-            end
-            if k then
-                k()
-            end 
-        end)
-        return s
-     end 
+    --     s.MouseButton1Up:Connect(function()
+    --         if p then
+    --             p:Close()()
+    --         end
+    --         if k then
+    --             k()
+    --         end 
+    --     end)
+    --     return s
+    --  end 
      
      function e.Input(i,j,k,n)
         local o,p = 10
@@ -5441,8 +5441,8 @@ function a.o()
                                     
                                     function aa.CreateWindow(g,h)
                                         local i = a.load'u'
-                                        if not isfolder'WindUI' then 
-                                            makefolder'WindUI' end 
+                                        if not isfolder'Venuz Hub' then 
+                                            makefolder'Venuz Hub' end 
                                             if h.Folder then 
                                                 makefolder(h.Folder)
                                             else 
