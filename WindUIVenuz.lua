@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -4828,20 +4828,22 @@ function a.o()
                                             })
                                         end 
                                         
-                                        -- task.spawn(function()
-                                        --     if b.Icon then 
-                                        --         local x = ac.Image(b.Icon,b.Title,b.UICorner-4,b.Folder,'Window')
-                                        --         x.Parent = b.UIElements.Main.Main.Topbar.Left 
-                                        --         x.Size = UDim2.new(0,22,0,22)
-                                        --         if ac.Icon(tostring(b.Icon))[1] then 
-                                        --             x.Image = ac.Icon(b.Icon)[1]
-                                        --             x.ImageRectOffset = ac.Icon(b.Icon)[2].ImageRectPosition 
-                                        --             x.ImageRectSize = ac.Icon(b.Icon)[2].ImageRectSize 
-                                        --         end 
-                                        --     else 
-                                        --         x.Visible = false 
-                                        --     end 
-                                        -- end)
+                                        task.spawn(function()
+                                            if b.Icon then 
+                                                local x = ac.Image(b.Icon,b.Title,b.UICorner-4,b.Folder,'Window')
+                                                x.Parent = b.UIElements.Main.Main.Topbar.Left 
+                                                x.Size = UDim2.new(0,22,0,22)
+                                                if o and ac.Icon(tostring(b.Icon))[1] then 
+                                                    o.Image = ac.Icon(b.Icon)[1]
+                                                    o.ImageRectOffset = ac.Icon(b.Icon)[2].ImageRectPosition 
+                                                    o.ImageRectSize = ac.Icon(b.Icon)[2].ImageRectSize 
+                                                end 
+                                            else
+                                                if o then
+                                                o.Visible = false
+                                                end
+                                            end 
+                                        end)
                                         
                                         function b.SetToggleKey(x,y)
                                             b.ToggleKey = y 
