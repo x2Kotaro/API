@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.111111111
+    This script is modified by Phoenix Version 0.0.111111
 ]]
 
 
@@ -4354,7 +4354,7 @@ function a.o()
                                         Image = 'rbxassetid://120997033468887',
                                         Position = UDim2.new(0.5,-16,0.5,-16),
                                         AnchorPoint = Vector2.new(0.5,0.5),
-                                        ImageTransparency = 0.8,
+                                        ImageTransparency = 1,
                                     })
                                 }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
