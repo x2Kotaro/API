@@ -2603,7 +2603,7 @@ function a.o()
     
     function j.New(k,n)
         local o,p = {
-            __type = 'AddDropdown',
+            __type = 'Dropdown',
             Title = n.Title or 'Dropdown',
             Desc = n.Desc or nil,
             Locked = n.Locked or false,
