@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.3
+    This script is modified by Phoenix Version 0.0.4
 ]]
 
 
@@ -2049,21 +2049,37 @@ function a.i()
         Parent = g.Parent
     },{h.UIElements.Main})
     
-    local q = c('TextLabel',{
+local q = c('Frame', {
+    BackgroundColor3 = Color3.new(0, 0, 0),
+    BackgroundTransparency = 0,
+    AutomaticSize = 'Y',
+    Size = UDim2.new(1, 0, 0, 0),
+    LayoutOrder = 9999,
+    Name = 'DescWrapper'
+}, {
+    c('UICorner', { CornerRadius = UDim.new(0, 8) }),
+    c('UIPadding', {
+        PaddingTop = UDim.new(0, 8),
+        PaddingBottom = UDim.new(0, 8),
+        PaddingLeft = UDim.new(0, 12),
+        PaddingRight = UDim.new(0, 12),
+    }),
+    
+    c('TextLabel', {
         Text = h.Desc,
         ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
         TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
         TextTransparency = 0.2,
         TextSize = 15,
         TextWrapped = true,
-        LayoutOrder = 9999,
-        Name = 'Desc',
-        TextXAlignment = 'Left',
-        Size = UDim2.new(1,-g.TextOffset,0,0),
-        FontFace = Font.new(b.Font,Enum.FontWeight.Medium),
+        AutomaticSize = 'Y',
         BackgroundTransparency = 1,
-        AutomaticSize = 'Y'
+        FontFace = Font.new(b.Font, Enum.FontWeight.Medium),
+        Size = UDim2.new(1, 0, 0, 0),
+        TextXAlignment = 'Left',
+        Name = 'Desc'
     })
+})
     
     if h.Desc then
         q.Parent = h.UIElements.Main.Title
@@ -4068,7 +4084,7 @@ function a.o()
                                                         ThemeTag = {TextColor3 = 'Text'},
                                                         TextSize = 15,
                                                         TextTransparency = 0.2,
-                                                        BackgroundTransparency = 0.5,
+                                                        BackgroundTransparency = 1,
                                                         TextXAlignment = 'Left',
                                                         FontFace = Font.new(ac.Font,Enum.FontWeight.Medium),
                                                         Size = UDim2.new(1,0,0,0),
