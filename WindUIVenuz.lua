@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.ๅ-/ๅๅ-/
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -3699,9 +3699,6 @@ function a.o()
                                 Section = a.load'r'
                             }
                             
-                            local optsForLoad = table.clone(o)
-                            optsForLoad.Desc = nil
-
                             function e.Paragraph(n,o)
                                 o.Parent = e.UIElements.ContainerFrame 
                                 o.Window = f 
@@ -3713,10 +3710,11 @@ function a.o()
                                     Title = o.Title or'Paragraph',
                                     Desc = o.Desc or nil,
                                     Locked = o.Locked or false
-                                },a.load'i'(optsForLoad)
+                                },a.load'i'(o)
                                 
                                 p.ParagraphFrame = q
                                 
+                                -- Create DescWrapper for the description
                                 local DescWrapper = ad('Frame', {
                                     BackgroundColor3 = Color3.new(0, 0, 0),
                                     BackgroundTransparency = 0.6,
@@ -3750,6 +3748,12 @@ function a.o()
                                     })
                                 })
                             
+                                local oldDesc = q.UIElements.Main.Title:FindFirstChild("Desc")
+
+                                if oldDesc then
+                                    oldDesc:Destroy()
+                                end
+                                
                                 if o.Desc then
                                     DescWrapper.Parent = q.UIElements.Main.Title
                                 end
