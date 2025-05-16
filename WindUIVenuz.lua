@@ -163,7 +163,6 @@ do
                     SliceScale = 1,
                     BackgroundTransparency = 1,
                     ThemeTag = j.ThemeTag and j.ThemeTag,
-                    Visible = i == 'Squircle' and false
                 },k)
 
                     for p,q in pairs(j or{}) do
@@ -4347,7 +4346,8 @@ function a.o()
                                     Position = UDim2.new(1,0,1,0),
                                     AnchorPoint = Vector2.new(0.5,0.5),
                                     BackgroundTransparency = 1,ZIndex=99,
-                                    Active = true
+                                    Active = true,
+                                    Visible = false
                                 },{
                                     ad('ImageLabel',{
                                         Size = UDim2.new(0,96,0,96),
@@ -4355,7 +4355,8 @@ function a.o()
                                         Image = 'rbxassetid://120997033468887',
                                         Position = UDim2.new(0.5,-16,0.5,-16),
                                         AnchorPoint = Vector2.new(0.5,0.5),
-                                        ImageTransparency = 1,
+                                        ImageTransparency = 0.8,
+                                        Visible = false
                                     })
                                 }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
