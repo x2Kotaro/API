@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.111111111111
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -3704,7 +3704,7 @@ function a.o()
                                 o.Window = f 
                                 o.Hover = false 
                                 o.TextOffset = 0 
-                                o.IsButtons = o.Buttons and#o.Buttons > 0 and true or false 
+                                o.IsButtons = o.Buttons and #o.Buttons > 0 and true or false 
                                 local p,q = {
                                     __type='Paragraph',
                                     Title = o.Title or'Paragraph',
@@ -3713,8 +3713,8 @@ function a.o()
                                 },a.load'i'(o)
                                 
                                 p.ParagraphFrame = q
-
-                                local DescWrapper = c('Frame', {
+                                
+                                local DescWrapper = ad('Frame', {
                                     BackgroundColor3 = Color3.new(0, 0, 0),
                                     BackgroundTransparency = 0.6,
                                     AutomaticSize = 'Y',
@@ -3722,36 +3722,36 @@ function a.o()
                                     LayoutOrder = 9999,
                                     Name = 'DescWrapper'
                                 }, {
-                                    c('UICorner', { CornerRadius = UDim.new(0, 8) }),
-                                    c('UIPadding', {
+                                    ad('UICorner', { CornerRadius = UDim.new(0, 8) }),
+                                    ad('UIPadding', {
                                         PaddingTop = UDim.new(0, 8),
                                         PaddingBottom = UDim.new(0, 8),
                                         PaddingLeft = UDim.new(0, 12),
                                         PaddingRight = UDim.new(0, 12),
                                     }),
                                     
-                                    c('TextLabel', {
-                                        Text = h.Desc,
-                                        ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
-                                        TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
+                                    ad('TextLabel', {
+                                        Text = o.Desc,
+                                        ThemeTag = {TextColor3 = not o.Color and 'Text' or nil},
+                                        TextColor3 = o.Color and (o.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
                                         TextTransparency = 0.2,
                                         TextSize = 15,
                                         TextWrapped = true,
                                         AutomaticSize = 'Y',
                                         BackgroundTransparency = 1,
-                                        FontFace = Font.new(b.Font, Enum.FontWeight.Medium),
+                                        FontFace = Font.new(ac.Font, Enum.FontWeight.Medium),
                                         Size = UDim2.new(1, 0, 0, 0),
                                         TextXAlignment = 'Left',
                                         LineHeight = 1.35,
                                         Name = 'Desc'
                                     })
                                 })
-
+                            
                                 if o.Desc then
                                     DescWrapper.Parent = q.UIElements.Main.Title
                                 end
-                                
-                                if o.Buttons and#o.Buttons > 0 then 
+                            
+                                if o.Buttons and #o.Buttons > 0 then 
                                     local r = ad('Frame',{
                                         Size = UDim2.new(1,0,0,38),
                                         BackgroundTransparency = 1,
@@ -3775,7 +3775,10 @@ function a.o()
                                 end 
                                 
                                 function p.SetDesc(r,s)
-                                    p.ParagraphFrame:SetDesc(s)
+                                    local descLabel = p.ParagraphFrame.UIElements.Main.Title:FindFirstChild("DescWrapper")
+                                    if descLabel then
+                                        descLabel.Desc.Text = s
+                                    end
                                 end 
                                 
                                 function p.Destroy(r)
