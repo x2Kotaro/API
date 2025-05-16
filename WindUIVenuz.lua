@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1111
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -2070,7 +2070,7 @@ local q = c('Frame', {
         ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
         TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
         TextTransparency = 0.2,
-        TextSize = 17,
+        TextSize = 16,
         TextWrapped = true,
         AutomaticSize = 'Y',
         BackgroundTransparency = 1,
