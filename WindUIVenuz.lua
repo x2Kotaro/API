@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.2
 ]]
 
 
@@ -976,11 +976,10 @@ end
                     GroupTransparency = 1,
                     Visible = false
                 },{
-                    g('UISizeConstraint',{
-                        MaxSize = Vector2.new(400,math.huge)}),
+                    g('UISizeConstraint',{MaxSize = Vector2.new(400,math.huge)}),
                         g('Frame',{
                             AutomaticSize = 'XY',
-                            BackgroundTransparency = 1,
+                            BackgroundTransparency = 0.5,
                             LayoutOrder = 99,
                             Visible = false
                         },{
@@ -3712,22 +3711,6 @@ function a.o()
                                     Desc = o.Desc or nil,
                                     Locked = o.Locked or false
                                 },a.load'i'(o)
-
-                                if o.Desc then
-                                    local descLabel = ad('TextLabel', {
-                                        Text = "\t" .. o.Desc,
-                                        TextXAlignment = 'Left',
-                                        FontFace = Font.new(ac.Font, Enum.FontWeight.Medium),
-                                        ThemeTag = { TextColor3 = 'Text' },
-                                        TextSize = 15,
-                                        TextTransparency = 0.4,
-                                        BackgroundColor3 = Color3.new(0, 0, 0),
-                                        BackgroundTransparency = 0.5,
-                                        Size = UDim2.new(1, 0, 0, 0),
-                                        AutomaticSize = 'Y',
-                                        Parent = q.UIElements.Main
-                                    })
-                                end
                                 
                                 p.ParagraphFrame = q 
                                 
