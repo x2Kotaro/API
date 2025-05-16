@@ -4341,22 +4341,6 @@ function a.o()
                                 
                                 local c,d,e,f,g,h = 
                                 ad('UICorner',{CornerRadius = UDim.new(0,b.UICorner)}),
-                                ad('Frame',{ 
-                                    Size = UDim2.new(0,32,0,32),
-                                    Position = UDim2.new(1,0,1,0),
-                                    AnchorPoint = Vector2.new(0.5,0.5),
-                                    BackgroundTransparency = 1,ZIndex=99,
-                                    Active = true
-                                },{
-                                    ad('ImageLabel',{
-                                        Size = UDim2.new(0,96,0,96),
-                                        BackgroundTransparency = 1,
-                                        Image = 'rbxassetid://120997033468887',
-                                        Position = UDim2.new(0.5,-16,0.5,-16),
-                                        AnchorPoint = Vector2.new(0.5,0.5),
-                                        ImageTransparency = 1,
-                                    })
-                                }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
                                     Size = UDim2.new(1,0,1,0),
                                     ImageTransparency = 1,
