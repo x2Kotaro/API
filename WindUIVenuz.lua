@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.4
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -2051,7 +2051,7 @@ function a.i()
     
 local q = c('Frame', {
     BackgroundColor3 = Color3.new(0, 0, 0),
-    BackgroundTransparency = 0,
+    BackgroundTransparency = 0.6,
     AutomaticSize = 'Y',
     Size = UDim2.new(1, 0, 0, 0),
     LayoutOrder = 9999,
