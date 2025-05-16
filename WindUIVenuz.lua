@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.ๅๅๅๅๅ
 ]]
 
 
@@ -4355,7 +4355,6 @@ function a.o()
                                         Position = UDim2.new(0.5,-16,0.5,-16),
                                         AnchorPoint = Vector2.new(0.5,0.5),
                                         ImageTransparency = 0.8,
-                                        Visible = false
                                     })
                                 }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
