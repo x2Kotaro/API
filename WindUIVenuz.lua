@@ -2048,55 +2048,22 @@ function a.i()
         BackgroundTransparency = 1,
         Parent = g.Parent
     },{h.UIElements.Main})
-    
-local DescWrapper = c('Frame', {
-    BackgroundColor3 = Color3.new(0, 0, 0),
-    BackgroundTransparency = 0.6,
-    AutomaticSize = 'Y',
-    Size = UDim2.new(1, 0, 0, 0),
-    LayoutOrder = 9999,
-    Name = 'DescWrapper'
-}, {
-    c('UICorner', { CornerRadius = UDim.new(0, 8) }),
-    c('UIPadding', {
-        PaddingTop = UDim.new(0, 8),
-        PaddingBottom = UDim.new(0, 8),
-        PaddingLeft = UDim.new(0, 12),
-        PaddingRight = UDim.new(0, 12),
-    }),
-    
-    c('TextLabel', {
+
+local q = c('TextLabel',{
         Text = h.Desc,
         ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
         TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
         TextTransparency = 0.2,
         TextSize = 15,
         TextWrapped = true,
-        AutomaticSize = 'Y',
-        BackgroundTransparency = 1,
-        FontFace = Font.new(b.Font, Enum.FontWeight.Medium),
-        Size = UDim2.new(1, 0, 0, 0),
+        LayoutOrder = 9999,
+        Name = 'Desc',
         TextXAlignment = 'Left',
-        LineHeight = 1.35,
-        Name = 'Desc'
+        Size = UDim2.new(1,-g.TextOffset,0,0),
+        FontFace = Font.new(b.Font,Enum.FontWeight.Medium),
+        BackgroundTransparency = 1,
+        AutomaticSize = 'Y'
     })
-})
-
-local q = c('TextLabel',{
-    Text = h.Desc,
-    ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
-    TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
-    TextTransparency = 0.2,
-    TextSize = 15,
-    TextWrapped = true,
-    LayoutOrder = 9999,
-    Name = 'Desc',
-    TextXAlignment = 'Left',
-    Size = UDim2.new(1,-g.TextOffset,0,0),
-    FontFace = Font.new(b.Font,Enum.FontWeight.Medium),
-    BackgroundTransparency = 1,
-    AutomaticSize = 'Y'
-})
     
     if h.Desc then
         q.Parent = h.UIElements.Main.Title
@@ -3745,7 +3712,38 @@ function a.o()
                                     Locked = o.Locked or false
                                 },a.load'i'(o)
                                 
-                                p.ParagraphFrame = DescWrapper 
+                                p.ParagraphFrame = c('Frame', {
+                                    BackgroundColor3 = Color3.new(0, 0, 0),
+                                    BackgroundTransparency = 0.6,
+                                    AutomaticSize = 'Y',
+                                    Size = UDim2.new(1, 0, 0, 0),
+                                    LayoutOrder = 9999,
+                                    Name = 'DescWrapper'
+                                }, {
+                                    c('UICorner', { CornerRadius = UDim.new(0, 8) }),
+                                    c('UIPadding', {
+                                        PaddingTop = UDim.new(0, 8),
+                                        PaddingBottom = UDim.new(0, 8),
+                                        PaddingLeft = UDim.new(0, 12),
+                                        PaddingRight = UDim.new(0, 12),
+                                    }),
+                                    
+                                    c('TextLabel', {
+                                        Text = h.Desc,
+                                        ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
+                                        TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
+                                        TextTransparency = 0.2,
+                                        TextSize = 15,
+                                        TextWrapped = true,
+                                        AutomaticSize = 'Y',
+                                        BackgroundTransparency = 1,
+                                        FontFace = Font.new(b.Font, Enum.FontWeight.Medium),
+                                        Size = UDim2.new(1, 0, 0, 0),
+                                        TextXAlignment = 'Left',
+                                        LineHeight = 1.35,
+                                        Name = 'Desc'
+                                    })
+                                })
                                 
                                 if o.Buttons and#o.Buttons > 0 then 
                                     local r = ad('Frame',{
