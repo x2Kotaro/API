@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.1111
 ]]
 
 
@@ -2070,13 +2070,14 @@ local q = c('Frame', {
         ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
         TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
         TextTransparency = 0.2,
-        TextSize = 15,
+        TextSize = 17,
         TextWrapped = true,
         AutomaticSize = 'Y',
         BackgroundTransparency = 1,
         FontFace = Font.new(b.Font, Enum.FontWeight.Medium),
         Size = UDim2.new(1, 0, 0, 0),
         TextXAlignment = 'Left',
+        LineHeight = 1.35,
         Name = 'Desc'
     })
 })
