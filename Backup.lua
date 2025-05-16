@@ -163,7 +163,6 @@ do
                     SliceScale = 1,
                     BackgroundTransparency = 1,
                     ThemeTag = j.ThemeTag and j.ThemeTag,
-                    Visible = i == 'Squircle' and false or true
                 },k)
 
                     for p,q in pairs(j or{}) do
