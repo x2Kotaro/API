@@ -2049,7 +2049,7 @@ function a.i()
         Parent = g.Parent
     },{h.UIElements.Main})
     
-local q = c('Frame', {
+local DescWrapper = c('Frame', {
     BackgroundColor3 = Color3.new(0, 0, 0),
     BackgroundTransparency = 0.6,
     AutomaticSize = 'Y',
@@ -2070,7 +2070,7 @@ local q = c('Frame', {
         ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
         TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
         TextTransparency = 0.2,
-        TextSize = 16,
+        TextSize = 15,
         TextWrapped = true,
         AutomaticSize = 'Y',
         BackgroundTransparency = 1,
@@ -2080,6 +2080,22 @@ local q = c('Frame', {
         LineHeight = 1.35,
         Name = 'Desc'
     })
+})
+
+local q = c('TextLabel',{
+    Text = h.Desc,
+    ThemeTag = {TextColor3 = not h.Color and 'Text' or nil},
+    TextColor3 = h.Color and (h.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
+    TextTransparency = 0.2,
+    TextSize = 15,
+    TextWrapped = true,
+    LayoutOrder = 9999,
+    Name = 'Desc',
+    TextXAlignment = 'Left',
+    Size = UDim2.new(1,-g.TextOffset,0,0),
+    FontFace = Font.new(b.Font,Enum.FontWeight.Medium),
+    BackgroundTransparency = 1,
+    AutomaticSize = 'Y'
 })
     
     if h.Desc then
@@ -2617,8 +2633,8 @@ function a.o()
     local i,j=h.Label,{UICorner = 10,UIPadding = 12,MenuCorner = 14,MenuPadding = 5,TabPadding = 6}
     
     function j.New(k,n)
-        local o,p={
-            __type='Dropdown',
+        local o,p = {
+            __type = 'Dropdown',
             Title = n.Title or'Dropdown',
             Desc = n.Desc or nil,
             Locked = n.Locked or false,
@@ -2632,12 +2648,12 @@ function a.o()
             Tabs = {}
         },true 
         
-        o.DropdownFrame=a.load'i'{
-            Title=o.Title,
-            Desc=o.Desc,
-            Parent=n.Parent,
-            TextOffset=190,
-            Hover=false
+        o.DropdownFrame = a.load'i'{
+            Title = o.Title,
+            Desc = o.Desc,
+            Parent = n.Parent,
+            TextOffset = 190,
+            Hover = false
         }
         
         o.UIElements.Dropdown = i('',nil,o.DropdownFrame.UIElements.Main)
@@ -3729,7 +3745,7 @@ function a.o()
                                     Locked = o.Locked or false
                                 },a.load'i'(o)
                                 
-                                p.ParagraphFrame = q 
+                                p.ParagraphFrame = DescWrapper 
                                 
                                 if o.Buttons and#o.Buttons > 0 then 
                                     local r = ad('Frame',{
