@@ -3715,9 +3715,9 @@ function a.o()
                                 o.IsButtons = o.Buttons and#o.Buttons > 0 and true or false 
                                 local p,q = {
                                     __type='Paragraph',
-                                    Title=o.Title or'Paragraph',
-                                    Desc=o.Desc or nil,
-                                    Locked=o.Locked or false
+                                    Title = o.Title or'Paragraph',
+                                    Desc = o.Desc or nil,
+                                    Locked = o.Locked or false
                                 },a.load'i'(o)
                                 
                                 p.ParagraphFrame = q 
@@ -4350,4 +4350,1099 @@ function a.o()
                                     ThemeTag = {ImageColor3 = 'Text'
                                 }}
                             ))
-                            b.UIElements.SideBar=ad('ScrollingFrame',{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,ScrollBarThickness=0,ElasticBehavior='Never',CanvasSize=UDim2.new(0,0,0,0),AutomaticCanvasSize='Y',ScrollingDirection='Y',ClipsDescendants=true,VerticalScrollBarPosition='Left'},{ad('Frame',{BackgroundTransparency=1,AutomaticSize='Y',Size=UDim2.new(1,0,0,0),Name='Frame'},{ad('UIPadding',{PaddingTop=UDim.new(0,b.UIPadding/2),PaddingLeft=UDim.new(0,4+(b.UIPadding/2)),PaddingRight=UDim.new(0,4+(b.UIPadding/2)),PaddingBottom=UDim.new(0,b.UIPadding/2)}),ad('UIListLayout',{SortOrder='LayoutOrder',Padding=UDim.new(0,6)})}),ad('UIPadding',{PaddingLeft=UDim.new(0,b.UIPadding/2),PaddingRight=UDim.new(0,b.UIPadding/2)}),g})b.UIElements.SideBarContainer=ad('Frame',{Size=UDim2.new(0,b.SideBarWidth,1,b.User.Enabled and-94-(b.UIPadding*2)or-52),Position=UDim2.new(0,0,0,52),BackgroundTransparency=1,Visible=true},{b.UIElements.SideBar})b.UIElements.MainBar=ad('Frame',{Size=UDim2.new(1,-b.UIElements.SideBarContainer.AbsoluteSize.X,1,-52),Position=UDim2.new(1,0,1,0),AnchorPoint=Vector2.new(1,1),BackgroundTransparency=1},{ac.NewRoundFrame(b.UICorner-(b.UIPadding/2),'Squircle',{Size=UDim2.new(1,0,1,0),ImageColor3=Color3.new(1,1,1),ZIndex=3,ImageTransparency=0.93,Name='Background'}),ad('UIPadding',{PaddingTop=UDim.new(0,b.UIPadding/2),PaddingLeft=UDim.new(0,b.UIPadding/2),PaddingRight=UDim.new(0,b.UIPadding/2),PaddingBottom=UDim.new(0,b.UIPadding/2)})})local i,j=(ad('ImageLabel',{Image='rbxassetid://8992230677',ImageColor3=Color3.new(0,0,0),ImageTransparency=1,Size=UDim2.new(1,120,1,116),Position=UDim2.new(0,-60,0,-58),ScaleType='Slice',SliceCenter=Rect.new(99,99,99,99),BackgroundTransparency=1,ZIndex=-9999}))if aa.TouchEnabled and not aa.KeyboardEnabled then j=false elseif aa.KeyboardEnabled then j=true else j=nil end local k,n,o,p if not j then o=ad('ImageLabel',{Image='',Size=UDim2.new(0,22,0,22),Position=UDim2.new(0.5,0,0.5,0),LayoutOrder=-1,AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,Name='Icon'})OpenButtonTitle=ad('TextLabel',{Text=b.Title,TextSize=17,FontFace=Font.new(ac.Font,Enum.FontWeight.Medium),BackgroundTransparency=1,AutomaticSize='XY'})OpenButtonDrag=ad('Frame',{Size=UDim2.new(0,36,0,36),BackgroundTransparency=1,Name='Drag'},{ad('ImageLabel',{Image=ac.Icon'move'[1],ImageRectOffset=ac.Icon'move'[2].ImageRectPosition,ImageRectSize=ac.Icon'move'[2].ImageRectSize,Size=UDim2.new(0,18,0,18),BackgroundTransparency=1,Position=UDim2.new(0.5,0,0.5,0),AnchorPoint=Vector2.new(0.5,0.5)})})OpenButtonDivider=ad('Frame',{Size=UDim2.new(0,1,1,0),Position=UDim2.new(0,36,0.5,0),AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=0.9})k=ad('Frame',{Size=UDim2.new(0,0,0,0),Position=UDim2.new(0.5,0,0,28),AnchorPoint=Vector2.new(0.5,0.5),Parent=ag.Parent,BackgroundTransparency=1,Active=true,Visible=false})n=ad('TextButton',{Size=UDim2.new(0,0,0,44),AutomaticSize='X',Parent=k,Active=false,BackgroundTransparency=0.25,ZIndex=99,BackgroundColor3=Color3.new(0,0,0)},{ad('UICorner',{CornerRadius=UDim.new(1,0)}),ad('UIStroke',{Thickness=1,ApplyStrokeMode='Border',Color=Color3.new(1,1,1),Transparency=0},{ad('UIGradient',{Color=ColorSequence.new(Color3.fromHex'40c9ff',Color3.fromHex'e81cff')})}),OpenButtonDrag,OpenButtonDivider,ad('UIListLayout',{Padding=UDim.new(0,4),FillDirection='Horizontal',VerticalAlignment='Center'}),ad('TextButton',{AutomaticSize='XY',Active=true,BackgroundTransparency=1,Size=UDim2.new(0,0,0,36),BackgroundColor3=Color3.new(1,1,1)},{ad('UICorner',{CornerRadius=UDim.new(1,-4)}),o,ad('UIListLayout',{Padding=UDim.new(0,b.UIPadding),FillDirection='Horizontal',VerticalAlignment='Center'}),OpenButtonTitle,ad('UIPadding',{PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12)})}),ad('UIPadding',{PaddingLeft=UDim.new(0,4),PaddingRight=UDim.new(0,4)})})local q=n and n.UIStroke.UIGradient or nil ab.RenderStepped:Connect(function(r)if b.UIElements.Main and k and k.Parent~=nil then if q then q.Rotation=(q.Rotation+1)%360 end if p and p.Parent~=nil and p.UIGradient then p.UIGradient.Rotation=(p.UIGradient.Rotation+1)%360 end end end)n:GetPropertyChangedSignal'AbsoluteSize':Connect(function()k.Size=UDim2.new(0,n.AbsoluteSize.X,0,n.AbsoluteSize.Y)end)n.TextButton.MouseEnter:Connect(function()ae(n.TextButton,0.1,{BackgroundTransparency=0.93}):Play()end)n.TextButton.MouseLeave:Connect(function()ae(n.TextButton,0.1,{BackgroundTransparency=1}):Play()end)end local q if b.User.Enabled then local r,s=game.Players:GetUserThumbnailAsync(b.User.Anonymous and 1 or game.Players.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)q=ad('TextButton',{Size=UDim2.new(0,(b.UIElements.SideBarContainer.AbsoluteSize.X)-(b.UIPadding/2),0,42+(b.UIPadding)),Position=UDim2.new(0,b.UIPadding/2,1,-(b.UIPadding/2)),AnchorPoint=Vector2.new(0,1),BackgroundTransparency=1},{ac.NewRoundFrame(b.UICorner-(b.UIPadding/2),'Squircle',{Size=UDim2.new(1,0,1,0),ThemeTag={ImageColor3='Text'},ImageTransparency=1,Name='UserIcon'},{ad('ImageLabel',{Image=r,BackgroundTransparency=1,Size=UDim2.new(0,42,0,42),ThemeTag={BackgroundColor3='Text'},BackgroundTransparency=0.93},{ad('UICorner',{CornerRadius=UDim.new(1,0)})}),ad('Frame',{AutomaticSize='XY',BackgroundTransparency=1},{ad('TextLabel',{Text=b.User.Anonymous and'Anonymous'or game.Players.LocalPlayer.DisplayName,TextSize=17,ThemeTag={TextColor3='Text'},FontFace=Font.new(ac.Font,Enum.FontWeight.SemiBold),AutomaticSize='Y',BackgroundTransparency=1,Size=UDim2.new(1,-27,0,0),TextTruncate='AtEnd',TextXAlignment='Left'}),ad('TextLabel',{Text=b.User.Anonymous and'@anonymous'or'@'..game.Players.LocalPlayer.Name,TextSize=15,TextTransparency=0.6,ThemeTag={TextColor3='Text'},FontFace=Font.new(ac.Font,Enum.FontWeight.Medium),AutomaticSize='Y',BackgroundTransparency=1,Size=UDim2.new(1,-27,0,0),TextTruncate='AtEnd',TextXAlignment='Left'}),ad('UIListLayout',{Padding=UDim.new(0,4),HorizontalAlignment='Left'})}),ad('UIListLayout',{Padding=UDim.new(0,b.UIPadding),FillDirection='Horizontal',VerticalAlignment='Center'}),ad('UIPadding',{PaddingLeft=UDim.new(0,b.UIPadding/2),PaddingRight=UDim.new(0,b.UIPadding/2)})})})if b.User.Callback then q.MouseButton1Click:Connect(function()b.User.Callback()end)q.MouseEnter:Connect(function()ae(q.UserIcon,0.04,{ImageTransparency=0.94}):Play()end)q.InputEnded:Connect(function()ae(q.UserIcon,0.04,{ImageTransparency=1}):Play()end)end end local r,s,t,u=ac.NewRoundFrame(99,'Squircle',{ImageTransparency=0.8,ImageColor3=Color3.new(1,1,1),Size=UDim2.new(0,200,0,4),Position=UDim2.new(0.5,0,1,4),AnchorPoint=Vector2.new(0.5,0)},{ad('Frame',{Size=UDim2.new(1,12,1,12),BackgroundTransparency=1,Position=UDim2.new(0.5,0,0.5,0),AnchorPoint=Vector2.new(0.5,0.5),Active=true,ZIndex=99})}),(ad('TextLabel',{Text=b.Title,FontFace=Font.new(ac.Font,Enum.FontWeight.SemiBold),BackgroundTransparency=1,AutomaticSize='XY',Name='Title',TextXAlignment='Left',TextSize=16,ThemeTag={TextColor3='Text'}}))b.UIElements.Main=ad('Frame',{Size=b.Size,Position=b.Position,BackgroundTransparency=1,Parent=ag.Parent,AnchorPoint=Vector2.new(0.5,0.5),Active=true},{i,ac.NewRoundFrame(b.UICorner,'Squircle',{ImageTransparency=1,Size=UDim2.new(1,0,1,0),AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Name='Background',ThemeTag={ImageColor3='Background'},ZIndex=-99},{ad('ImageLabel',{BackgroundTransparency=1,Size=UDim2.new(1,0,1,0),Image=b.Background,ImageTransparency=1,ScaleType='Crop'},{ad('UICorner',{CornerRadius=UDim.new(0,b.UICorner)})}),ad('UIScale',{Scale=0.95})}),h,c,d,e,f,r,ad('Frame',{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Name='Main',Visible=false,ZIndex=97},{ad('UICorner',{CornerRadius=UDim.new(0,b.UICorner)}),b.UIElements.SideBarContainer,b.UIElements.MainBar,q,u,ad('Frame',{Size=UDim2.new(1,0,0,52),BackgroundTransparency=1,BackgroundColor3=Color3.fromRGB(50,50,50),Name='Topbar'},{t,ad('Frame',{AutomaticSize='X',Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Name='Left'},{ad('UIListLayout',{Padding=UDim.new(0,10),SortOrder='LayoutOrder',FillDirection='Horizontal',VerticalAlignment='Center'}),ad('Frame',{AutomaticSize='XY',BackgroundTransparency=1,Name='Title',Size=UDim2.new(0,0,1,0),LayoutOrder=2},{ad('UIListLayout',{Padding=UDim.new(0,0),SortOrder='LayoutOrder',FillDirection='Vertical',VerticalAlignment='Top'}),s}),ad('UIPadding',{PaddingLeft=UDim.new(0,4)})}),ad('Frame',{AutomaticSize='XY',BackgroundTransparency=1,Position=UDim2.new(1,0,0.5,0),AnchorPoint=Vector2.new(1,0.5),Name='Right'},{ad('UIListLayout',{Padding=UDim.new(0,9),FillDirection='Horizontal',SortOrder='LayoutOrder'})}),ad('UIPadding',{PaddingTop=UDim.new(0,b.UIPadding),PaddingLeft=UDim.new(0,b.UIPadding),PaddingRight=UDim.new(0,8),PaddingBottom=UDim.new(0,b.UIPadding)})})})})function b.CreateTopbarButton(v,w,x,y)local z=ad('TextButton',{Size=UDim2.new(0,36,0,36),BackgroundTransparency=1,LayoutOrder=y or 999,Parent=b.UIElements.Main.Main.Topbar.Right,ZIndex=9999,ThemeTag={BackgroundColor3='Text'},BackgroundTransparency=1},{ad('UICorner',{CornerRadius=UDim.new(0,9)}),ad('ImageLabel',{Image=ac.Icon(w)[1],ImageRectOffset=ac.Icon(w)[2].ImageRectPosition,ImageRectSize=ac.Icon(w)[2].ImageRectSize,BackgroundTransparency=1,Size=UDim2.new(0,16,0,16),ThemeTag={ImageColor3='Text'},AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Active=false,ImageTransparency=0.2})})b.TopBarButtons[100-y]=z z.MouseButton1Click:Connect(function()x()end)z.MouseEnter:Connect(function()ae(z,0.15,{BackgroundTransparency=0.93}):Play()ae(z.ImageLabel,0.15,{ImageTransparency=0}):Play()end)z.MouseLeave:Connect(function()ae(z,0.1,{BackgroundTransparency=1}):Play()ae(z.ImageLabel,0.1,{ImageTransparency=0.2}):Play()end)return z end local v,w=(ac.Drag(b.UIElements.Main,{b.UIElements.Main.Main.Topbar,r.Frame},function(v,w)if v and w==r.Frame then ae(r,0.1,{ImageTransparency=0.35}):Play()else ae(r,0.2,{ImageTransparency=0.8}):Play()end end))if not j then w=ac.Drag(k)end if b.Author then ad('TextLabel',{Text=b.Author,FontFace=Font.new(ac.Font,Enum.FontWeight.Medium),BackgroundTransparency=1,TextTransparency=0.4,AutomaticSize='XY',Parent=b.UIElements.Main.Main.Topbar.Left.Title,TextXAlignment='Left',TextSize=14,LayoutOrder=2,ThemeTag={TextColor3='Text'}})end task.spawn(function()if b.Icon then local x=ac.Image(b.Icon,b.Title,b.UICorner-4,b.Folder,'Window')x.Parent=b.UIElements.Main.Main.Topbar.Left x.Size=UDim2.new(0,22,0,22)if ac.Icon(tostring(b.Icon))[1]then o.Image=ac.Icon(b.Icon)[1]o.ImageRectOffset=ac.Icon(b.Icon)[2].ImageRectPosition o.ImageRectSize=ac.Icon(b.Icon)[2].ImageRectSize end else o.Visible=false end end)function b.SetToggleKey(x,y)b.ToggleKey=y end function b.SetBackgroundImage(x,y)b.UIElements.Main.Background.ImageLabel.Image=y end local x,y,z,A,B=ac.Icon'minimize',(ac.Icon'maximize')B=b:CreateTopbarButton('maximize',function()local C=b.IsFullscreen v:Set(C)if not C then z=b.UIElements.Main.Position A=b.UIElements.Main.Size B.ImageLabel.Image=x[1]B.ImageLabel.ImageRectOffset=x[2].ImageRectPosition B.ImageLabel.ImageRectSize=x[2].ImageRectSize b.CanResize=false else B.ImageLabel.Image=y[1]B.ImageLabel.ImageRectOffset=y[2].ImageRectPosition B.ImageLabel.ImageRectSize=y[2].ImageRectSize b.CanResize=true end ae(b.UIElements.Main,0.45,{Size=C and A or UDim2.new(1,-20,1,-72)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(b.UIElements.Main,0.45,{Position=C and z or UDim2.new(0.5,0,0.5,26)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()b.IsFullscreen=not C end,998)b:CreateTopbarButton('minus',function()b:Close()task.spawn(function()task.wait(0.3)if not j and b.IsOpenButtonEnabled then k.Visible=true end end)local C=j and'Press '..b.ToggleKey.Name..' to open the Window'or'Click the Button to open the Window'if not b.IsOpenButtonEnabled then af=true end if not af then af=not af ag.WindUI:Notify{Title='Minimize',Content="You've closed the Window. "..C,Icon='eye-off',Duration=5}end end,997)function b.Open(C)task.spawn(function()b.Closed=false ae(b.UIElements.Main.Background,0.25,{ImageTransparency=ag.Transparent and ag.WindUI.TransparencyValue or 0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(b.UIElements.Main.Background.ImageLabel,0.2,{ImageTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(b.UIElements.Main.Background.UIScale,0.2,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()ae(i,0.25,{ImageTransparency=0.7},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()if h then ae(h,0.25,{Transparency=0.8},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end b.CanDropdown=true b.UIElements.Main.Visible=true task.wait(0.1)b.UIElements.Main.Main.Visible=true end)end function b.Close(C)local D={}b.UIElements.Main.Main.Visible=false b.CanDropdown=false b.Closed=true ae(b.UIElements.Main.Background,0.25,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(b.UIElements.Main.Background.UIScale,0.19,{Scale=0.95},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(b.UIElements.Main.Background.ImageLabel,0.2,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()ae(i,0.25,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()if h then ae(h,0.25,{Transparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()end task.spawn(function()task.wait(0.25)b.UIElements.Main.Visible=false end)function D.Destroy(E)b.Destroyed=true task.wait(0.25)ag.Parent.Parent:Destroy()end return D end function b.ToggleTransparency(C,D)ag.Transparent=D ag.WindUI.Transparent=D ag.WindUI.Window.Transparent=D b.UIElements.Main.Background.ImageTransparency=D and ag.WindUI.TransparencyValue or 0 b.UIElements.Main.Background.ImageLabel.ImageTransparency=D and ag.WindUI.TransparencyValue or 0 b.UIElements.MainBar.Background.ImageTransparency=D and 0.97 or 0.93 end if not j and b.IsOpenButtonEnabled then n.TextButton.MouseButton1Click:Connect(function()k.Visible=false b:Open()end)end aa.InputBegan:Connect(function(C,D)if D then return end if C.KeyCode==b.ToggleKey then if b.Closed then b:Open()else b:Close()end end end)task.spawn(function()b:Open()end)function b.EditOpenButton(C,D)if n and n.Parent~=nil then local E={Title=D.Title,Icon=D.Icon or b.Icon,Enabled=D.Enabled,Position=D.Position,Draggable=D.Draggable,OnlyMobile=D.OnlyMobile,CornerRadius=D.CornerRadius or UDim.new(1,0),StrokeThickness=D.StrokeThickness or 2,Color=D.Color or ColorSequence.new(Color3.fromHex'40c9ff',Color3.fromHex'e81cff')}if E.Enabled==false then b.IsOpenButtonEnabled=false end if E.Draggable==false and OpenButtonDrag and OpenButtonDivider then OpenButtonDrag.Visible=E.Draggable OpenButtonDivider.Visible=E.Draggable if w then w:Set(E.Draggable)end end if E.Position and k then k.Position=E.Position end local F=aa.KeyboardEnabled or not aa.TouchEnabled n.Visible=not E.OnlyMobile or not F if not n.Visible then return end if OpenButtonTitle then if E.Title then OpenButtonTitle.Text=E.Title elseif E.Title==nil then end end if ac.Icon(E.Icon)and o then o.Visible=true o.Image=ac.Icon(E.Icon)[1]o.ImageRectOffset=ac.Icon(E.Icon)[2].ImageRectPosition o.ImageRectSize=ac.Icon(E.Icon)[2].ImageRectSize end n.UIStroke.UIGradient.Color=E.Color if p then p.UIGradient.Color=E.Color end n.UICorner.CornerRadius=E.CornerRadius n.TextButton.UICorner.CornerRadius=UDim.new(E.CornerRadius.Scale,E.CornerRadius.Offset-4)n.UIStroke.Thickness=E.StrokeThickness end end local C=a.load's'local D=C.Init(b,ag.WindUI,ag.Parent.Parent.ToolTips,g)D:OnChange(function(E)b.CurrentTab=E end)b.TabModule=C function b.Tab(E,F)F.Parent=b.UIElements.SideBar.Frame return D.New(F)end function b.SelectTab(E,F)D:SelectTab(F)end function b.Divider(E)local F=ad('Frame',{Size=UDim2.new(1,0,0,1),Position=UDim2.new(0.5,0,0,0),AnchorPoint=Vector2.new(0.5,0),BackgroundTransparency=0.9,ThemeTag={BackgroundColor3='Text'}})ad('Frame',{Parent=b.UIElements.SideBar.Frame,Size=UDim2.new(1,-7,0,1),BackgroundTransparency=1},{F})end local E=a.load'e'.Init(b)function b.Dialog(F,G)local H,I={Title=G.Title or'Dialog',Content=G.Content,Buttons=G.Buttons or{}},E.Create()local J,K=(ad('Frame',{Size=UDim2.new(1,0,0,0),AutomaticSize='Y',BackgroundTransparency=1,Parent=I.UIElements.Main},{ad('UIListLayout',{FillDirection='Horizontal',Padding=UDim.new(0,I.UIPadding),VerticalAlignment='Center'})}))if G.Icon and ac.Icon(G.Icon)[2]then K=ad('ImageLabel',{Image=ac.Icon(G.Icon)[1],ImageRectSize=ac.Icon(G.Icon)[2].ImageRectSize,ImageRectOffset=ac.Icon(G.Icon)[2].ImageRectPosition,ThemeTag={ImageColor3='Text'},Size=UDim2.new(0,26,0,26),BackgroundTransparency=1,Parent=J})end I.UIElements.UIListLayout=ad('UIListLayout',{Padding=UDim.new(0,18.4),FillDirection='Vertical',HorizontalAlignment='Left',Parent=I.UIElements.Main})ad('UISizeConstraint',{MinSize=Vector2.new(180,20),MaxSize=Vector2.new(400,math.huge),Parent=I.UIElements.Main})I.UIElements.Title=ad('TextLabel',{Text=H.Title,TextSize=19,FontFace=Font.new(ac.Font,Enum.FontWeight.SemiBold),TextXAlignment='Left',TextWrapped=true,RichText=true,Size=UDim2.new(1,K and-26-I.UIPadding or 0,0,0),AutomaticSize='Y',ThemeTag={TextColor3='Text'},BackgroundTransparency=1,Parent=J})if H.Content then ad('TextLabel',{Text=H.Content,TextSize=18,TextTransparency=0.4,TextWrapped=true,RichText=true,FontFace=Font.new(ac.Font,Enum.FontWeight.Medium),TextXAlignment='Left',Size=UDim2.new(1,0,0,0),AutomaticSize='Y',LayoutOrder=2,ThemeTag={TextColor3='Text'},BackgroundTransparency=1,Parent=I.UIElements.Main})end local L=ad('UIListLayout',{Padding=UDim.new(0,10),FillDirection='Horizontal',HorizontalAlignment='Right'})local M,N,O=ad('Frame',{Size=UDim2.new(1,0,0,40),AutomaticSize='None',BackgroundTransparency=1,Parent=I.UIElements.Main,LayoutOrder=4},{L}),a.load'd'.Button,{}for P,Q in next,H.Buttons do local R=N(Q.Title,Q.Icon,Q.Callback,Q.Variant,M,I)table.insert(O,R)end local R=function()local R,S=L.AbsoluteContentSize.X,M.AbsoluteSize.X-1 if R>S then L.FillDirection='Vertical'L.HorizontalAlignment='Right'L.VerticalAlignment='Bottom'M.AutomaticSize='Y'for T,U in ipairs(O)do U.Size=UDim2.new(1,0,0,40)U.AutomaticSize='None'end else L.FillDirection='Horizontal'L.HorizontalAlignment='Right'L.VerticalAlignment='Center'M.AutomaticSize='None'for T,U in ipairs(O)do U.Size=UDim2.new(0,0,1,0)U.AutomaticSize='X'end end end I.UIElements.Main:GetPropertyChangedSignal'AbsoluteSize':Connect(R)R()I:Open()return I end b:CreateTopbarButton('x',function()ae(b.UIElements.Main,0.35,{Position=UDim2.new(0.5,0,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()b:Dialog{Icon='trash-2',Title='Close Window',Content=[[Do you want to close this window? You will not be able to open it again.]],Buttons={{Title='Cancel',Callback=function()end,Variant='Secondary'},{Title='Close Window',Callback=function()b:Close():Destroy()end,Variant='Primary'}}}end,999)local F=function(F)if b.CanResize then isResizing=true e.Active=true initialSize=b.UIElements.Main.Size initialInputPosition=F.Position ae(e,0.2,{ImageTransparency=0.65}):Play()ae(e.ImageLabel,0.2,{ImageTransparency=0}):Play()ae(d.ImageLabel,0.1,{ImageTransparency=0.35}):Play()F.Changed:Connect(function()if F.UserInputState==Enum.UserInputState.End then isResizing=false e.Active=false ae(e,0.2,{ImageTransparency=1}):Play()ae(e.ImageLabel,0.2,{ImageTransparency=1}):Play()ae(d.ImageLabel,0.2,{ImageTransparency=0.8}):Play()end end)end end d.InputBegan:Connect(function(G)if G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch then if b.CanResize then F(G)end end end)aa.InputChanged:Connect(function(G)if G.UserInputType==Enum.UserInputType.MouseMovement or G.UserInputType==Enum.UserInputType.Touch then if isResizing and b.CanResize then local H=G.Position-initialInputPosition local I=UDim2.new(0,initialSize.X.Offset+H.X*2,0,initialSize.Y.Offset+H.Y*2)ae(b.UIElements.Main,0.06,{Size=UDim2.new(0,math.clamp(I.X.Offset,480,700),0,math.clamp(I.Y.Offset,350,520))}):Play()end end end)local G,H=a.load't',false SearchButton=b:CreateTopbarButton('search',function()if H then return end G.new(b.TabModule,b.UIElements.Main,function()H=false b.CanResize=true ae(f,0.1,{ImageTransparency=1}):Play()f.Active=false end)ae(f,0.1,{ImageTransparency=0.65}):Play()f.Active=true H=true b.CanResize=false end,996)return b end end end local aa,ab,ac={Window=nil,Theme=nil,Creator=a.load'a',Themes=a.load'b',Transparent=false,TransparencyValue=0.15},game:GetService'RunService',a.load'f'local ad,ae=aa.Themes,aa.Creator local af,ag=ae.New,ae.Tween ae.Themes=ad local b=game:GetService'Players'and game:GetService'Players'.LocalPlayer or nil aa.Themes=ad local c,d=protectgui or(syn and syn.protect_gui)or function()end,gethui and gethui()or game.CoreGui aa.ScreenGui=af('ScreenGui',{Name='WindUI',Parent=d,IgnoreGuiInset=true,ScreenInsets='None'},{af('Folder',{Name='Window'}),af('Folder',{Name='Dropdowns'}),af('Folder',{Name='KeySystem'}),af('Folder',{Name='Popups'}),af('Folder',{Name='ToolTips'})})aa.NotificationGui=af('ScreenGui',{Name='WindUI-Notifications',Parent=d,IgnoreGuiInset=true})c(aa.ScreenGui)c(aa.NotificationGui)math.clamp(aa.TransparencyValue,0,0.4)local e=a.load'g'local f=e.Init(aa.NotificationGui)function aa.Notify(g,h)h.Holder=f.Frame h.Window=aa.Window h.WindUI=aa return e.New(h)end function aa.SetNotificationLower(g,h)f.SetLower(h)end function aa.SetFont(g,h)ae.UpdateFont(h)end function aa.AddTheme(g,h)ad[h.Name]=h return h end function aa.SetTheme(g,h)if ad[h]then aa.Theme=ad[h]ae.SetTheme(ad[h])ae.UpdateTheme()return ad[h]end return nil end aa:SetTheme'Dark'function aa.GetThemes(g)return ad end function aa.GetCurrentTheme(g)return aa.Theme.Name end function aa.GetTransparency(g)return aa.Transparent or false end function aa.GetWindowSize(g)return Window.UIElements.Main.Size end function aa.Popup(g,h)h.WindUI=aa return a.load'h'.new(h)end function aa.CreateWindow(g,h)local i=a.load'u'if not isfolder'WindUI'then makefolder'WindUI'end if h.Folder then makefolder(h.Folder)else makefolder(h.Title)end h.WindUI=aa h.Parent=aa.ScreenGui.Window if aa.Window then warn'You cannot create more than one window'return end local j,k=true,ad[h.Theme or'Dark']aa.Theme=k ae.SetTheme(k)local n=b.Name or'Unknown'if h.KeySystem then j=false if h.KeySystem.SaveKey and h.Folder then if isfile(h.Folder..'/'..n..'.key')then local o=tostring(h.KeySystem.Key)==tostring(readfile(h.Folder..'/'..n..'.key'))if type(h.KeySystem.Key)=='table'then o=table.find(h.KeySystem.Key,readfile(h.Folder..'/'..n..'.key'))end if o then j=true end else ac.new(h,n,function(o)j=o end)end else ac.new(h,n,function(o)j=o end)end repeat task.wait()until j end local o=i(h)aa.Transparent=h.Transparent aa.Window=o return o end return aa
+                            
+                            b.UIElements.SideBar = ad('ScrollingFrame',{
+                                Size = UDim2.new(1,0,1,0),
+                                BackgroundTransparency = 1,
+                                ScrollBarThickness=  0,
+                                ElasticBehavior = 'Never',
+                                CanvasSize = UDim2.new(0,0,0,0),
+                                AutomaticCanvasSize = 'Y',
+                                ScrollingDirection = 'Y',
+                                ClipsDescendants = true,
+                                VerticalScrollBarPosition = 'Left'
+                            },{
+                                ad('Frame',{
+                                    BackgroundTransparency = 1,
+                                    AutomaticSize = 'Y',
+                                    Size = UDim2.new(1,0,0,0),
+                                    Name = 'Frame'
+                                },{
+                                    ad('UIPadding',{
+                                        PaddingTop = UDim.new(0,b.UIPadding/2),
+                                        PaddingLeft = UDim.new(0,4+(b.UIPadding/2)),
+                                        PaddingRight = UDim.new(0,4+(b.UIPadding/2)),
+                                        PaddingBottom = UDim.new(0,b.UIPadding/2)
+                                    }),
+                                    ad('UIListLayout',{
+                                        SortOrder = 'LayoutOrder',
+                                        Padding = UDim.new(0,6)
+                                    })
+                                }),
+                                ad('UIPadding',{
+                                    PaddingLeft = UDim.new(0,b.UIPadding/2),
+                                    PaddingRight = UDim.new(0,b.UIPadding/2)
+                                }),g
+                            })
+                            
+                            b.UIElements.SideBarContainer = ad('Frame',{
+                                Size = UDim2.new(0,b.SideBarWidth,1,b.User.Enabled and -94-(b.UIPadding*2)or-52),Position=UDim2.new(0,0,0,52),
+                                BackgroundTransparency = 1,
+                                Visible = true
+                            },{
+                                b.UIElements.SideBar
+                            })
+                            
+                            b.UIElements.MainBar=ad('Frame',{
+                                Size = ทUDim2.new(1,-b.UIElements.SideBarContainer.AbsoluteSize.X,1,-52),
+                                Position = UDim2.new(1,0,1,0),
+                                AnchorPoint = Vector2.new(1,1),
+                                BackgroundTransparency = 1
+                            },{
+                                ac.NewRoundFrame(b.UICorner-(b.UIPadding/2),'Squircle',{
+                                    Size = UDim2.new(1,0,1,0),
+                                     ImageColor3 = Color3.new(1,1,1),
+                                     ZIndex = 3,
+                                     ImageTransparency = 0.93,
+                                     Name = 'Background'
+                                    }),
+                                    ad('UIPadding',{
+                                        PaddingTop = UDim.new(0,b.UIPadding/2),
+                                        PaddingLeft = UDim.new(0,b.UIPadding/2),
+                                        PaddingRight = UDim.new(0,b.UIPadding/2),
+                                        PaddingBottom = UDim.new(0,b.UIPadding/2)
+                                    })
+                                })
+                                
+                                local i,j = (ad('ImageLabel',{
+                                    Image = 'rbxassetid://8992230677',
+                                    ImageColor3 = Color3.new(0,0,0),
+                                    ImageTransparency = 1,
+                                    Size = UDim2.new(1,120,1,116),
+                                    Position = UDim2.new(0,-60,0,-58),
+                                    ScaleType = 'Slice',
+                                    SliceCenter = Rect.new(99,99,99,99),
+                                    BackgroundTransparency = 1,
+                                    ZIndex = -9999
+                                }))
+                            
+                                if aa.TouchEnabled and not aa.KeyboardEnabled then
+                                    j = false 
+                                elseif aa.KeyboardEnabled then 
+                                    j = true 
+                                else 
+                                    j = nil 
+                                end 
+                                
+                                local k,n,o,p 
+                                if not j then 
+                                    o = ad('ImageLabel',{
+                                        Image = '',
+                                        Size = UDim2.new(0,22,0,22),
+                                        Position = UDim2.new(0.5,0,0.5,0),
+                                        LayoutOrder = -1,
+                                        AnchorPoint = Vector2.new(0.5,0.5),
+                                        BackgroundTransparency = 1,
+                                        Name = 'Icon'
+                                    })
+                                    
+                                    OpenButtonTitle = ad('TextLabel',{
+                                        Text = b.Title,
+                                        TextSize = 17,
+                                        FontFace = Font.new(ac.Font,Enum.FontWeight.Medium),
+                                        BackgroundTransparency = 1,
+                                        AutomaticSize='XY'
+                                    })
+                                    
+                                    OpenButtonDrag = ad('Frame',{
+                                        Size = UDim2.new(0,36,0,36),
+                                        BackgroundTransparency = 1,
+                                        Name = 'Drag'
+                                    },{
+                                        ad('ImageLabel',{
+                                            Image = ac.Icon'move'[1],
+                                            ImageRectOffset = ac.Icon'move'[2].ImageRectPosition,
+                                            ImageRectSize = ac.Icon'move'[2].ImageRectSize,
+                                            Size = UDim2.new(0,18,0,18),
+                                            BackgroundTransparency = 1,
+                                            Position = UDim2.new(0.5,0,0.5,0),
+                                            AnchorPoint = Vector2.new(0.5,0.5)
+                                        })
+                                    })
+                                    
+                                    OpenButtonDivider = ad('Frame',{
+                                        Size = UDim2.new(0,1,1,0),
+                                        Position = UDim2.new(0,36,0.5,0),
+                                        AnchorPoint = Vector2.new(0,0.5),
+                                        BackgroundColor3 = Color3.new(1,1,1),
+                                        BackgroundTransparency = 0.9
+                                    })
+                                    
+                                    k = ad('Frame',{
+                                        Size = UDim2.new(0,0,0,0),
+                                        Position = UDim2.new(0.5,0,0,28),
+                                        AnchorPoint = Vector2.new(0.5,0.5),
+                                        Parent = ag.Parent,
+                                        BackgroundTransparency = 1,
+                                        Active = true,
+                                        Visible = false
+                                    })
+                                    
+                                    n = ad('TextButton',{
+                                        Size = UDim2.new(0,0,0,44),
+                                        AutomaticSize = 'X',
+                                        Parent = k,Active = false,
+                                        BackgroundTransparency = 0.25,
+                                        ZIndex = 99,
+                                        BackgroundColor3 = Color3.new(0,0,0)
+                                    },{
+                                        ad('UICorner',{CornerRadius = UDim.new(1,0)}),
+                                        ad('UIStroke',{
+                                            Thickness = 1,
+                                            ApplyStrokeMode = 'Border',
+                                            Color = Color3.new(1,1,1),
+                                            Transparency = 0
+                                        },{
+                                            ad('UIGradient',{
+                                                Color = ColorSequence.new(Color3.fromHex'40c9ff',Color3.fromHex'e81cff')
+                                            })
+                                        }),
+                                        OpenButtonDrag,
+                                        OpenButtonDivider,
+                                        ad('UIListLayout',{
+                                            Padding = UDim.new(0,4),
+                                            FillDirection = 'Horizontal',
+                                            VerticalAlignment = 'Center'
+                                        }),
+                                        ad('TextButton',{
+                                            AutomaticSize = 'XY',
+                                            Active = true,
+                                            BackgroundTransparency = 1,
+                                            Size = UDim2.new(0,0,0,36),
+                                            BackgroundColor3 = Color3.new(1,1,1)
+                                        },{
+                                            ad('UICorner',{CornerRadius = UDim.new(1,-4)}),o,
+                                            ad('UIListLayout',{
+                                                Padding = UDim.new(0,b.UIPadding),
+                                                FillDirection = 'Horizontal',
+                                                VerticalAlignment = 'Center'
+                                            }),
+                                            OpenButtonTitle,
+                                            ad('UIPadding',{
+                                                PaddingLeft = UDim.new(0,12),
+                                                PaddingRight = UDim.new(0,12)
+                                            })
+                                        }),
+                                        ad('UIPadding',{
+                                            PaddingLeft = UDim.new(0,4),
+                                            PaddingRight = UDim.new(0,4)
+                                        })
+                                    })
+                                    
+                                    local q = n and n.UIStroke.UIGradient or nil 
+                                    
+                                    ab.RenderStepped:Connect(function(r)
+                                        if b.UIElements.Main and k and k.Parent ~= nil then 
+                                            if q then 
+                                                q.Rotation = (q.Rotation+1)%360 
+                                            end
+                                            
+                                            if p and p.Parent ~= nil and p.UIGradient then 
+                                                p.UIGradient.Rotation = (p.UIGradient.Rotation+1)%360 
+                                            end 
+                                        end 
+                                    end)
+                                    
+                                    n:GetPropertyChangedSignal'AbsoluteSize':Connect(function()
+                                        k.Size = UDim2.new(0,n.AbsoluteSize.X,0,n.AbsoluteSize.Y)
+                                    end)
+                                    
+                                    n.TextButton.MouseEnter:Connect(function()
+                                        ae(n.TextButton,0.1,{BackgroundTransparency=0.93}):Play()
+                                    end)
+                                    
+                                    n.TextButton.MouseLeave:Connect(function()
+                                        ae(n.TextButton,0.1,{BackgroundTransparency=1}):Play()
+                                    end)
+                                end 
+                                
+                                local q 
+                                if b.User.Enabled then 
+                                    local r,s = game.Players:GetUserThumbnailAsync(b.User.Anonymous and 1 or game.Players.LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
+                                    
+                                    q = ad('TextButton',{
+                                        Size = UDim2.new(0,(b.UIElements.SideBarContainer.AbsoluteSize.X)-(b.UIPadding/2),0,42+(b.UIPadding)),
+                                        Position = UDim2.new(0,b.UIPadding/2,1,-(b.UIPadding/2)),
+                                        AnchorPoint = Vector2.new(0,1),
+                                        BackgroundTransparency = 1
+                                    },{
+                                        ac.NewRoundFrame(b.UICorner-(b.UIPadding/2),'Squircle',{
+                                            Size = UDim2.new(1,0,1,0),
+                                            ThemeTag = {ImageColor3='Text'},
+                                            ImageTransparency = 1,
+                                            Name = 'UserIcon'
+                                        },{
+                                            ad('ImageLabel',{
+                                            Image = r,
+                                            BackgroundTransparency = 1,
+                                            Size = UDim2.new(0,42,0,42),
+                                            ThemeTag = {BackgroundColor3='Text'},
+                                            BackgroundTransparency = 0.93
+                                        },{
+                                        ad('UICorner',{CornerRadius = UDim.new(1,0)})}),
+                                        ad('Frame',{
+                                            AutomaticSize = 'XY',
+                                            BackgroundTransparency = 1
+                                        },{
+                                            ad('TextLabel',{
+                                                Text = b.User.Anonymous and 'Venuz Hub' or game.Players.LocalPlayer.DisplayName,
+                                                TextSize = 17,
+                                                ThemeTag = {TextColor3 = 'Text'},
+                                                FontFace = Font.new(ac.Font,Enum.FontWeight.SemiBold),
+                                                AutomaticSize = 'Y',
+                                                BackgroundTransparency = 1,
+                                                Size = UDim2.new(1,-27,0,0),
+                                                TextTruncate = 'AtEnd',
+                                                TextXAlignment = 'Left'
+                                            }),
+                                            ad('TextLabel',{
+                                                Text = b.User.Anonymous and '@venuzontop' or '@'.. game.Players.LocalPlayer.Name,
+                                                TextSize = 15,
+                                                TextTransparency = 0.6,
+                                                ThemeTag = {TextColor3='Text'},
+                                                FontFace = Font.new(ac.Font,Enum.FontWeight.Medium),
+                                                AutomaticSize = 'Y',
+                                                BackgroundTransparency = 1,
+                                                Size = UDim2.new(1,-27,0,0),
+                                                TextTruncate = 'AtEnd',
+                                                TextXAlignment = 'Left'
+                                            }),
+                                            ad('UIListLayout',{
+                                                Padding = UDim.new(0,4),
+                                                HorizontalAlignment = 'Left'
+                                            })
+                                        }),
+                                        ad('UIListLayout',{
+                                            Padding = UDim.new(0,b.UIPadding),
+                                            FillDirection = 'Horizontal',
+                                            VerticalAlignment = 'Center'
+                                        }),
+                                        ad('UIPadding',{
+                                            PaddingLeft = UDim.new(0,b.UIPadding/2),
+                                            PaddingRight = UDim.new(0,b.UIPadding/2)
+                                        })
+                                    })
+                                })
+
+                                if b.User.Callback then 
+                                    q.MouseButton1Click:Connect(function()
+                                        b.User.Callback()
+                                    end)
+                                    q.MouseEnter:Connect(function()
+                                        ae(q.UserIcon,0.04,{ImageTransparency=0.94}):Play()
+                                    end)
+                                    q.InputEnded:Connect(function()
+                                        ae(q.UserIcon,0.04,{ImageTransparency=1}):Play()
+                                    end)
+                                end 
+                            end 
+                            
+                            local r,s,t,u = 
+                            ac.NewRoundFrame(99,'Squircle',{
+                                ImageTransparency = 0.8,
+                                ImageColor3 = Color3.new(1,1,1),
+                                Size = UDim2.new(0,200,0,4),
+                                Position = UDim2.new(0.5,0,1,4),
+                                AnchorPoint = Vector2.new(0.5,0)
+                            },{
+                                ad('Frame',{
+                                    Size = UDim2.new(1,12,1,12),
+                                    BackgroundTransparency = 1,
+                                    Position = UDim2.new(0.5,0,0.5,0),
+                                    AnchorPoint = Vector2.new(0.5,0.5),
+                                    Active = true,
+                                    ZIndex = 99
+                                })
+                            }),
+                            (ad('TextLabel',{
+                                Text = b.Title,
+                                FontFace = Font.new(ac.Font,Enum.FontWeight.SemiBold),
+                                BackgroundTransparency = 1,
+                                AutomaticSize = 'XY',
+                                Name = 'Title',
+                                TextXAlignment = 'Left',
+                                TextSize = 16,
+                                ThemeTag = {TextColor3='Text'}
+                            }))
+                            
+                            b.UIElements.Main = ad('Frame',{
+                                Size = b.Size,
+                                Position = b.Position,
+                                BackgroundTransparency = 1,
+                                Parent = ag.Parent,
+                                AnchorPoint = Vector2.new(0.5,0.5),
+                                Active = true
+                            },{
+                                i,ac.NewRoundFrame(b.UICorner,'Squircle',{
+                                    ImageTransparency = 1,
+                                    Size = UDim2.new(1,0,1,0),
+                                    AnchorPoint = Vector2.new(0.5,0.5),
+                                    Position = UDim2.new(0.5,0,0.5,0),
+                                    Name = 'Background',
+                                    ThemeTag = {ImageColor3='Background'},
+                                    ZIndex = -99
+                                },{
+                                    ad('ImageLabel',{
+                                        BackgroundTransparency = 1,
+                                        Size = UDim2.new(1,0,1,0),
+                                        Image = b.Background,
+                                        ImageTransparency = 1,
+                                        ScaleType = 'Crop'
+                                    },{
+                                        ad('UICorner',{CornerRadius = UDim.new(0,b.UICorner)})}),
+                                        ad('UIScale',{Scale = 0.95})}),h,c,d,e,f,r,
+                                        ad('Frame',{
+                                            Size = UDim2.new(1,0,1,0),
+                                            BackgroundTransparency = 1,
+                                            Name = 'Main',
+                                            Visible = false,
+                                            ZIndex = 97
+                                        },{
+                                            ad('UICorner',{CornerRadius=UDim.new(0,b.UICorner)}),
+                                            b.UIElements.SideBarContainer,
+                                            b.UIElements.MainBar,q,u,
+                                            ad('Frame',{
+                                                Size = UDim2.new(1,0,0,52),
+                                                BackgroundTransparency = 1,
+                                                BackgroundColor3 = Color3.fromRGB(50,50,50),
+                                                Name = 'Topbar'
+                                            },{t,
+                                            ad('Frame',{
+                                                AutomaticSize = 'X',
+                                                Size = UDim2.new(0,0,1,0),
+                                                BackgroundTransparency = 1,
+                                                Name = 'Left'
+                                            },{
+                                                ad('UIListLayout',{
+                                                    Padding = UDim.new(0,10),
+                                                    SortOrder = 'LayoutOrder',
+                                                    FillDirection = 'Horizontal',
+                                                    VerticalAlignment = 'Center'
+                                                }),
+                                                ad('Frame',{
+                                                    AutomaticSize = 'XY',
+                                                    BackgroundTransparency = 1,
+                                                    Name = 'Title',
+                                                    Size = UDim2.new(0,0,1,0),
+                                                    LayoutOrder = 2
+                                                },{
+                                                    ad('UIListLayout',{
+                                                        Padding = UDim.new(0,0),
+                                                        SortOrder = 'LayoutOrder',
+                                                        FillDirection = 'Vertical',
+                                                        VerticalAlignment = 'Top'
+                                                    }),s}),
+                                                    ad('UIPadding',{PaddingLeft = UDim.new(0,4)})}),
+                                                    ad('Frame',{
+                                                        AutomaticSize = 'XY',
+                                                        BackgroundTransparency = 1,
+                                                        Position = UDim2.new(1,0,0.5,0),
+                                                        AnchorPoint = Vector2.new(1,0.5),
+                                                        Name = 'Right'
+                                                    },{
+                                                        ad('UIListLayout',{
+                                                            Padding = UDim.new(0,9),
+                                                            FillDirection = 'Horizontal',
+                                                            SortOrder = 'LayoutOrder'
+                                                        })
+                                                    }),
+                                                    ad('UIPadding',{
+                                                        PaddingTop = UDim.new(0,b.UIPadding),
+                                                        PaddingLeft = UDim.new(0,b.UIPadding),
+                                                        PaddingRight = UDim.new(0,8),
+                                                        PaddingBottom = UDim.new(0,b.UIPadding)
+                                                    })
+                                                })
+                                            })
+                                        })
+                                        
+                                        function b.CreateTopbarButton(v,w,x,y)
+                                            local z = ad('TextButton',{
+                                                Size = UDim2.new(0,36,0,36),
+                                                BackgroundTransparency = 1,
+                                                LayoutOrder = y or 999,
+                                                Parent = b.UIElements.Main.Main.Topbar.Right,
+                                                ZIndex = 9999,
+                                                ThemeTag = {BackgroundColor3='Text'},
+                                                BackgroundTransparency = 1
+                                            },{
+                                                ad('UICorner',{CornerRadius=UDim.new(0,9)}),
+                                                ad('ImageLabel',{
+                                                    Image = ac.Icon(w)[1],
+                                                    ImageRectOffset = ac.Icon(w)[2].ImageRectPosition,
+                                                    ImageRectSize = ac.Icon(w)[2].ImageRectSize,
+                                                    BackgroundTransparency = 1,
+                                                    Size = UDim2.new(0,16,0,16),
+                                                    ThemeTag = {ImageColor3='Text'},
+                                                    AnchorPoint = Vector2.new(0.5,0.5),
+                                                    Position = UDim2.new(0.5,0,0.5,0),
+                                                    Active = false,
+                                                    ImageTransparency = 0.2
+                                                }
+                                            )})
+                                            
+                                            b.TopBarButtons[100-y] = z 
+                                            z.MouseButton1Click:Connect(function()
+                                                x()
+                                            end)
+                                            
+                                            z.MouseEnter:Connect(function()
+                                                ae(z,0.15,{BackgroundTransparency=0.93}):Play()
+                                                ae(z.ImageLabel,0.15,{ImageTransparency=0}):Play()
+                                            end)
+                                            
+                                            z.MouseLeave:Connect(function()
+                                                ae(z,0.1,{BackgroundTransparency=1}):Play()
+                                                ae(z.ImageLabel,0.1,{ImageTransparency=0.2}):Play()
+                                            end)
+                                            return z 
+                                        end 
+                                        
+                                        local v,w = (ac.Drag(b.UIElements.Main,{b.UIElements.Main.Main.Topbar,r.Frame},function(v,w)
+                                            if v and w == r.Frame then 
+                                                ae(r,0.1,{ImageTransparency=0.35}):Play()
+                                            else 
+                                                ae(r,0.2,{ImageTransparency=0.8}):Play()
+                                            end 
+                                        end))
+                                        
+                                        if not j then 
+                                            w = ac.Drag(k)
+                                        end 
+                                        
+                                        if b.Author then 
+                                            ad('TextLabel',{
+                                                Text = b.Author,
+                                                FontFace = Font.new(ac.Font,Enum.FontWeight.Medium),
+                                                BackgroundTransparency = 1,
+                                                TextTransparency = 0.4,
+                                                AutomaticSize = 'XY',
+                                                Parent = b.UIElements.Main.Main.Topbar.Left.Title,
+                                                TextXAlignment = 'Left',
+                                                TextSize = 14,
+                                                LayoutOrder = 2,
+                                                ThemeTag = {TextColor3='Text'}
+                                            })
+                                        end 
+                                        
+                                        task.spawn(function()
+                                            if b.Icon then 
+                                                local x = ac.Image(b.Icon,b.Title,b.UICorner-4,b.Folder,'Window')
+                                                x.Parent = b.UIElements.Main.Main.Topbar.Left 
+                                                x.Size = UDim2.new(0,22,0,22)
+                                                if ac.Icon(tostring(b.Icon))[1] then 
+                                                    o.Image = ac.Icon(b.Icon)[1]
+                                                    o.ImageRectOffset = ac.Icon(b.Icon)[2].ImageRectPosition 
+                                                    o.ImageRectSize = ac.Icon(b.Icon)[2].ImageRectSize 
+                                                end 
+                                            else 
+                                                o.Visible = false 
+                                            end 
+                                        end)
+                                        
+                                        function b.SetToggleKey(x,y)
+                                            b.ToggleKey = y 
+                                        end 
+                                        
+                                        function b.SetBackgroundImage(x,y)
+                                            b.UIElements.Main.Background.ImageLabel.Image = y 
+                                        end 
+                                        
+                                        local x,y,z,A,B = ac.Icon'minimize',(ac.Icon'maximize')
+                                        B = b:CreateTopbarButton('maximize',function()
+                                            local C = b.IsFullscreen 
+                                            v:Set(C)
+                                            if not C then 
+                                                z = b.UIElements.Main.Position 
+                                                A = b.UIElements.Main.Size 
+                                                B.ImageLabel.Image = x[1]
+                                                B.ImageLabel.ImageRectOffset = x[2].ImageRectPosition 
+                                                B.ImageLabel.ImageRectSize = x[2].ImageRectSize 
+                                                b.CanResize = false 
+                                            else 
+                                                B.ImageLabel.Image = y[1]
+                                                B.ImageLabel.ImageRectOffset = y[2].ImageRectPosition 
+                                                B.ImageLabel.ImageRectSize = y[2].ImageRectSize 
+                                                b.CanResize = true 
+                                            end 
+                                            
+                                            ae(b.UIElements.Main,0.45,{Size=C and A or UDim2.new(1,-20,1,-72)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            ae(b.UIElements.Main,0.45,{Position=C and z or UDim2.new(0.5,0,0.5,26)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            
+                                            b.IsFullscreen = not C 
+                                        end,998)
+                                        
+                                        b:CreateTopbarButton('minus',function()
+                                            b:Close()
+                                            task.spawn(function()
+                                                task.wait(0.3)
+                                                if not j and b.IsOpenButtonEnabled then 
+                                                    k.Visible = true 
+                                                end 
+                                            end)
+                                            
+                                            local C = j and 'Press '..b.ToggleKey.Name..' to open the Window' or 'Click the Button to open the Window'
+                                            
+                                            if not b.IsOpenButtonEnabled then 
+                                                af = true 
+                                            end 
+                                            if not af then 
+                                                af = not af 
+                                                ag.WindUI:Notify{
+                                                    Title='Minimize',
+                                                    Content = "You've closed the Window. "..C,Icon = 'eye-off',
+                                                    Duration=5
+                                                }
+                                            end 
+                                        end,997)
+                                        
+                                        function b.Open(C)
+                                            task.spawn(function()
+                                                b.Closed = false 
+                                                ae(b.UIElements.Main.Background,0.25,{ImageTransparency = ag.Transparent and ag.WindUI.TransparencyValue or 0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                                ae(b.UIElements.Main.Background.ImageLabel,0.2,{ImageTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                                ae(b.UIElements.Main.Background.UIScale,0.2,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
+                                                ae(i,0.25,{ImageTransparency=0.7},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                                if h then 
+                                                    ae(h,0.25,{Transparency=0.8},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                                end 
+
+                                                b.CanDropdown = true 
+                                                b.UIElements.Main.Visible = true 
+                                                task.wait(0.1)
+                                                b.UIElements.Main.Main.Visible = true 
+                                            end)
+                                        end 
+                                        
+                                        function b.Close(C)
+                                            local D = {}
+                                            b.UIElements.Main.Main.Visible = false 
+                                            b.CanDropdown = false 
+                                            b.Closed = true 
+                                            ae(b.UIElements.Main.Background,0.25,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            ae(b.UIElements.Main.Background.UIScale,0.19,{Scale=0.95},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            ae(b.UIElements.Main.Background.ImageLabel,0.2,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            ae(i,0.25,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            if h then 
+                                                ae(h,0.25,{Transparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                            end 
+                                            
+                                            task.spawn(function()
+                                                task.wait(0.25)
+                                                b.UIElements.Main.Visible = false 
+                                            end)
+                                            
+                                            function D.Destroy(E)
+                                                b.Destroyed = true 
+                                                task.wait(0.25)
+                                                ag.Parent.Parent:Destroy()
+                                            end 
+                                            return D 
+                                        end 
+                                        
+                                        function b.ToggleTransparency(C,D)
+                                            ag.Transparent = D 
+                                            ag.WindUI.Transparent = D 
+                                            ag.WindUI.Window.Transparent = D 
+                                            b.UIElements.Main.Background.ImageTransparency = D and ag.WindUI.TransparencyValue or 0 
+                                            b.UIElements.Main.Background.ImageLabel.ImageTransparency = D and ag.WindUI.TransparencyValue or 0 
+                                            b.UIElements.MainBar.Background.ImageTransparency = D and 0.97 or 0.93 
+                                        end 
+                                        
+                                        if not j and b.IsOpenButtonEnabled then 
+                                            n.TextButton.MouseButton1Click:Connect(function()
+                                                k.Visible = false 
+                                                b:Open()
+                                            end)
+                                        end 
+                                        
+                                        aa.InputBegan:Connect(function(C,D)
+                                            if D then 
+                                                return 
+                                            end 
+                                            if C.KeyCode == b.ToggleKey then 
+                                                if b.Closed then 
+                                                    b:Open()
+                                                else 
+                                                    b:Close()
+                                                end 
+                                            end 
+                                        end)
+                                        
+                                        task.spawn(function()
+                                            b:Open()
+                                        end)
+                                        
+                                        function b.EditOpenButton(C,D)
+                                            if n and n.Parent ~= nil then 
+                                                local E = {
+                                                    Title = D.Title,
+                                                    Icon = D.Icon or b.Icon,
+                                                    Enabled = D.Enabled,
+                                                    Position = D.Position,
+                                                    Draggable = D.Draggable,
+                                                    OnlyMobile = D.OnlyMobile,
+                                                    CornerRadius = D.CornerRadius or UDim.new(1,0),
+                                                    StrokeThickness = D.StrokeThickness or 2,
+                                                    Color = D.Color or ColorSequence.new(Color3.fromHex'40c9ff',Color3.fromHex'e81cff')
+                                                }
+                                                
+                                                if E.Enabled == false then 
+                                                    b.IsOpenButtonEnabled = false 
+                                                end 
+                                                
+                                                if E.Draggable == false and OpenButtonDrag and OpenButtonDivider then 
+                                                    OpenButtonDrag.Visible = E.Draggable 
+                                                    OpenButtonDivider.Visible = E.Draggable 
+                                                    if w then 
+                                                        w:Set(E.Draggable)
+                                                    end 
+                                                end 
+                                                
+                                                if E.Position and k then 
+                                                    k.Position = E.Position 
+                                                end 
+                                                
+                                                local F = aa.KeyboardEnabled or not aa.TouchEnabled
+                                                n.Visible = not E.OnlyMobile or not F 
+                                                
+                                                if not n.Visible then 
+                                                    return 
+                                                end 
+                                                
+                                                if OpenButtonTitle then 
+                                                    if E.Title then 
+                                                        OpenButtonTitle.Text = E.Title 
+                                                    elseif E.Title == nil then 
+                                                    end 
+                                                end 
+                                                
+                                                if ac.Icon(E.Icon) and o then 
+                                                    o.Visible = true 
+                                                    o.Image = ac.Icon(E.Icon)[1]
+                                                    o.ImageRectOffset = ac.Icon(E.Icon)[2].ImageRectPosition 
+                                                    o.ImageRectSize = ac.Icon(E.Icon)[2].ImageRectSize 
+                                                end 
+                                                
+                                                n.UIStroke.UIGradient.Color = E.Color 
+                                                if p then 
+                                                    p.UIGradient.Color = E.Color 
+                                                end 
+                                                
+                                                n.UICorner.CornerRadius = E.CornerRadius 
+                                                n.TextButton.UICorner.CornerRadius = UDim.new(E.CornerRadius.Scale,E.CornerRadius.Offset-4)
+                                                n.UIStroke.Thickness = E.StrokeThickness 
+                                            end 
+                                        end 
+                                        
+                                        local C = a.load's'
+                                        local D = C.Init(b,ag.WindUI,ag.Parent.Parent.ToolTips,g)
+
+                                        D:OnChange(function(E)
+                                            b.CurrentTab = E 
+                                        end)
+                                        
+                                        b.TabModule = C 
+                                        
+                                        function b.Tab(E,F)
+                                            F.Parent = b.UIElements.SideBar.Frame 
+                                            return D.New(F)
+                                        end 
+                                        
+                                        function b.SelectTab(E,F)
+                                            D:SelectTab(F)
+                                        end 
+                                        
+                                        function b.Divider(E)
+                                            local F = ad('Frame',{
+                                                Size = UDim2.new(1,0,0,1),Position = UDim2.new(0.5,0,0,0),
+                                                AnchorPoint = Vector2.new(0.5,0),
+                                                BackgroundTransparency = 0.9,
+                                                ThemeTag = {BackgroundColor3='Text'}
+                                            })
+                                            ad('Frame',{
+                                                Parent = b.UIElements.SideBar.Frame,
+                                                Size = UDim2.new(1,-7,0,1),
+                                                BackgroundTransparency = 1
+                                            },{
+                                                F
+                                            })
+                                            end 
+                                            
+                                            local E = a.load'e'.Init(b)
+
+                                            function b.Dialog(F,G)
+                                                local H,I = {
+                                                    Title = G.Title or 'Dialog',
+                                                    Content = G.Content,
+                                                    Buttons = G.Buttons or{}
+                                                },E.Create()
+                                                
+                                                local J,K = (ad('Frame',{
+                                                    Size = UDim2.new(1,0,0,0),
+                                                    AutomaticSize = 'Y',
+                                                    BackgroundTransparency = 1,
+                                                    Parent = I.UIElements.Main
+                                                },{
+                                                    ad('UIListLayout',{
+                                                        FillDirection = 'Horizontal',
+                                                        Padding = UDim.new(0,I.UIPadding),
+                                                        VerticalAlignment = 'Center'
+                                                    })
+                                                }))
+                                                
+                                                if G.Icon and ac.Icon(G.Icon)[2] then 
+                                                    K = ad('ImageLabel',{
+                                                        Image = ac.Icon(G.Icon)[1],
+                                                        ImageRectSize = ac.Icon(G.Icon)[2].ImageRectSize,
+                                                        ImageRectOffset = ac.Icon(G.Icon)[2].ImageRectPosition,
+                                                        ThemeTag = {ImageColor3='Text'},
+                                                        Size = UDim2.new(0,26,0,26),
+                                                        BackgroundTransparency = 1,
+                                                        Parent = J
+                                                    })
+                                                end 
+                                                
+                                                I.UIElements.UIListLayout = ad('UIListLayout',{
+                                                    Padding = UDim.new(0,18.4),
+                                                    FillDirection = 'Vertical',
+                                                    HorizontalAlignment = 'Left',
+                                                    Parent = I.UIElements.Main
+                                                })
+
+                                                ad('UISizeConstraint',{
+                                                    MinSize = Vector2.new(180,20),
+                                                    MaxSize = Vector2.new(400,math.huge),
+                                                    Parent = I.UIElements.Main
+                                                })
+
+                                                I.UIElements.Title = ad('TextLabel',{
+                                                    Text = H.Title,
+                                                    TextSize = 19,
+                                                    FontFace = Font.new(ac.Font,Enum.FontWeight.SemiBold),
+                                                    TextXAlignment = 'Left',
+                                                    TextWrapped = true,
+                                                    RichText = true,
+                                                    Size = UDim2.new(1,K and-26-I.UIPadding or 0,0,0),
+                                                    AutomaticSize = 'Y',
+                                                    ThemeTag = {TextColor3='Text'},
+                                                    BackgroundTransparency = 1,
+                                                    Parent = J
+                                                })
+                                                
+                                                if H.Content then 
+                                                    ad('TextLabel',{
+                                                        Text = H.Content,
+                                                        TextSize = 18,
+                                                        TextTransparency = 0.4,
+                                                        TextWrapped = true,
+                                                        RichText = true,
+                                                        FontFace = Font.new(ac.Font,Enum.FontWeight.Medium),
+                                                        TextXAlignment = 'Left',
+                                                        Size = UDim2.new(1,0,0,0),
+                                                        AutomaticSize = 'Y',
+                                                        LayoutOrder = 2,
+                                                        ThemeTag = {TextColor3='Text'},
+                                                        BackgroundTransparency = 1,
+                                                        Parent = I.UIElements.Main
+                                                    })
+                                                end 
+                                                
+                                                local L = ad('UIListLayout',{
+                                                    Padding = UDim.new(0,10),
+                                                    FillDirection = 'Horizontal',
+                                                    HorizontalAlignment = 'Right'
+                                                })
+                                                
+                                                local M,N,O = ad('Frame',{
+                                                    Size = UDim2.new(1,0,0,40),
+                                                    AutomaticSize = 'None',
+                                                    BackgroundTransparency = 1,
+                                                    Parent = I.UIElements.Main,
+                                                    LayoutOrder = 4
+                                                },{
+                                                    L
+                                                }),a.load'd'.Button,{}
+                                                
+                                                for P,Q in next,H.Buttons do 
+                                                    local R = N(Q.Title,Q.Icon,Q.Callback,Q.Variant,M,I)
+                                                    table.insert(O,R)
+                                                end 
+                                                
+                                                local R = function()
+                                                    local R,S = L.AbsoluteContentSize.X,M.AbsoluteSize.X-1 
+                                                    if R > S then 
+                                                        L.FillDirection = 'Vertical'
+                                                        L.HorizontalAlignment = 'Right'
+                                                        L.VerticalAlignment = 'Bottom'
+                                                        M.AutomaticSize = 'Y'
+                                                        for T,U in ipairs(O)do 
+                                                            U.Size = UDim2.new(1,0,0,40)
+                                                            U.AutomaticSize = 'None'
+                                                        end 
+                                                    else 
+                                                        L.FillDirection = 'Horizontal'
+                                                        L.HorizontalAlignment = 'Right'
+                                                        L.VerticalAlignment = 'Center'
+                                                        M.AutomaticSize = 'None'
+                                                        for T,U in ipairs(O) do 
+                                                            U.Size = UDim2.new(0,0,1,0)
+                                                            U.AutomaticSize = 'X'
+                                                        end 
+                                                    end 
+                                                end 
+                                                
+                                                I.UIElements.Main:GetPropertyChangedSignal'AbsoluteSize':Connect(R)
+                                                R()
+                                                I:Open()
+                                                return I 
+                                            end 
+                                            
+                                            b:CreateTopbarButton('x',function()
+                                                ae(b.UIElements.Main,0.35,{Position=UDim2.new(0.5,0,0.5,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                                                b:Dialog{
+                                                    Icon = 'trash-2',
+                                                    Title = 'Close Window',
+                                                    Content = [[Do you want to close this window? You will not be able to open it again.]],
+                                                    Buttons = {
+                                                        {
+                                                            Title = 'Cancel',
+                                                            Callback = function()end,
+                                                            Variant = 'Secondary'
+                                                        },{
+                                                            Title = 'Close Window',
+                                                            Callback = function()
+                                                                b:Close():Destroy()
+                                                            end,
+                                                            Variant = 'Primary'
+                                                        }}}
+                                                    end,999)
+                                                    
+                                                    local F = function(F)
+                                                        if b.CanResize then 
+                                                            isResizing = true 
+                                                            e.Active = true 
+                                                            initialSize = b.UIElements.Main.Size 
+                                                            initialInputPosition = F.Position 
+
+                                                            ae(e,0.2,{ImageTransparency=0.65}):Play()
+                                                            ae(e.ImageLabel,0.2,{ImageTransparency=0}):Play()
+                                                            ae(d.ImageLabel,0.1,{ImageTransparency=0.35}):Play()
+
+                                                            F.Changed:Connect(function()
+                                                                if F.UserInputState == Enum.UserInputState.End then 
+                                                                    isResizing = false 
+                                                                    e.Active = false 
+                                                                    ae(e,0.2,{ImageTransparency=1}):Play()
+                                                                    ae(e.ImageLabel,0.2,{ImageTransparency=1}):Play()
+                                                                    ae(d.ImageLabel,0.2,{ImageTransparency=0.8}):Play()
+                                                                end 
+                                                            end)
+                                                        end 
+                                                    end 
+                                                    
+                                                    d.InputBegan:Connect(function(G)
+                                                        if G.UserInputType == Enum.UserInputType.MouseButton1 or G.UserInputType == Enum.UserInputType.Touch then 
+                                                            if b.CanResize then 
+                                                                F(G)
+                                                            end 
+                                                        end 
+                                                    end)
+                                                    
+                                                    aa.InputChanged:Connect(function(G)
+                                                        if G.UserInputType == Enum.UserInputType.MouseMovement or G.UserInputType == Enum.UserInputType.Touch then 
+                                                            if isResizing and b.CanResize then 
+                                                                local H = G.Position - initialInputPosition 
+                                                                local I = UDim2.new(0,initialSize.X.Offset+H.X*2,0,initialSize.Y.Offset+H.Y*2)
+                                                                ae(b.UIElements.Main,0.06,{Size=UDim2.new(0,math.clamp(I.X.Offset,480,700),0,math.clamp(I.Y.Offset,350,520))}):Play()
+                                                            end 
+                                                        end 
+                                                    end)
+                                                    
+                                                    local G,H = a.load't',false 
+
+                                                    SearchButton=b:CreateTopbarButton('search',function()
+                                                        if H then 
+                                                            return 
+                                                        end 
+                                                        
+                                                        G.new(b.TabModule,b.UIElements.Main,function()
+                                                            H = false 
+                                                            b.CanResize = true 
+                                                            ae(f,0.1,{ImageTransparency=1}):Play()
+                                                            f.Active = false 
+                                                        end)
+                                                        
+                                                        ae(f,0.1,{ImageTransparency=0.65}):Play()
+                                                        f.Active = true 
+                                                        H = true 
+                                                        b.CanResize = false 
+                                                    end,996)
+                                                    return b 
+                                                end 
+                                            end 
+                                        end 
+                                        
+                                        local aa,ab,ac = {
+                                            Window = nil,
+                                            Theme = nil,
+                                            Creator = a.load'a',
+                                            Themes = a.load'b',
+                                            Transparent = false,
+                                            TransparencyValue = 0.15
+                                        }, game:GetService'RunService',a.load'f'
+                                        
+                                        local ad,ae = aa.Themes,aa.Creator 
+                                        local af,ag = ae.New,ae.Tween
+
+                                        ae.Themes = ad 
+
+                                        local b = game:GetService'Players' and game:GetService'Players'.LocalPlayer or nil 
+
+                                        aa.Themes = ad 
+
+                                        local c,d = protectgui or (syn and syn.protect_gui) or function()end,gethui and gethui() or game.CoreGui 
+                                        
+                                        aa.ScreenGui = af('ScreenGui',{
+                                            Name = 'WindUI',
+                                            Parent = d,
+                                            IgnoreGuiInset = true,
+                                            ScreenInsets = 'None'
+                                        },
+                                        {
+                                        af('Folder',{Name = 'Window'}),
+                                        af('Folder',{Name='Dropdowns'}),
+                                        af('Folder',{Name='KeySystem'}),
+                                        af('Folder',{Name='Popups'}),
+                                        af('Folder',{Name='ToolTips'})
+                                    })
+                                    
+                                    aa.NotificationGui = af('ScreenGui',{
+                                        Name = 'WindUI-Notifications',
+                                        Parent = d,
+                                        IgnoreGuiInset = true
+                                    })
+                                    
+                                    c(aa.ScreenGui)
+                                    c(aa.NotificationGui)
+                                    math.clamp(aa.TransparencyValue,0,0.4)
+                                    
+                                    local e = a.load'g'
+                                    local f = e.Init(aa.NotificationGui)
+                                    
+                                    function aa.Notify(g,h)
+                                        h.Holder = f.Frame 
+                                        h.Window = aa.Window 
+                                        h.WindUI = aa return 
+                                        e.New(h)
+                                    end 
+                                    
+                                    function aa.SetNotificationLower(g,h)
+                                        f.SetLower(h)
+                                    end 
+                                    
+                                    function aa.SetFont(g,h)
+                                        ae.UpdateFont(h)
+                                    end 
+                                    
+                                    function aa.AddTheme(g,h)
+                                        ad[h.Name] = h 
+                                        return h 
+                                    end 
+                                    
+                                    function aa.SetTheme(g,h)
+                                        if ad[h] then 
+                                            aa.Theme = ad[h]
+                                            ae.SetTheme(ad[h])
+                                            ae.UpdateTheme()
+                                            return ad[h]
+                                        end 
+                                        return nil 
+                                    end 
+                                    
+                                    aa:SetTheme'Dark' 
+                                    
+                                    function aa.GetThemes(g)
+                                        return ad
+                                     end 
+                                     
+                                    function aa.GetCurrentTheme(g)
+                                        return aa.Theme.Name 
+                                    end 
+                                    
+                                    function aa.GetTransparency(g)
+                                        return aa.Transparent or false 
+                                    end 
+                                    
+                                    function aa.GetWindowSize(g)
+                                        return Window.UIElements.Main.Size 
+                                    end 
+                                    
+                                    function aa.Popup(g,h)
+                                        h.WindUI = aa 
+                                        return a.load'h'.new(h)
+                                    end 
+                                    
+                                    function aa.CreateWindow(g,h)
+                                        local i = a.load'u'
+                                        if not isfolder'WindUI' then 
+                                            makefolder'WindUI' end 
+                                            if h.Folder then 
+                                                makefolder(h.Folder)
+                                            else 
+                                                makefolder(h.Title)
+                                            end 
+                                            
+                                            h.WindUI = aa 
+                                            h.Parent = aa.ScreenGui.Window 
+                                            if aa.Window then 
+                                                warn'You cannot create more than one window'
+                                                return 
+                                            end 
+                                            
+                                            local j,k = true,ad[h.Theme or'Dark']
+                                            aa.Theme = k 
+                                            ae.SetTheme(k)
+                                            local n = b.Name or 'Unknown' 
+                                            if h.KeySystem then 
+                                                j = false 
+                                                if h.KeySystem.SaveKey and h.Folder then 
+                                                    if isfile(h.Folder..'/'..n..'.key') then 
+                                                        local o = tostring(h.KeySystem.Key) == tostring(readfile(h.Folder..'/'..n..'.key'))
+                                                        if type(h.KeySystem.Key) == 'table' then 
+                                                            o = table.find(h.KeySystem.Key,readfile(h.Folder..'/'..n..'.key'))
+                                                        end 
+                                                        
+                                                        if o then 
+                                                            j = true 
+                                                        end 
+                                                    else 
+                                                        ac.new(h,n,function(o)
+                                                            j = o 
+                                                        end)
+                                                    end 
+                                                else 
+                                                    ac.new(h,n,function(o)
+                                                        j = o 
+                                                    end)
+                                                end 
+                                                
+                                                repeat task.wait()until j 
+                                            end 
+                                            
+                                            local o = i(h)
+                                            aa.Transparent = h.Transparent 
+                                            aa.Window = o 
+                                            return o 
+                                        end 
+                                        return aa
