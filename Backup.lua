@@ -2233,7 +2233,8 @@ function a.j()
             Window = j.Window,
             Parent = j.Parent,
             TextOffset = 44,
-            Hover = true
+            Hover = false,
+            Scalable = true,
         }
         
         local n = true
