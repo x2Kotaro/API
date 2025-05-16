@@ -2157,7 +2157,7 @@ function a.j()
     
     function d.New(e,f)
         local g,h = {
-            __type = 'Button',
+            __type = 'AddButton',
             Title = f.Title or'Button',
             Desc = f.Desc or nil,
             Locked = f.Locked or false,
@@ -2171,7 +2171,7 @@ function a.j()
             Window = f.Window,
             TextOffset = 20,
             Hover = true,
-            Scalable = true
+            Scalable = true,
         }
         g.UIElements.ButtonIcon=c('ImageLabel',{
             Image = b.Icon'mouse-pointer-click'[1],
@@ -2222,7 +2222,7 @@ function a.j()
             Desc = j.Desc or nil,
             Value = j.Value,
             Icon = j.Icon or nil,
-            Type = j.Type or'Toggle',
+            Type = j.Type or 'Toggle',
             Callback = j.Callback or function()end,
             UIElements = {}
         }
@@ -2233,7 +2233,7 @@ function a.j()
             Window = j.Window,
             Parent = j.Parent,
             TextOffset = 44,
-            Hover = false,
+            Hover = true,
             Scalable = true,
         }
         
@@ -3351,7 +3351,7 @@ function a.o()
                             function q.New(aa,ab)
                                 local ac,ad = {
                                     __type = 'Colorpicker',
-                                    Title = ab.Title or'Colorpicker',
+                                    Title = ab.Title or 'Colorpicker',
                                     Desc = ab.Desc or nil,
                                     Locked = ab.Locked or false,
                                     Default = ab.Default or Color3.new(1,1,1),
@@ -3737,7 +3737,7 @@ function a.o()
                                         ThemeTag = {TextColor3 = not o.Color and 'Text' or nil},
                                         TextColor3 = o.Color and (o.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
                                         TextTransparency = 0.2,
-                                        TextSize = 15,
+                                        TextSize = 16,
                                         TextWrapped = true,
                                         AutomaticSize = 'Y',
                                         BackgroundTransparency = 1,
