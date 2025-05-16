@@ -4834,12 +4834,12 @@ function a.o()
                                                 x.Parent = b.UIElements.Main.Main.Topbar.Left 
                                                 x.Size = UDim2.new(0,22,0,22)
                                                 if ac.Icon(tostring(b.Icon))[1] then 
-                                                    o.Image = ac.Icon(b.Icon)[1]
-                                                    o.ImageRectOffset = ac.Icon(b.Icon)[2].ImageRectPosition 
-                                                    o.ImageRectSize = ac.Icon(b.Icon)[2].ImageRectSize 
+                                                    x.Image = ac.Icon(b.Icon)[1]
+                                                    x.ImageRectOffset = ac.Icon(b.Icon)[2].ImageRectPosition 
+                                                    x.ImageRectSize = ac.Icon(b.Icon)[2].ImageRectSize 
                                                 end 
                                             else 
-                                                o.Visible = false 
+                                                x.Visible = false 
                                             end 
                                         end)
                                         
