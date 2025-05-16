@@ -3714,7 +3714,6 @@ function a.o()
                                 
                                 p.ParagraphFrame = q
                                 
-                                -- Create DescWrapper for the description
                                 local DescWrapper = ad('Frame', {
                                     BackgroundColor3 = Color3.new(0, 0, 0),
                                     BackgroundTransparency = 0.6,
@@ -4355,7 +4354,8 @@ function a.o()
                                         Image = 'rbxassetid://120997033468887',
                                         Position = UDim2.new(0.5,-16,0.5,-16),
                                         AnchorPoint = Vector2.new(0.5,0.5),
-                                        ImageTransparency = 0.8
+                                        ImageTransparency = 0.8,
+                                        Visible = false
                                     })
                                 }),
                                 ac.NewRoundFrame(b.UICorner,'Squircle',{
@@ -4390,6 +4390,22 @@ function a.o()
                                 }}
                             ))
                             
+                            local TweenService = game:GetService("TweenService")
+
+                            local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+                            local tweenEnter = TweenService:Create(e, tweenInfo, {ImageTransparency = 0.8})
+                            local tweenLeave = TweenService:Create(e, tweenInfo, {ImageTransparency = 1})
+
+                            e.MouseEnter:Connect(function()
+                                tweenLeave:Cancel()
+                                tweenEnter:Play()
+                            end)
+
+                            e.MouseLeave:Connect(function()
+                                tweenEnter:Cancel()
+                                tweenLeave:Play()
+                            end)
+
                             b.UIElements.SideBar = ad('ScrollingFrame',{
                                 Size = UDim2.new(1,0,1,0),
                                 BackgroundTransparency = 1,
