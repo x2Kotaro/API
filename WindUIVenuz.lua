@@ -2222,10 +2222,14 @@ function a.j()
             Desc = j.Desc or nil,
             Value = j.Value,
             Icon = j.Icon or nil,
-            Type = j.Type or'Toggle',
+            Type = j.Type or 'Toggle',
             Callback = j.Callback or function()end,
             UIElements = {}
         }
+
+        if not i.AddToggle then
+            i.AddToggle = i.Toggle
+        end
         
         k.ToggleFrame = a.load'i'{
             Title = k.Title,
@@ -3351,7 +3355,7 @@ function a.o()
                             function q.New(aa,ab)
                                 local ac,ad = {
                                     __type = 'Colorpicker',
-                                    Title = ab.Title or'Colorpicker',
+                                    Title = ab.Title or 'Colorpicker',
                                     Desc = ab.Desc or nil,
                                     Locked = ab.Locked or false,
                                     Default = ab.Default or Color3.new(1,1,1),
@@ -3737,7 +3741,7 @@ function a.o()
                                         ThemeTag = {TextColor3 = not o.Color and 'Text' or nil},
                                         TextColor3 = o.Color and (o.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
                                         TextTransparency = 0.2,
-                                        TextSize = 15,
+                                        TextSize = 16,
                                         TextWrapped = true,
                                         AutomaticSize = 'Y',
                                         BackgroundTransparency = 1,
