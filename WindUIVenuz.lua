@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.131232313
+    This script is modified by Phoenix Version 0.0.112313213132
 ]]
 
 
@@ -4389,12 +4389,21 @@ function a.o()
                                 }}
                             ))
 
-                            d.ImageLabel.MouseEnter:Connect(function()
-                                d.ImageLabel.ImageTransparency = 0.8
+                        local TweenService = game:GetService("TweenService")
+
+                        local function tweenTransparency(target, transparency)
+	                        local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	                        local goal = { ImageTransparency = transparency }
+	                        local tween = TweenService:Create(target, tweenInfo, goal)
+	                        tween:Play()
+                        end
+
+                            d.MouseEnter:Connect(function()
+                                tweenTransparency(d.ImageLabel.ImageTransparency, 0.8)
                             end)
                             
-                            d.ImageLabel.MouseLeave:Connect(function()
-                                d.ImageLabel.ImageTransparency = 1
+                            d.MouseLeave:Connect(function()
+                                tweenTransparency(d.ImageLabel.ImageTransparency, 1)
                             end)
 
                             b.UIElements.SideBar = ad('ScrollingFrame',{
