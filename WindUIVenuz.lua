@@ -2170,8 +2170,8 @@ function a.j()
             Parent = f.Parent,
             Window = f.Window,
             TextOffset = 20,
-            Hover = false,
-            Scalable = true
+            Hover = true,
+            Scalable = true,
         }
         g.UIElements.ButtonIcon=c('ImageLabel',{
             Image = b.Icon'mouse-pointer-click'[1],
@@ -2233,7 +2233,7 @@ function a.j()
             Window = j.Window,
             Parent = j.Parent,
             TextOffset = 44,
-            Hover = false,
+            Hover = true,
             Scalable = true,
         }
         
