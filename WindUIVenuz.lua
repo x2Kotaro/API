@@ -505,7 +505,7 @@ do
                     ImageRectOffset = f.Icon(j)[2].ImageRectPosition,
                     Size = UDim2.new(0,21,0,21),
                     BackgroundTransparency = 1,
-                    ThemeTag = {ImageColor3='Icon'}
+                    ThemeTag = {ImageColor3 = 'Icon'}
                 })
             end
 
@@ -572,14 +572,14 @@ do
             h(s.Frame,0.047,{ImageTransparency=1}):Play()
         end)
 
-        s.MouseButton1Up:Connect(function()
-            if p then
-                p:Close()()
-            end
-            if k then
-                k()
-            end 
-        end)
+        -- s.MouseButton1Up:Connect(function()
+        --     if p then
+        --         p:Close()()
+        --     end
+        --     if k then
+        --         k()
+        --     end 
+        -- end)
         return s
      end 
      
@@ -3367,8 +3367,8 @@ function a.o()
                                     Hover = false
                                 }
                                 
-                                ac.UIElements.Colorpicker=b.NewRoundFrame(q.UICorner,'Squircle',{
-                                    ImageTransparency=0,
+                                ac.UIElements.Colorpicker = b.NewRoundFrame(q.UICorner,'Squircle',{
+                                    ImageTransparency = 0,
                                     Active = true,
                                     ImageColor3 = ac.Default,
                                     Parent = ac.ColorpickerFrame.UIElements.Main,
@@ -4695,7 +4695,8 @@ function a.o()
                                 ImageColor3 = Color3.new(1,1,1),
                                 Size = UDim2.new(0,200,0,4),
                                 Position = UDim2.new(0.5,0,1,4),
-                                AnchorPoint = Vector2.new(0.5,0)
+                                AnchorPoint = Vector2.new(0.5,0),
+                                Visible = false
                             },{
                                 ad('Frame',{
                                     Size = UDim2.new(1,12,1,12),
@@ -4703,7 +4704,8 @@ function a.o()
                                     Position = UDim2.new(0.5,0,0.5,0),
                                     AnchorPoint = Vector2.new(0.5,0.5),
                                     Active = true,
-                                    ZIndex = 99
+                                    ZIndex = 99,
+                                    Visible = false
                                 })
                             }),
                             (ad('TextLabel',{
@@ -5439,8 +5441,8 @@ function a.o()
                                     
                                     function aa.CreateWindow(g,h)
                                         local i = a.load'u'
-                                        if not isfolder'WindUI' then 
-                                            makefolder'WindUI' end 
+                                        if not isfolder'Venuz Hub' then 
+                                            makefolder'Venuz Hub' end 
                                             if h.Folder then 
                                                 makefolder(h.Folder)
                                             else 
