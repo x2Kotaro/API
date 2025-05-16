@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.111111
+    This script is modified by Phoenix Version 0.0.test
 ]]
 
 
@@ -4341,7 +4341,7 @@ function a.o()
                                 
                                 local c,d,e,f,g,h = 
                                 ad('UICorner',{CornerRadius = UDim.new(0,b.UICorner)}),
-                                ad('Frame',{
+                                ad('Frame',{ 
                                     Size = UDim2.new(0,32,0,32),
                                     Position = UDim2.new(1,0,1,0),
                                     AnchorPoint = Vector2.new(0.5,0.5),
@@ -4398,11 +4398,11 @@ function a.o()
 	                        tween:Play()
                         end
 
-                            d.Frame.MouseEnter:Connect(function()
+                            d.MouseEnter:Connect(function()
                                 tweenTransparency(d.ImageLabel.ImageTransparency, 0.8)
                             end)
                             
-                            d.Frame.MouseLeave:Connect(function()
+                            d.MouseLeave:Connect(function()
                                 tweenTransparency(d.ImageLabel.ImageTransparency, 1)
                             end)
 
