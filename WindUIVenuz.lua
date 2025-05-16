@@ -5360,42 +5360,30 @@ function a.o()
 
                                         aa.Themes = ad 
 
-                                        local protectgui = protectgui or (syn and syn.protect_gui) or function() end
-                                        local d = game:FindFirstChild("CoreGui")
+                                        local c,d = protectgui or (syn and syn.protect_gui) or function()end,gethui and gethui() or game:GetService("CoreGui") 
                                         
-                                        -- ตรวจสอบและลบ WindUI ที่มีอยู่ก่อนหน้า ถ้ามี (เพื่อป้องกันซ้อนกัน)
-                                        local existingWindUI = d:FindFirstChild("WindUI")
-                                        if existingWindUI then
-                                            existingWindUI:Destroy()
-                                        end
-                                        
-                                        -- สร้าง WindUI ใหม่
-                                        aa.ScreenGui = af("ScreenGui", {
-                                            Name = "WindUI",
+                                        aa.ScreenGui = af('ScreenGui',{
+                                            Name = 'WindUI',
                                             Parent = d,
                                             IgnoreGuiInset = true,
-                                            ScreenInsets = "None"
-                                        }, {
-                                            af("Folder", { Name = "Window" }),
-                                            af("Folder", { Name = "Dropdowns" }),
-                                            af("Folder", { Name = "KeySystem" }),
-                                            af("Folder", { Name = "Popups" }),
-                                            af("Folder", { Name = "ToolTips" })
-                                        })
-                                        
-                                        -- ตรวจสอบก่อนสร้าง NotificationGui
-                                        local existingNotif = d:FindFirstChild("WindUI-Notifications")
-                                        if not existingNotif then
-                                            aa.NotificationGui = af("ScreenGui", {
-                                                Name = "WindUI-Notifications",
-                                                Parent = d,
-                                                IgnoreGuiInset = true
-                                            })
-                                            protectgui(aa.NotificationGui)
-                                        end
-                                        
-                                        -- ป้องกัน GUI จากการถูกถอดออกถ้าใช้ Synapse
-                                        protectgui(aa.ScreenGui)                                        
+                                            ScreenInsets = 'None'
+                                        },
+                                        {
+                                        af('Folder',{Name = 'Window'}),
+                                        af('Folder',{Name='Dropdowns'}),
+                                        af('Folder',{Name='KeySystem'}),
+                                        af('Folder',{Name='Popups'}),
+                                        af('Folder',{Name='ToolTips'})
+                                    })
+                                    
+                                    aa.NotificationGui = af('ScreenGui',{
+                                        Name = 'WindUI-Notifications',
+                                        Parent = d,
+                                        IgnoreGuiInset = true
+                                    })
+                                    
+                                    c(aa.ScreenGui)
+                                    c(aa.NotificationGui)
                                     math.clamp(aa.TransparencyValue,0,0.4)
                                     
                                     local e = a.load'g'
