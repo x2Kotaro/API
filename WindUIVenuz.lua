@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1111
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -4388,21 +4388,13 @@ function a.o()
                                     ThemeTag = {ImageColor3 = 'Text'
                                 }}
                             ))
-                            
-                            local TweenService = game:GetService("TweenService")
-
-                            local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-                            local tweenEnter = TweenService:Create(d, tweenInfo, {ImageTransparency = 0.8})
-                            local tweenLeave = TweenService:Create(d, tweenInfo, {ImageTransparency = 1})
 
                             d.MouseEnter:Connect(function()
-                                tweenLeave:Cancel()
-                                tweenEnter:Play()
+                                d[1].ImageTransparency = 0.8
                             end)
-
+                            
                             d.MouseLeave:Connect(function()
-                                tweenEnter:Cancel()
-                                tweenLeave:Play()
+                                d[1].ImageTransparency = 1
                             end)
 
                             b.UIElements.SideBar = ad('ScrollingFrame',{
