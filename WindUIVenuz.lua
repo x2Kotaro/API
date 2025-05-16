@@ -4394,7 +4394,7 @@ function a.o()
                             })
                             
                             b.UIElements.MainBar=ad('Frame',{
-                                Size = ทUDim2.new(1,-b.UIElements.SideBarContainer.AbsoluteSize.X,1,-52),
+                                Size = UDim2.new(1,-b.UIElements.SideBarContainer.AbsoluteSize.X,1,-52),
                                 Position = UDim2.new(1,0,1,0),
                                 AnchorPoint = Vector2.new(1,1),
                                 BackgroundTransparency = 1
