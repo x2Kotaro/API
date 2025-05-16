@@ -572,16 +572,16 @@ do
             h(s.Frame,0.047,{ImageTransparency=1}):Play()
         end)
 
-    --     s.MouseButton1Up:Connect(function()
-    --         if p then
-    --             p:Close()()
-    --         end
-    --         if k then
-    --             k()
-    --         end 
-    --     end)
-    --     return s
-    --  end 
+        s.MouseButton1Up:Connect(function()
+            if p then
+                p:Close()()
+            end
+            if k then
+                k()
+            end 
+        end)
+        return s
+     end 
      
      function e.Input(i,j,k,n)
         local o,p = 10
@@ -2216,7 +2216,8 @@ function a.j()
         local f,g,h = e.Toggle,e.Checkbox,{}
         
         function h.New(i,j)
-            local k = {__type='Toggle',
+            local k = {
+            __type = 'Toggle',
             Title = j.Title or'Toggle',
             Desc = j.Desc or nil,
             Value = j.Value,
@@ -2232,7 +2233,7 @@ function a.j()
             Window = j.Window,
             Parent = j.Parent,
             TextOffset = 44,
-            Hover = false
+            Hover = true
         }
         
         local n = true
