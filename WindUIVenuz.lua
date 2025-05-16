@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.test
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -162,8 +162,8 @@ do
                     SliceCenter = i ~= 'Shadow-sm' and Rect.new(256,256,256,256) or Rect.new(512,512,512,512),
                     SliceScale = 1,
                     BackgroundTransparency = 1,
-                    ThemeTag = j.ThemeTag and j.ThemeTag
-                    Visible = i == 'Squircle' and false or true
+                    ThemeTag = j.ThemeTag and j.ThemeTag,
+                    Visible = i == 'Squircle' and false
                 },k)
 
                     for p,q in pairs(j or{}) do
