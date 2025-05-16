@@ -158,7 +158,7 @@ do
                     end 
                     
                 function g.NewRoundFrame(h,i,j,k,n)
-                    local o = g.New(n and 'ImageButton' or 'ImageLabel',{Image = i == 'Squircle' and '' or  i == 'SquircleOutline' and 'rbxassetid://117788349049947' or  i=='Shadow-sm' and 'rbxassetid://84825982946844' or i == 'Squircle-TL-TR' and 'rbxassetid://73569156276236',ScaleType = 'Slice',
+                    local o = g.New(n and 'ImageButton' or 'ImageLabel',{Image = i == 'Squircle' and 'rbxassetid://80999662900595' or  i=='SquircleOutline' and 'rbxassetid://117788349049947' or  i=='Shadow-sm' and 'rbxassetid://84825982946844' or i == 'Squircle-TL-TR' and 'rbxassetid://73569156276236',ScaleType = 'Slice',
                     SliceCenter = i ~= 'Shadow-sm' and Rect.new(256,256,256,256) or Rect.new(512,512,512,512),
                     SliceScale = 1,
                     BackgroundTransparency = 1,
@@ -172,7 +172,7 @@ do
                              
                     local r = function(r)
                        local s = i ~= 'Shadow-sm' and (r/(256)) or (r/512)
-                       o.SliceScale = s
+                       o.SliceScale = s 
                     end
                              
                     r(h)
