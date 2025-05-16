@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.Animal
+    This script is modified by Phoenix Version 0.0.threx
 ]]
 
 
@@ -157,40 +157,34 @@ do
                         return e:Create(h,TweenInfo.new(i,...),j)
                     end 
                     
-                    function g.NewRoundFrame(h, i, j, k, n)
-                        local imageId = i == 'Squircle' and 'rbxassetid://80999662900595'
-                            or i == 'SquircleOutline' and 'rbxassetid://117788349049947'
-                            or i == 'Shadow-sm' and 'rbxassetid://84825982946844'
-                            or i == 'Squircle-TL-TR' and 'rbxassetid://73569156276236'
-                    
-                        local o = g.New(n and 'ImageButton' or 'ImageLabel', {
-                            Image = imageId,
+                    function g.NewRoundFrame(h,i,j,k,n)
+                        local o = g.New(n and 'ImageButton' or 'ImageLabel',{
+                            Image = i == 'Squircle' and 'rbxassetid://80999662900595' or 
+                                   i == 'SquircleOutline' and 'rbxassetid://117788349049947' or 
+                                   i == 'Shadow-sm' and 'rbxassetid://84825982946844' or 
+                                   i == 'Squircle-TL-TR' and 'rbxassetid://73569156276236',
                             ScaleType = 'Slice',
-                            SliceCenter = i ~= 'Shadow-sm' and Rect.new(256, 256, 256, 256) or Rect.new(512, 512, 512, 512),
+                            SliceCenter = i ~= 'Shadow-sm' and Rect.new(256,256,256,256) or Rect.new(512,512,512,512),
                             SliceScale = 1,
                             BackgroundTransparency = 1,
-                            ThemeTag = j.ThemeTag and j.ThemeTag
+                            ThemeTag = j.ThemeTag and j.ThemeTag,
+                            Visible = not (i == 'Squircle' and 'rbxassetid://80999662900595')
                         }, k)
                     
-                        for p, q in pairs(j or {}) do
+                        for p,q in pairs(j or {}) do
                             if p ~= 'ThemeTag' then
-                                o[p] = q
-                            end
+                                o[p] = q 
+                            end 
                         end
-                    
+                                 
                         local r = function(r)
-                            local s = i ~= 'Shadow-sm' and (r / 256) or (r / 512)
-                            o.SliceScale = s
+                            local s = i ~= 'Shadow-sm' and (r/(256)) or (r/512)
+                            o.SliceScale = s 
                         end
-                    
+                                 
                         r(h)
-                    
-                        if imageId == 'rbxassetid://80999662900595' then
-                            o.Visible = false
-                        end
-                    
-                        return o
-                    end                    
+                        return o 
+                    end
                 
                 local h,i = g.New,g.Tween
                 
