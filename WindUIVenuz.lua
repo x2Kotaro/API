@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.2
+    This script is modified by Phoenix Version 0.0.3
 ]]
 
 
@@ -979,7 +979,7 @@ end
                     g('UISizeConstraint',{MaxSize = Vector2.new(400,math.huge)}),
                         g('Frame',{
                             AutomaticSize = 'XY',
-                            BackgroundTransparency = 0.5,
+                            BackgroundTransparency = 1,
                             LayoutOrder = 99,
                             Visible = false
                         },{
@@ -4068,7 +4068,7 @@ function a.o()
                                                         ThemeTag = {TextColor3 = 'Text'},
                                                         TextSize = 15,
                                                         TextTransparency = 0.2,
-                                                        BackgroundTransparency = 1,
+                                                        BackgroundTransparency = 0.5,
                                                         TextXAlignment = 'Left',
                                                         FontFace = Font.new(ac.Font,Enum.FontWeight.Medium),
                                                         Size = UDim2.new(1,0,0,0),
