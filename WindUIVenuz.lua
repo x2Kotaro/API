@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.112313213132
+    This script is modified by Phoenix Version 0.0.111111111
 ]]
 
 
@@ -4398,11 +4398,11 @@ function a.o()
 	                        tween:Play()
                         end
 
-                            d.MouseEnter:Connect(function()
+                            d.Frame.MouseEnter:Connect(function()
                                 tweenTransparency(d.ImageLabel.ImageTransparency, 0.8)
                             end)
                             
-                            d.MouseLeave:Connect(function()
+                            d.Frame.MouseLeave:Connect(function()
                                 tweenTransparency(d.ImageLabel.ImageTransparency, 1)
                             end)
 
