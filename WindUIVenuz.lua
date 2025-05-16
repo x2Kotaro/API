@@ -2603,7 +2603,7 @@ function a.o()
     
     function j.New(k,n)
         local o,p = {
-            __type = 'Dropdown',
+            "Add"..__type = 'Dropdown',
             Title = n.Title or'Dropdown',
             Desc = n.Desc or nil,
             Locked = n.Locked or false,
@@ -2922,9 +2922,7 @@ function a.o()
                 o.UIElements.Dropdown:GetPropertyChangedSignal'AbsolutePosition':Connect(UpdatePosition)
                 return o.__type,o 
             end 
-            return {
-                AddDropdown = j.New
-            }
+            return j 
         end 
         
         function a.p()
