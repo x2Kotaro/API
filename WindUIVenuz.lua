@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.2
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -5360,27 +5360,33 @@ function a.o()
 
                                         aa.Themes = ad 
 
-                                        local c,d = protectgui or (syn and syn.protect_gui) or function()end,gethui and gethui() or game.CoreGui 
+                                        local protectgui = protectgui or (syn and syn.protect_gui) or function(g) return g end
+                                        local coreGui = game:GetService("CoreGui")
                                         
-                                        aa.ScreenGui = af('ScreenGui',{
-                                            Name = 'WindUI',
-                                            Parent = d,
+                                        if coreGui:FindFirstChild("WindUI") then
+                                            coreGui:FindFirstChild("WindUI"):Destroy()
+                                        end
+                                        
+                                        aa.ScreenGui = af("ScreenGui", {
+                                            Name = "WindUI",
+                                            Parent = protectgui(coreGui),
                                             IgnoreGuiInset = true,
-                                            ScreenInsets = 'None'
-                                        },
-                                        {
-                                        af('Folder',{Name = 'Window'}),
-                                        af('Folder',{Name='Dropdowns'}),
-                                        af('Folder',{Name='KeySystem'}),
-                                        af('Folder',{Name='Popups'}),
-                                        af('Folder',{Name='ToolTips'})
-                                    })
-                                    
-                                    aa.NotificationGui = af('ScreenGui',{
-                                        Name = 'WindUI-Notifications',
-                                        Parent = d,
-                                        IgnoreGuiInset = true
-                                    })
+                                            ScreenInsets = "None"
+                                        }, {
+                                            af("Folder", {Name = "Window"}),
+                                            af("Folder", {Name = "Dropdowns"}),
+                                            af("Folder", {Name = "KeySystem"}),
+                                            af("Folder", {Name = "Popups"}),
+                                            af("Folder", {Name = "ToolTips"})
+                                        })
+                                        
+                                        if not coreGui:FindFirstChild("WindUI-Notifications") then
+                                            aa.NotificationGui = af("ScreenGui", {
+                                                Name = "WindUI-Notifications",
+                                                Parent = protectgui(coreGui),
+                                                IgnoreGuiInset = true
+                                            })
+                                        end                                        
                                     
                                     c(aa.ScreenGui)
                                     c(aa.NotificationGui)
