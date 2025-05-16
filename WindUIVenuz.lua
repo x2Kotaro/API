@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.111111111111
 ]]
 
 
@@ -3712,7 +3712,9 @@ function a.o()
                                     Locked = o.Locked or false
                                 },a.load'i'(o)
                                 
-                                p.ParagraphFrame = c('Frame', {
+                                p.ParagraphFrame = q
+
+                                local DescWrapper = c('Frame', {
                                     BackgroundColor3 = Color3.new(0, 0, 0),
                                     BackgroundTransparency = 0.6,
                                     AutomaticSize = 'Y',
@@ -3744,6 +3746,10 @@ function a.o()
                                         Name = 'Desc'
                                     })
                                 })
+
+                                if o.Desc then
+                                    DescWrapper.Parent = q.UIElements.Main.Title
+                                end
                                 
                                 if o.Buttons and#o.Buttons > 0 then 
                                     local r = ad('Frame',{
