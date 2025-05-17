@@ -263,7 +263,7 @@ do
             end 
             
             if string.find(j,'http') then
-                 local s = 'WindUI/'..o..'/Assets/.'..p..'-'..k..'.png' 
+                 local s = 'Venuz Hub/'..o..'/Assets/.'..p..'-'..k..'.png' 
                  local t,u = pcall(function() 
                     if not isfile(s) then
                      local t = g.Request{Url=j,Method='GET'}.Body 
@@ -349,7 +349,18 @@ do
                     Background = '#1e1b4b',
                     Button = '#52525b',
                     Icon= '#a1a1aa'
-            }
+            },
+
+                Venuz = {
+                    Name = 'Dark',
+                    Accent = '#00ff8c',
+                    Outline = '#FFFFFF',
+                    Text = '#FFFFFF',
+                    Placeholder = '#999999',
+                    Background = '#0e0e10',
+                    Button = '#52525b',
+                    Icon = '#a1a1aa'
+            },
         }
     end
          
@@ -2157,7 +2168,7 @@ function a.j()
     
     function d.New(e,f)
         local g,h = {
-            __type = 'AddButton',
+            __type = 'Button',
             Title = f.Title or'Button',
             Desc = f.Desc or nil,
             Locked = f.Locked or false,
@@ -2221,6 +2232,7 @@ function a.j()
             Title = j.Title or'Toggle',
             Desc = j.Desc or nil,
             Value = j.Value,
+            Locked = j.Locked or nil,
             Icon = j.Icon or nil,
             Type = j.Type or 'Toggle',
             Callback = j.Callback or function()end,
@@ -2604,7 +2616,7 @@ function a.o()
     function j.New(k,n)
         local o,p = {
             __type = 'Dropdown',
-            Title = n.Title or'Dropdown',
+            Title = n.Title or 'Dropdown',
             Desc = n.Desc or nil,
             Locked = n.Locked or false,
             Values = n.Values or{},
@@ -5359,30 +5371,39 @@ function a.o()
 
                                         aa.Themes = ad 
 
-                                        local c,d = protectgui or (syn and syn.protect_gui) or function()end,gethui and gethui() or game.CoreGui 
+                                        local c, d = protectgui or (syn and syn.protect_gui) or function() end, (gethui and gethui()) or game:GetService("CoreGui")
+
+                                        if d.Name == "RobloxGui" then
+                                            d = game:GetService("CoreGui")
+                                        end
                                         
-                                        aa.ScreenGui = af('ScreenGui',{
-                                            Name = 'WindUI',
-                                            Parent = d,
-                                            IgnoreGuiInset = true,
-                                            ScreenInsets = 'None'
-                                        },
-                                        {
-                                        af('Folder',{Name = 'Window'}),
-                                        af('Folder',{Name='Dropdowns'}),
-                                        af('Folder',{Name='KeySystem'}),
-                                        af('Folder',{Name='Popups'}),
-                                        af('Folder',{Name='ToolTips'})
-                                    })
-                                    
-                                    aa.NotificationGui = af('ScreenGui',{
-                                        Name = 'WindUI-Notifications',
-                                        Parent = d,
-                                        IgnoreGuiInset = true
-                                    })
-                                    
-                                    c(aa.ScreenGui)
-                                    c(aa.NotificationGui)
+                                        if not d:FindFirstChild("WindUI") then
+                                            aa.ScreenGui = af('ScreenGui', {
+                                                Name = 'WindUI',
+                                                Parent = d,
+                                                IgnoreGuiInset = true,
+                                                ScreenInsets = 'None'
+                                            }, {
+                                                af('Folder', { Name = 'Window' }),
+                                                af('Folder', { Name = 'Dropdowns' }),
+                                                af('Folder', { Name = 'KeySystem' }),
+                                                af('Folder', { Name = 'Popups' }),
+                                                af('Folder', { Name = 'ToolTips' })
+                                            })
+                                        
+                                            c(aa.ScreenGui)
+                                        end
+                                        
+                                        if not d:FindFirstChild("WindUI-Notifications") then
+                                            aa.NotificationGui = af('ScreenGui', {
+                                                Name = 'WindUI-Notifications',
+                                                Parent = d,
+                                                IgnoreGuiInset = true
+                                            })
+                                        
+                                            c(aa.NotificationGui)
+                                        end
+                                        
                                     math.clamp(aa.TransparencyValue,0,0.4)
                                     
                                     local e = a.load'g'
