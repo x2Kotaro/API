@@ -352,13 +352,13 @@ do
             },
 
                 Venuz = {
-                    Name = 'Venuz',
-                    Accent = '#00ff99',
-                    Outline = '#1f1f1f',
-                    Text = '#e0ffe6',
-                    Placeholder = '#5a7d6b',
-                    Background = '#0a0f0c',
-                    Button = '#1e2e24',
+                    Name = 'Darker',
+                    Accent = '#18181b',
+                    Outline = '#FFFFFF',
+                    Text = '#FFFFFF',
+                    Placeholder = '#00ff8c',
+                    Background = '#0e0e10',
+                    Button = '#52525b',
                     Icon = '#a1a1aa'
             },
         }
