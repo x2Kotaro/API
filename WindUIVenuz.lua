@@ -349,7 +349,18 @@ do
                     Background = '#1e1b4b',
                     Button = '#52525b',
                     Icon= '#a1a1aa'
-            }
+            },
+
+                Venuz = {
+                    Name = 'Venuz',
+                    Accent = '#00ff99',
+                    Outline = '#1f1f1f',
+                    Text = '#e0ffe6',
+                    Placeholder = '#5a7d6b',
+                    Background = '#0a0f0c',
+                    Button = '#1e2e24',
+                    Icon = '#a1a1aa'
+            },
         }
     end
          
