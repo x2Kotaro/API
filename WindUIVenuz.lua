@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.2
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -292,7 +292,7 @@ do
                     Text = '#FFFFFF',
                     Placeholder = '#999999',
                     Background = '#0e0e10',
-                    Button = '#52525b',
+                    Button = '#00ff00',
                     Icon = '#a1a1aa'
             },
             
@@ -316,17 +316,6 @@ do
                     Background = '#1e1b4b',
                     Button = '#52525b',
                     Icon= '#a1a1aa'
-            },
-
-                Venuz = {
-                    Name = 'Darker',
-                    Accent = '#18181b',
-                    Outline = '#FFFFFF',
-                    Text = '#FFFFFF',
-                    Placeholder = '#999999',
-                    Background = '#0e0e10',
-                    Button = '#00ff8c',
-                    Icon = '#a1a1aa'
             },
         }
     end
