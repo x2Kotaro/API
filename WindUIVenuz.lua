@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.2
 ]]
 
 
@@ -292,29 +292,7 @@ do
                     Text = '#FFFFFF',
                     Placeholder = '#999999',
                     Background = '#0e0e10',
-                    Button = '#52525b',
-                    Icon = '#a1a1aa'
-            },
-                    
-                Rose = {
-                    Name = 'Rose',
-                    Accent = '#881337',
-                    Outline = '#FFFFFF',
-                    Text = '#FFFFFF',
-                    Placeholder = '#6B7280',
-                    Background = '#4c0519',
-                    Button = '#52525b',
-                    Icon = '#a1a1aa'
-            },
-            
-                Plant = {
-                    Name = 'Plant',
-                    Accent = '#365314',
-                    Outline = '#FFFFFF',
-                    Text = '#e6ffe5',
-                    Placeholder = '#7d977d',
-                    Background = '#1a2e05',
-                    Button = '#52525b',
+                    Button = '#00d200',
                     Icon = '#a1a1aa'
             },
             
@@ -338,17 +316,6 @@ do
                     Background = '#1e1b4b',
                     Button = '#52525b',
                     Icon= '#a1a1aa'
-            },
-
-                Venuz = {
-                    Name = 'Darker',
-                    Accent = '#18181b',
-                    Outline = '#FFFFFF',
-                    Text = '#FFFFFF',
-                    Placeholder = '#999999',
-                    Background = '#0e0e10',
-                    Button = '#00ff8c',
-                    Icon = '#a1a1aa'
             },
         }
     end
