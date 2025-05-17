@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.2
 ]]
 
 
@@ -295,39 +295,6 @@ do
                     Button = '#52525b',
                     Icon = '#a1a1aa'
             },
-
-                Light = {
-                    Name = 'Light',
-                    Accent = '#FFFFFF',
-                    Outline = '#09090b',
-                    Text = '#000000',
-                    Placeholder = '#777777',
-                    Background = '#e4e4e7',
-                    Button = '#18181b',
-                    Icon = '#a1a1aa'
-           },
-                    
-                Rose = {
-                    Name = 'Rose',
-                    Accent = '#881337',
-                    Outline = '#FFFFFF',
-                    Text = '#FFFFFF',
-                    Placeholder = '#6B7280',
-                    Background = '#4c0519',
-                    Button = '#52525b',
-                    Icon = '#a1a1aa'
-            },
-            
-                Plant = {
-                    Name = 'Plant',
-                    Accent = '#365314',
-                    Outline = '#FFFFFF',
-                    Text = '#e6ffe5',
-                    Placeholder = '#7d977d',
-                    Background = '#1a2e05',
-                    Button = '#52525b',
-                    Icon = '#a1a1aa'
-            },
             
                 Red = {
                     Name = 'Red',
@@ -356,9 +323,9 @@ do
                     Accent = '#18181b',
                     Outline = '#FFFFFF',
                     Text = '#FFFFFF',
-                    Placeholder = '#00ff8c',
+                    Placeholder = '#999999',
                     Background = '#0e0e10',
-                    Button = '#52525b',
+                    Button = '#00ff8c',
                     Icon = '#a1a1aa'
             },
         }
