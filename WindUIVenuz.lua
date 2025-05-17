@@ -5360,30 +5360,39 @@ function a.o()
 
                                         aa.Themes = ad 
 
-                                        local c,d = protectgui or (syn and syn.protect_gui) or function()end,gethui and gethui() or game:GetService("CoreGui") 
+                                        local c, d = protectgui or (syn and syn.protect_gui) or function() end, (gethui and gethui()) or game:GetService("CoreGui")
+
+                                        if d.Name == "RobloxGui" then
+                                            d = game:GetService("CoreGui")
+                                        end
                                         
-                                        aa.ScreenGui = af('ScreenGui',{
-                                            Name = 'WindUI',
-                                            Parent = d,
-                                            IgnoreGuiInset = true,
-                                            ScreenInsets = 'None'
-                                        },
-                                        {
-                                        af('Folder',{Name = 'Window'}),
-                                        af('Folder',{Name='Dropdowns'}),
-                                        af('Folder',{Name='KeySystem'}),
-                                        af('Folder',{Name='Popups'}),
-                                        af('Folder',{Name='ToolTips'})
-                                    })
-                                    
-                                    aa.NotificationGui = af('ScreenGui',{
-                                        Name = 'WindUI-Notifications',
-                                        Parent = d,
-                                        IgnoreGuiInset = true
-                                    })
-                                    
-                                    c(aa.ScreenGui)
-                                    c(aa.NotificationGui)
+                                        if not d:FindFirstChild("WindUI") then
+                                            aa.ScreenGui = af('ScreenGui', {
+                                                Name = 'WindUI',
+                                                Parent = d,
+                                                IgnoreGuiInset = true,
+                                                ScreenInsets = 'None'
+                                            }, {
+                                                af('Folder', { Name = 'Window' }),
+                                                af('Folder', { Name = 'Dropdowns' }),
+                                                af('Folder', { Name = 'KeySystem' }),
+                                                af('Folder', { Name = 'Popups' }),
+                                                af('Folder', { Name = 'ToolTips' })
+                                            })
+                                        
+                                            c(aa.ScreenGui)
+                                        end
+                                        
+                                        if not d:FindFirstChild("WindUI-Notifications") then
+                                            aa.NotificationGui = af('ScreenGui', {
+                                                Name = 'WindUI-Notifications',
+                                                Parent = d,
+                                                IgnoreGuiInset = true
+                                            })
+                                        
+                                            c(aa.NotificationGui)
+                                        end
+                                        
                                     math.clamp(aa.TransparencyValue,0,0.4)
                                     
                                     local e = a.load'g'
