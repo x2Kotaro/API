@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.2
+    This script is modified by Phoenix Version 0.0.3
 ]]
 
 
@@ -292,7 +292,7 @@ do
                     Text = '#FFFFFF',
                     Placeholder = '#999999',
                     Background = '#0e0e10',
-                    Button = '#00d200',
+                    Button = '#ffffff',
                     Icon = '#a1a1aa'
             },
             
