@@ -292,7 +292,7 @@ do
                     Text = '#FFFFFF',
                     Placeholder = '#999999',
                     Background = '#0e0e10',
-                    Button = '#52525b',
+                    Button = '#ffffff',
                     Icon = '#a1a1aa'
             },
             
@@ -316,6 +316,17 @@ do
                     Background = '#1e1b4b',
                     Button = '#52525b',
                     Icon= '#a1a1aa'
+            },
+
+                Light = {
+                    Name = 'Light',
+                    Accent = '#FFFFFF',
+                    Outline = '#09090b',
+                    Text = '#000000',
+                    Placeholder = '#777777',
+                    Background = '#e4e4e7',
+                    Button = '#18181b',
+                    Icon = '#a1a1aa'
             },
         }
     end
