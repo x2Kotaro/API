@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.3
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -316,6 +316,17 @@ do
                     Background = '#1e1b4b',
                     Button = '#52525b',
                     Icon= '#a1a1aa'
+            },
+
+                Light = {
+                    Name = 'Light',
+                    Accent = '#FFFFFF',
+                    Outline = '#09090b',
+                    Text = '#000000',
+                    Placeholder = '#777777',
+                    Background = '#e4e4e7',
+                    Button = '#18181b',
+                    Icon = '#a1a1aa'
             },
         }
     end
@@ -704,7 +715,7 @@ do
                 ImageRectOffset = f.Icon(j)[2].ImageRectPosition,
                 ImageRectSize = f.Icon(j)[2].ImageRectSize,
                 ImageTransparency = 1,
-                ImageColor3 = Color3.new(0,0,0)
+                ImageColor3 = Color3.new(255,255,255)
         })
     end 
 
@@ -748,18 +759,14 @@ do
     
     function o.Set(s,t)
         if t then
-            h(r.Frame,0.1,{
-                Position = UDim2.new(1,-22,0.5,0)},
-                Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                h(r.Frame, 0.1, {Position = UDim2.new(1, -22, 0.5, 0),ImageColor3 = Color3.new(0,0,0)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
                 h(r.Layer,0.1,{ImageTransparency=0}):Play()
                 h(r.Stroke,0.1,{ImageTransparency=0.95}):Play()
                 if q then
                     h(q,0.1,{ImageTransparency=0}):Play()
                 end
             else 
-                h(r.Frame,0.1,{Position=UDim2.new(0,4,0.5,0),
-                Size = UDim2.new(0,18,0,18)},
-                Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+                h(r.Frame, 0.1, {Position = UDim2.new(0, 4, 0.5, 0),Size = UDim2.new(0, 18, 0, 18),ImageColor3 = Color3.new(255,255,255)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
                 h(r.Layer,0.1,{ImageTransparency=1}):Play()
                 h(r.Stroke,0.1,{ImageTransparency=1}):Play()
                 if q then
