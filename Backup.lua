@@ -715,7 +715,7 @@ do
                 ImageRectOffset = f.Icon(j)[2].ImageRectPosition,
                 ImageRectSize = f.Icon(j)[2].ImageRectSize,
                 ImageTransparency = 1,
-                ImageColor3 = Color3.new(0,0,0)
+                ImageColor3 = Color3.new(255,255,255)
         })
     end 
 
@@ -764,6 +764,7 @@ do
                 Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
                 h(r.Layer,0.1,{ImageTransparency=0}):Play()
                 h(r.Stroke,0.1,{ImageTransparency=0.95}):Play()
+                h(r.Frame, 0.1 {ImageColor3 = Color3.new(1,1,1)})
                 if q then
                     h(q,0.1,{ImageTransparency=0}):Play()
                 end
@@ -773,6 +774,7 @@ do
                 Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
                 h(r.Layer,0.1,{ImageTransparency=1}):Play()
                 h(r.Stroke,0.1,{ImageTransparency=1}):Play()
+                h(r.Frame, 0.1 {ImageColor3 = Color3.new(255,255,255)})
                 if q then
                     h(q,0.1,{ImageTransparency=1}):Play()
                 end 
