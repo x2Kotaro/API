@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.5
 ]]
 
 
@@ -5247,8 +5247,9 @@ function a.o()
                                                             Callback = function()
                                                                 b:Close():Destroy()
                                                             end,
-                                                            Variant = 'Primary'
-                                                        }}}
+                                                            Variant = 'Secondary'
+                                                        },
+                                                    }}
                                                     end,999)
                                                     
                                                     local F = function(F)
