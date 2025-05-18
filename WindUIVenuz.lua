@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.4
+    This script is modified by Phoenix Version 0.0.1
 ]]
 
 
@@ -759,18 +759,18 @@ do
     
     function o.Set(s,t)
         if t then
-                h(r.Frame, 0.1, {Position = UDim2.new(1, -22, 0.5, 0),ImageColor3 = Color3.new(0,0,0)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
-                h(r.Layer,0.1,{ImageTransparency=0}):Play()
-                h(r.Stroke,0.1,{ImageTransparency=0.95}):Play()
+                h(r.Frame, 0.2, {Position = UDim2.new(1, -22, 0.5, 0),ImageColor3 = Color3.new(0,0,0)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                h(r.Layer,0.2,{ImageTransparency=0}):Play()
+                h(r.Stroke,0.2,{ImageTransparency=0.95}):Play()
                 if q then
-                    h(q,0.1,{ImageTransparency=0}):Play()
+                    h(q,0.2,{ImageTransparency=0}):Play()
                 end
             else 
-                h(r.Frame, 0.1, {Position = UDim2.new(0, 4, 0.5, 0),Size = UDim2.new(0, 18, 0, 18),ImageColor3 = Color3.new(1,1,1)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
-                h(r.Layer,0.1,{ImageTransparency=1}):Play()
-                h(r.Stroke,0.1,{ImageTransparency=1}):Play()
+                h(r.Frame, 0.2, {Position = UDim2.new(0, 4, 0.5, 0),Size = UDim2.new(0, 18, 0, 18),ImageColor3 = Color3.new(1,1,1)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                h(r.Layer,0.2,{ImageTransparency=1}):Play()
+                h(r.Stroke,0.2,{ImageTransparency=1}):Play()
                 if q then
-                    h(q,0.1,{ImageTransparency=1}):Play()
+                    h(q,0.2,{ImageTransparency=1}):Play()
                 end 
             end 
             task.spawn(function()
