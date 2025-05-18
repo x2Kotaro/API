@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.4
 ]]
 
 
@@ -766,7 +766,7 @@ do
                     h(q,0.1,{ImageTransparency=0}):Play()
                 end
             else 
-                h(r.Frame, 0.1, {Position = UDim2.new(0, 4, 0.5, 0),Size = UDim2.new(0, 18, 0, 18),ImageColor3 = Color3.new(255,255,255)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                h(r.Frame, 0.1, {Position = UDim2.new(0, 4, 0.5, 0),Size = UDim2.new(0, 18, 0, 18),ImageColor3 = Color3.new(1,1,1)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
                 h(r.Layer,0.1,{ImageTransparency=1}):Play()
                 h(r.Stroke,0.1,{ImageTransparency=1}):Play()
                 if q then
