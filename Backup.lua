@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.1
+    This script is modified by Phoenix Version 0.0.5
 ]]
 
 
@@ -759,24 +759,18 @@ do
     
     function o.Set(s,t)
         if t then
-            h(r.Frame,0.1,{
-                Position = UDim2.new(1,-22,0.5,0)},
-                Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-                h(r.Layer,0.1,{ImageTransparency=0}):Play()
-                h(r.Stroke,0.1,{ImageTransparency=0.95}):Play()
-                h(r.Frame, 0.1 {ImageColor3 = Color3.new(1,1,1)})
+                h(r.Frame, 0.2, {Position = UDim2.new(1, -22, 0.5, 0),ImageColor3 = Color3.new(0,0,0)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                h(r.Layer,0.2,{ImageTransparency=0}):Play()
+                h(r.Stroke,0.2,{ImageTransparency=0.95}):Play()
                 if q then
-                    h(q,0.1,{ImageTransparency=0}):Play()
+                    h(q,0.2,{ImageTransparency=0}):Play()
                 end
             else 
-                h(r.Frame,0.1,{Position=UDim2.new(0,4,0.5,0),
-                Size = UDim2.new(0,18,0,18)},
-                Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-                h(r.Layer,0.1,{ImageTransparency=1}):Play()
-                h(r.Stroke,0.1,{ImageTransparency=1}):Play()
-                h(r.Frame, 0.1 {ImageColor3 = Color3.new(255,255,255)})
+                h(r.Frame, 0.2, {Position = UDim2.new(0, 4, 0.5, 0),Size = UDim2.new(0, 18, 0, 18),ImageColor3 = Color3.new(1,1,1)}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                h(r.Layer,0.2,{ImageTransparency=1}):Play()
+                h(r.Stroke,0.2,{ImageTransparency=1}):Play()
                 if q then
-                    h(q,0.1,{ImageTransparency=1}):Play()
+                    h(q,0.2,{ImageTransparency=1}):Play()
                 end 
             end 
             task.spawn(function()
@@ -3690,7 +3684,7 @@ function a.o()
                                 o.IsButtons = o.Buttons and #o.Buttons > 0 and true or false 
                                 local p,q = {
                                     __type='Paragraph',
-                                    Title = o.Title or'Paragraph',
+                                    Title = o.Title or 'Paragraph',
                                     Desc = o.Desc or nil,
                                     Locked = o.Locked or false
                                 },a.load'i'(o)
@@ -3718,7 +3712,7 @@ function a.o()
                                         ThemeTag = {TextColor3 = not o.Color and 'Text' or nil},
                                         TextColor3 = o.Color and (o.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
                                         TextTransparency = 0.2,
-                                        TextSize = 16,
+                                        TextSize = 17,
                                         TextWrapped = true,
                                         AutomaticSize = 'Y',
                                         BackgroundTransparency = 1,
@@ -5253,8 +5247,9 @@ function a.o()
                                                             Callback = function()
                                                                 b:Close():Destroy()
                                                             end,
-                                                            Variant = 'Primary'
-                                                        }}}
+                                                            Variant = 'Secondary'
+                                                        },
+                                                    }}
                                                     end,999)
                                                     
                                                     local F = function(F)
@@ -5363,7 +5358,6 @@ function a.o()
                                             c(aa.ScreenGui)
                                         end
                                         
-                                        if not d:FindFirstChild("WindUI-Notifications") then
                                             aa.NotificationGui = af('ScreenGui', {
                                                 Name = 'WindUI-Notifications',
                                                 Parent = d,
@@ -5371,7 +5365,6 @@ function a.o()
                                             })
                                         
                                             c(aa.NotificationGui)
-                                        end
                                         
                                     math.clamp(aa.TransparencyValue,0,0.4)
                                     
