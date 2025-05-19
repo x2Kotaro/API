@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.6
+    This script is modified by Phoenix Version 0.0.5
 ]]
 
 
@@ -1922,7 +1922,7 @@ function a.i()
                 Text = h.Title,
                 ThemeTag = {TextColor3 = not h.Color and'Text'or nil},
                 TextColor3 = h.Color and (h.Color=='White'and Color3.new(0,0,0) or Color3.new(1,1,1)),
-                TextSize = 17,
+                TextSize = 16,
                 TextWrapped = true,
                 RichText = true,
                 LayoutOrder = 0,
@@ -3712,7 +3712,7 @@ function a.o()
                                         ThemeTag = {TextColor3 = not o.Color and 'Text' or nil},
                                         TextColor3 = o.Color and (o.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
                                         TextTransparency = 0.2,
-                                        TextSize = 18,
+                                        TextSize = 17,
                                         TextWrapped = true,
                                         AutomaticSize = 'Y',
                                         BackgroundTransparency = 1,
