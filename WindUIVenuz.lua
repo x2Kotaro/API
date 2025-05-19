@@ -3712,7 +3712,7 @@ function a.o()
                                         ThemeTag = {TextColor3 = not o.Color and 'Text' or nil},
                                         TextColor3 = o.Color and (o.Color == 'White' and Color3.new(0,0,0) or Color3.new(1,1,1)),
                                         TextTransparency = 0.2,
-                                        TextSize = 16,
+                                        TextSize = 18,
                                         TextWrapped = true,
                                         AutomaticSize = 'Y',
                                         BackgroundTransparency = 1,
