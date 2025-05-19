@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.5
+    This script is modified by Phoenix Version 0.0.6
 ]]
 
 
@@ -1922,7 +1922,7 @@ function a.i()
                 Text = h.Title,
                 ThemeTag = {TextColor3 = not h.Color and'Text'or nil},
                 TextColor3 = h.Color and (h.Color=='White'and Color3.new(0,0,0) or Color3.new(1,1,1)),
-                TextSize = 16,
+                TextSize = 17,
                 TextWrapped = true,
                 RichText = true,
                 LayoutOrder = 0,
@@ -3684,7 +3684,7 @@ function a.o()
                                 o.IsButtons = o.Buttons and #o.Buttons > 0 and true or false 
                                 local p,q = {
                                     __type='Paragraph',
-                                    Title = o.Title or'Paragraph',
+                                    Title = o.Title or 'Paragraph',
                                     Desc = o.Desc or nil,
                                     Locked = o.Locked or false
                                 },a.load'i'(o)
