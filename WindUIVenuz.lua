@@ -317,17 +317,6 @@ do
                     Button = '#52525b',
                     Icon= '#a1a1aa'
             },
-
-                Light = {
-                    Name = 'Light',
-                    Accent = '#FFFFFF',
-                    Outline = '#09090b',
-                    Text = '#000000',
-                    Placeholder = '#777777',
-                    Background = '#e4e4e7',
-                    Button = '#18181b',
-                    Icon = '#a1a1aa'
-            },
         }
     end
          
@@ -5358,7 +5347,6 @@ function a.o()
                                             c(aa.ScreenGui)
                                         end
                                         
-                                        if not d:FindFirstChild("WindUI-Notifications") then
                                             aa.NotificationGui = af('ScreenGui', {
                                                 Name = 'WindUI-Notifications',
                                                 Parent = d,
@@ -5366,7 +5354,6 @@ function a.o()
                                             })
                                         
                                             c(aa.NotificationGui)
-                                        end
                                         
                                     math.clamp(aa.TransparencyValue,0,0.4)
                                     
