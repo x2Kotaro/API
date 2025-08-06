@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.5
+    This script is modified by Phoenix Version 0.0.512
 ]]
 
 
@@ -2692,38 +2692,11 @@ function a.o()
                 
                 function UpdatePosition()
                     local t = -o.UIElements.Dropdown.AbsoluteSize.Y 
-                    local viewportHeight = game:GetService("Workspace").CurrentCamera.ViewportSize.Y
-                    
-                    if viewportHeight - o.UIElements.Dropdown.AbsolutePosition.Y - o.UIElements.Dropdown.AbsoluteSize.Y + t < o.UIElements.MenuCanvas.AbsoluteSize.Y + 10 then 
-                        t = o.UIElements.MenuCanvas.AbsoluteSize.Y - (o.UIElements.Dropdown.AbsolutePosition.Y) + 10 
-                        o.UIElements.MenuCanvas.Position = UDim2.new(
-                            0, 
-                            o.UIElements.Dropdown.AbsolutePosition.X + o.UIElements.Dropdown.AbsoluteSize.X + 1,
-                            0, 
-                            o.UIElements.Dropdown.AbsolutePosition.Y - o.UIElements.MenuCanvas.AbsoluteSize.Y - 5
-                        )
-                    else
-                        o.UIElements.MenuCanvas.Position = UDim2.new(
-                            0, 
-                            o.UIElements.Dropdown.AbsolutePosition.X + o.UIElements.Dropdown.AbsoluteSize.X + 1,
-                            0, 
-                            o.UIElements.Dropdown.AbsolutePosition.Y + o.UIElements.Dropdown.AbsoluteSize.Y - t
-                        )
+                    if d.ViewportSize.Y-o.UIElements.Dropdown.AbsolutePosition.Y-o.UIElements.Dropdown.AbsoluteSize.Y+t<o.UIElements.MenuCanvas.AbsoluteSize.Y+10 then 
+                        t = o.UIElements.MenuCanvas.AbsoluteSize.Y-(d.ViewportSize.Y-o.UIElements.Dropdown.AbsolutePosition.Y)+10 
                     end
-                    
-                    local maxHeight = viewportHeight * 0.6
-                    if o.UIElements.MenuCanvas.AbsoluteSize.Y > maxHeight then
-                        o.UIElements.MenuCanvas.Size = UDim2.new(
-                            o.UIElements.MenuCanvas.Size.X.Scale,
-                            o.UIElements.MenuCanvas.Size.X.Offset,
-                            0,
-                            maxHeight
-                        )
-                        o.UIElements.Menu.CanvasGroup.ScrollingFrame.ScrollingEnabled = true
-                    else
-                        o.UIElements.Menu.CanvasGroup.ScrollingFrame.ScrollingEnabled = false
-                    end
-                end                
+                    o.UIElements.MenuCanvas.Position=UDim2.new(0,o.UIElements.Dropdown.AbsolutePosition.X+o.UIElements.Dropdown.AbsoluteSize.X+1,0,o.UIElements.Dropdown.AbsolutePosition.Y+o.UIElements.Dropdown.AbsoluteSize.Y-t)
+                end 
                 
                 function o.Display(t)
                     local u,v = o.Values,''
