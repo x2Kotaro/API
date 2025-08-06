@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.5
+    This script is modified by Phoenix Version 0.0.555
 ]]
 
 
@@ -2691,15 +2691,56 @@ function a.o()
                 end 
                 
                 function UpdatePosition()
+                    task.wait(.5)
+                    
                     local dropdown = o.UIElements.Dropdown
                     local menu = o.UIElements.MenuCanvas
-                    local viewportSize = d.ViewportSize
-                    local offset = -dropdown.AbsoluteSize.Y
-                    if viewportSize.Y - dropdown.AbsolutePosition.Y - dropdown.AbsoluteSize.Y + offset < menu.AbsoluteSize.Y + 10 then
-                        offset = menu.AbsoluteSize.Y - (viewportSize.Y - dropdown.AbsolutePosition.Y) + 10
+                    local viewport = d.ViewportSize
+                    local padding = 5
+
+                    local dropX = dropdown.AbsolutePosition.X
+                    local dropY = dropdown.AbsolutePosition.Y
+                    local dropW = dropdown.AbsoluteSize.X
+                    local dropH = dropdown.AbsoluteSize.Y
+
+                    local menuW = menu.AbsoluteSize.X
+                    local menuH = menu.AbsoluteSize.Y
+                    local finalX = dropX + dropW + 1
+                    
+                    if finalX + menuW > viewport.X - padding then
+                        local leftX = dropX - menuW - 1
+                        if leftX >= padding then
+                            finalX = leftX
+                        else
+                            finalX = math.max(padding, viewport.X - menuW - padding)
+                        end
                     end
-                    return offset
-                end                 
+                    local finalY = dropY + dropH
+                    if finalY + menuH > viewport.Y - padding then
+                        local topY = dropY - menuH
+                        if topY >= padding then
+                            finalY = topY
+                        else
+                            local availableHeight = viewport.Y - (padding * 2)
+                            if menuH > availableHeight then
+                                finalY = padding
+                                menu.Size = UDim2.new(
+                                    menu.Size.X.Scale, menu.Size.X.Offset,
+                                    0, availableHeight
+                                )
+                                if menu:IsA("ScrollingFrame") then
+                                    menu.CanvasSize = UDim2.new(0, 0, 0, menuH)
+                                end
+                            else
+                                finalY = viewport.Y - menuH - padding
+                            end
+                        end
+                    end
+                    finalX = math.max(0, math.min(finalX, viewport.X - menuW))
+                    finalY = math.max(0, math.min(finalY, viewport.Y - menu.AbsoluteSize.Y))
+                    menu.Position = UDim2.new(0, math.floor(finalX), 0, math.floor(finalY))
+                    menu.Parent = menu.Parent
+                end               
                 
                 function o.Display(t)
                     local u,v = o.Values,''
