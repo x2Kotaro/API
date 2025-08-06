@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.5
+    This script is modified by Phoenix Version 0.0.62
 ]]
 
 
@@ -2691,56 +2691,144 @@ function a.o()
                 end 
                 
                 function UpdatePosition()
-                    local dropdownBottom = o.UIElements.Dropdown.AbsolutePosition.Y + o.UIElements.Dropdown.AbsoluteSize.Y
-                    local menuHeight = o.UIElements.MenuCanvas.AbsoluteSize.Y
-                    local viewportHeight = d.ViewportSize.Y
+                    local dropdown = o.UIElements.Dropdown
+                    local menu = o.UIElements.MenuCanvas
+                    local viewport = d.ViewportSize
                     local padding = 10
                     
-                    -- คำนวณตำแหน่ง Y
-                    local yPosition = dropdownBottom
+                    -- ตรวจสอบว่า elements มีอยู่จริงและมีขนาด
+                    if not dropdown or not menu or not viewport then
+                        return
+                    end
                     
-                    -- ตรวจสอบว่าเมนูจะล้นออกจากขอบล่างของจอหรือไม่
-                    if dropdownBottom + menuHeight + padding > viewportHeight then
-                        -- ถ้าล้น ให้แสดงเมนูด้านบนของ dropdown แทน
-                        yPosition = o.UIElements.Dropdown.AbsolutePosition.Y - menuHeight
+                    -- รอให้ UI เสถียร
+                    for i = 1, 5 do
+                        wait()
+                        if dropdown.AbsoluteSize.X > 0 and dropdown.AbsoluteSize.Y > 0 and
+                           menu.AbsoluteSize.X > 0 and menu.AbsoluteSize.Y > 0 then
+                            break
+                        end
+                    end
+                    
+                    -- ตรวจสอบอีกครั้งว่าได้ขนาดแล้ว
+                    if dropdown.AbsoluteSize.X == 0 or dropdown.AbsoluteSize.Y == 0 or
+                       menu.AbsoluteSize.X == 0 or menu.AbsoluteSize.Y == 0 then
+                        -- ใช้ตำแหน่ง fallback
+                        menu.Position = UDim2.new(0, 100, 0, 100)
+                        menu.Visible = true
+                        return
+                    end
+                    
+                    -- ขนาดและตำแหน่งของ dropdown
+                    local dropX = dropdown.AbsolutePosition.X
+                    local dropY = dropdown.AbsolutePosition.Y  
+                    local dropW = dropdown.AbsoluteSize.X
+                    local dropH = dropdown.AbsoluteSize.Y
+                    
+                    -- ขนาดของเมนู
+                    local menuW = menu.AbsoluteSize.X
+                    local menuH = menu.AbsoluteSize.Y
+                    
+                    -- ตำแหน่งเป้าหมาย (เริ่มจากด้านขวาล่าง)
+                    local targetX, targetY
+                    
+                    -- === คำนวณตำแหน่ง X ===
+                    -- ลองด้านขวาก่อน
+                    if dropX + dropW + menuW + padding <= viewport.X then
+                        targetX = dropX + dropW + 2
+                    -- ลองด้านซ้าย
+                    elseif dropX - menuW - padding >= 0 then
+                        targetX = dropX - menuW - 2
+                    -- ถ้าไม่พอที่ใหน ให้แสดงทับ dropdown
+                    else
+                        targetX = math.max(padding, math.min(dropX, viewport.X - menuW - padding))
+                    end
+                    
+                    -- === คำนวณตำแหน่ง Y ===
+                    -- ลองด้านล่างก่อน
+                    if dropY + dropH + menuH + padding <= viewport.Y then
+                        targetY = dropY + dropH
+                    -- ลองด้านบน
+                    elseif dropY - menuH - padding >= 0 then
+                        targetY = dropY - menuH
+                    -- ถ้าเมนูสูงเกินไป
+                    elseif menuH > viewport.Y - padding * 2 then
+                        targetY = padding
+                        -- ลดขนาดเมนูให้พอดีจอ
+                        local maxHeight = viewport.Y - padding * 2
+                        menu.Size = UDim2.new(menu.Size.X.Scale, menu.Size.X.Offset, 0, maxHeight)
                         
-                        -- ถ้าแสดงด้านบนแล้วยังล้นออกจากขอบบนของจอ
-                        if yPosition < padding then
-                            -- แสดงเมนูให้อยู่ในขอบจอ โดยจัดให้อยู่ใกล้ขอบบนสุด
-                            yPosition = padding
+                        -- เพิ่ม scroll ถ้าเป็น ScrollingFrame
+                        if menu:IsA("ScrollingFrame") then
+                            menu.CanvasSize = UDim2.new(0, 0, 0, menuH)
+                            menu.ScrollBarThickness = 8
+                        end
+                    -- ตำแหน่งสำรอง (กึ่งกลางจอ)
+                    else
+                        targetY = math.max(padding, viewport.Y / 2 - menuH / 2)
+                    end
+                    
+                    -- ตรวจสอบความปลอดภัยของตำแหน่งสุดท้าย
+                    targetX = math.max(0, math.min(targetX, viewport.X - menuW))
+                    targetY = math.max(0, math.min(targetY, viewport.Y - menu.AbsoluteSize.Y))
+                    
+                    -- ถ้าคำนวณผิดพลาด ใช้ตำแหน่งสำรอง
+                    if targetX < 0 or targetY < 0 or 
+                       targetX > viewport.X or targetY > viewport.Y then
+                        targetX = math.min(dropX + 50, viewport.X - menuW - 10)
+                        targetY = math.min(dropY + dropH + 10, viewport.Y - menuH - 10)
+                    end
+                    
+                    -- กำหนดตำแหน่งและแสดงเมนู
+                    menu.Position = UDim2.new(0, math.floor(targetX), 0, math.floor(targetY))
+                    menu.Visible = true
+                    
+                    -- ตรวจสอบว่าเมนูแสดงอยู่ในจอ
+                    spawn(function()
+                        wait(0.1)
+                        local finalX = menu.AbsolutePosition.X
+                        local finalY = menu.AbsolutePosition.Y
+                        
+                        if finalX < 0 or finalY < 0 or 
+                           finalX + menu.AbsoluteSize.X > viewport.X or 
+                           finalY + menu.AbsoluteSize.Y > viewport.Y then
                             
-                            -- ถ้าเมนูสูงเกินไปจนไม่พอที่จะแสดงทั้งหมด
-                            if menuHeight > viewportHeight - (padding * 2) then
-                                -- ปรับขนาดเมนูให้พอดีกับจอ
-                                o.UIElements.MenuCanvas.Size = UDim2.new(
-                                    o.UIElements.MenuCanvas.Size.X.Scale,
-                                    o.UIElements.MenuCanvas.Size.X.Offset,
-                                    0,
-                                    viewportHeight - (padding * 2)
-                                )
-                            end
+                            -- ย้ายไปตำแหน่งปลอดภัยสุดท้าย
+                            menu.Position = UDim2.new(0, 50, 0, 50)
                         end
-                    end
+                    end)
+                end
+                
+                -- ฟังก์ชันเสริมสำหรับเปิดเมนูอย่างปลอดภัย
+                function ShowDropdownSafely()
+                    local attempts = 0
+                    local maxAttempts = 3
                     
-                    -- คำนวณตำแหน่ง X
-                    local xPosition = o.UIElements.Dropdown.AbsolutePosition.X + o.UIElements.Dropdown.AbsoluteSize.X + 1
-                    local menuWidth = o.UIElements.MenuCanvas.AbsoluteSize.X
-                    local viewportWidth = d.ViewportSize.X
-                    
-                    -- ตรวจสอบว่าเมนูจะล้นออกจากขอบขวาของจอหรือไม่
-                    if xPosition + menuWidth + padding > viewportWidth then
-                        -- ถ้าล้น ให้แสดงเมนูด้านซ้ายของ dropdown แทน
-                        xPosition = o.UIElements.Dropdown.AbsolutePosition.X - menuWidth - 1
+                    local function tryShow()
+                        attempts = attempts + 1
+                        UpdatePosition()
                         
-                        -- ถ้าแสดงด้านซ้ายแล้วยังล้นออกจากขอบซ้าย
-                        if xPosition < padding then
-                            -- จัดให้เมนูอยู่ใกล้ขอบซ้ายสุด
-                            xPosition = padding
-                        end
+                        -- ตรวจสอบว่าเมนูแสดงถูกต้อง
+                        spawn(function()
+                            wait(0.2)
+                            if not o.UIElements.MenuCanvas.Visible or 
+                               o.UIElements.MenuCanvas.AbsolutePosition.X < 0 or
+                               o.UIElements.MenuCanvas.AbsolutePosition.Y < 0 then
+                                
+                                if attempts < maxAttempts then
+                                    print("Retrying dropdown positioning... attempt " .. attempts + 1)
+                                    wait(0.1)
+                                    tryShow()
+                                else
+                                    -- ใช้ตำแหน่งสำรองสุดท้าย
+                                    o.UIElements.MenuCanvas.Position = UDim2.new(0, 100, 0, 100)
+                                    o.UIElements.MenuCanvas.Visible = true
+                                end
+                            end
+                        end)
                     end
                     
-                    -- กำหนดตำแหน่งใหม่
-                    o.UIElements.MenuCanvas.Position = UDim2.new(0, xPosition, 0, yPosition)
+                    tryShow()
                 end
                 
                 function o.Display(t)
@@ -2900,7 +2988,7 @@ function a.o()
                     g(o.UIElements.Menu,0.1,{Size=UDim2.new(1,0,1,0)},Enum.EasingStyle.Quart,Enum.EasingDirection.Out):Play()
                     g(q,0.15,{Rotation = 180}):Play()
                     g(o.UIElements.MenuCanvas,0.15,{GroupTransparency = 0}):Play()
-                    UpdatePosition()
+                    ShowDropdownSafely()
                 end 
                 
                 function o.Close(t)
