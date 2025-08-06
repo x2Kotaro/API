@@ -317,17 +317,6 @@ do
                     Button = '#52525b',
                     Icon= '#a1a1aa'
             },
-
-                Light = {
-                    Name = 'Light',
-                    Accent = '#FFFFFF',
-                    Outline = '#09090b',
-                    Text = '#000000',
-                    Placeholder = '#777777',
-                    Background = '#e4e4e7',
-                    Button = '#18181b',
-                    Icon = '#a1a1aa'
-            },
         }
     end
          
@@ -2702,12 +2691,57 @@ function a.o()
                 end 
                 
                 function UpdatePosition()
-                    local t = -o.UIElements.Dropdown.AbsoluteSize.Y 
-                    if d.ViewportSize.Y-o.UIElements.Dropdown.AbsolutePosition.Y-o.UIElements.Dropdown.AbsoluteSize.Y+t<o.UIElements.MenuCanvas.AbsoluteSize.Y+10 then 
-                        t = o.UIElements.MenuCanvas.AbsoluteSize.Y-(d.ViewportSize.Y-o.UIElements.Dropdown.AbsolutePosition.Y)+10 
-                    end 
-                    o.UIElements.MenuCanvas.Position=UDim2.new(0,o.UIElements.Dropdown.AbsolutePosition.X+o.UIElements.Dropdown.AbsoluteSize.X+1,0,o.UIElements.Dropdown.AbsolutePosition.Y+o.UIElements.Dropdown.AbsoluteSize.Y-t)
-                end 
+                    local dropdownBottom = o.UIElements.Dropdown.AbsolutePosition.Y + o.UIElements.Dropdown.AbsoluteSize.Y
+                    local menuHeight = o.UIElements.MenuCanvas.AbsoluteSize.Y
+                    local viewportHeight = d.ViewportSize.Y
+                    local padding = 10
+                    
+                    -- คำนวณตำแหน่ง Y
+                    local yPosition = dropdownBottom
+                    
+                    -- ตรวจสอบว่าเมนูจะล้นออกจากขอบล่างของจอหรือไม่
+                    if dropdownBottom + menuHeight + padding > viewportHeight then
+                        -- ถ้าล้น ให้แสดงเมนูด้านบนของ dropdown แทน
+                        yPosition = o.UIElements.Dropdown.AbsolutePosition.Y - menuHeight
+                        
+                        -- ถ้าแสดงด้านบนแล้วยังล้นออกจากขอบบนของจอ
+                        if yPosition < padding then
+                            -- แสดงเมนูให้อยู่ในขอบจอ โดยจัดให้อยู่ใกล้ขอบบนสุด
+                            yPosition = padding
+                            
+                            -- ถ้าเมนูสูงเกินไปจนไม่พอที่จะแสดงทั้งหมด
+                            if menuHeight > viewportHeight - (padding * 2) then
+                                -- ปรับขนาดเมนูให้พอดีกับจอ
+                                o.UIElements.MenuCanvas.Size = UDim2.new(
+                                    o.UIElements.MenuCanvas.Size.X.Scale,
+                                    o.UIElements.MenuCanvas.Size.X.Offset,
+                                    0,
+                                    viewportHeight - (padding * 2)
+                                )
+                            end
+                        end
+                    end
+                    
+                    -- คำนวณตำแหน่ง X
+                    local xPosition = o.UIElements.Dropdown.AbsolutePosition.X + o.UIElements.Dropdown.AbsoluteSize.X + 1
+                    local menuWidth = o.UIElements.MenuCanvas.AbsoluteSize.X
+                    local viewportWidth = d.ViewportSize.X
+                    
+                    -- ตรวจสอบว่าเมนูจะล้นออกจากขอบขวาของจอหรือไม่
+                    if xPosition + menuWidth + padding > viewportWidth then
+                        -- ถ้าล้น ให้แสดงเมนูด้านซ้ายของ dropdown แทน
+                        xPosition = o.UIElements.Dropdown.AbsolutePosition.X - menuWidth - 1
+                        
+                        -- ถ้าแสดงด้านซ้ายแล้วยังล้นออกจากขอบซ้าย
+                        if xPosition < padding then
+                            -- จัดให้เมนูอยู่ใกล้ขอบซ้ายสุด
+                            xPosition = padding
+                        end
+                    end
+                    
+                    -- กำหนดตำแหน่งใหม่
+                    o.UIElements.MenuCanvas.Position = UDim2.new(0, xPosition, 0, yPosition)
+                end
                 
                 function o.Display(t)
                     local u,v = o.Values,''
