@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.61
+    This script is modified by Phoenix Version 0.0.5
 ]]
 
 
@@ -2691,78 +2691,39 @@ function a.o()
                 end 
                 
                 function UpdatePosition()
-                    -- รอให้ UI อัพเดทก่อน
-                    wait()
+                    local t = -o.UIElements.Dropdown.AbsoluteSize.Y 
+                    local viewportHeight = game:GetService("Workspace").CurrentCamera.ViewportSize.Y
                     
-                    -- เก็บค่าเริ่มต้น
-                    local dropdown = o.UIElements.Dropdown
-                    local menu = o.UIElements.MenuCanvas
-                    local viewport = d.ViewportSize
-                    local padding = 5
-                    
-                    -- ตำแหน่งและขนาดของ dropdown
-                    local dropX = dropdown.AbsolutePosition.X
-                    local dropY = dropdown.AbsolutePosition.Y
-                    local dropW = dropdown.AbsoluteSize.X
-                    local dropH = dropdown.AbsoluteSize.Y
-                    
-                    -- ขนาดของเมนู
-                    local menuW = menu.AbsoluteSize.X
-                    local menuH = menu.AbsoluteSize.Y
-                    
-                    -- คำนวณตำแหน่ง X (ลำดับความสำคัญ: ขวา > ซ้าย > อยู่ในจอ)
-                    local finalX = dropX + dropW + 1  -- ตำแหน่งปกติ (ด้านขวา)
-                    
-                    if finalX + menuW > viewport.X - padding then
-                        -- ถ้าล้นขวา ลองแสดงด้านซ้าย
-                        local leftX = dropX - menuW - 1
-                        if leftX >= padding then
-                            finalX = leftX
-                        else
-                            -- ถ้าทั้งซ้ายและขวาล้น ให้จัดกึ่งกลางหรือชิดขอบ
-                            finalX = math.max(padding, viewport.X - menuW - padding)
-                        end
+                    if viewportHeight - o.UIElements.Dropdown.AbsolutePosition.Y - o.UIElements.Dropdown.AbsoluteSize.Y + t < o.UIElements.MenuCanvas.AbsoluteSize.Y + 10 then 
+                        t = o.UIElements.MenuCanvas.AbsoluteSize.Y - (o.UIElements.Dropdown.AbsolutePosition.Y) + 10 
+                        o.UIElements.MenuCanvas.Position = UDim2.new(
+                            0, 
+                            o.UIElements.Dropdown.AbsolutePosition.X + o.UIElements.Dropdown.AbsoluteSize.X + 1,
+                            0, 
+                            o.UIElements.Dropdown.AbsolutePosition.Y - o.UIElements.MenuCanvas.AbsoluteSize.Y - 5
+                        )
+                    else
+                        o.UIElements.MenuCanvas.Position = UDim2.new(
+                            0, 
+                            o.UIElements.Dropdown.AbsolutePosition.X + o.UIElements.Dropdown.AbsoluteSize.X + 1,
+                            0, 
+                            o.UIElements.Dropdown.AbsolutePosition.Y + o.UIElements.Dropdown.AbsoluteSize.Y - t
+                        )
                     end
                     
-                    -- คำนวณตำแหน่ง Y (ลำดับความสำคัญ: ล่าง > บน > อยู่ในจอ)
-                    local finalY = dropY + dropH  -- ตำแหน่งปกติ (ด้านล่าง)
-                    
-                    if finalY + menuH > viewport.Y - padding then
-                        -- ถ้าล้นล่าง ลองแสดงด้านบน
-                        local topY = dropY - menuH
-                        if topY >= padding then
-                            finalY = topY
-                        else
-                            -- ถ้าทั้งบนและล่างล้น
-                            local availableHeight = viewport.Y - (padding * 2)
-                            if menuH > availableHeight then
-                                -- ถ้าเมนูสูงกว่าจอ ให้ปรับขนาดและแสดงที่ด้านบน
-                                finalY = padding
-                                menu.Size = UDim2.new(
-                                    menu.Size.X.Scale, menu.Size.X.Offset,
-                                    0, availableHeight
-                                )
-                                -- เพิ่ม CanvasSize สำหรับ ScrollingFrame ถ้ามี
-                                if menu:IsA("ScrollingFrame") then
-                                    menu.CanvasSize = UDim2.new(0, 0, 0, menuH)
-                                end
-                            else
-                                -- แสดงให้อยู่ในจอโดยชิดขอบล่าง
-                                finalY = viewport.Y - menuH - padding
-                            end
-                        end
+                    local maxHeight = viewportHeight * 0.6
+                    if o.UIElements.MenuCanvas.AbsoluteSize.Y > maxHeight then
+                        o.UIElements.MenuCanvas.Size = UDim2.new(
+                            o.UIElements.MenuCanvas.Size.X.Scale,
+                            o.UIElements.MenuCanvas.Size.X.Offset,
+                            0,
+                            maxHeight
+                        )
+                        o.UIElements.Menu.CanvasGroup.ScrollingFrame.ScrollingEnabled = true
+                    else
+                        o.UIElements.Menu.CanvasGroup.ScrollingFrame.ScrollingEnabled = false
                     end
-                    
-                    -- ตรวจสอบค่าสุดท้ายอีกครั้งเพื่อความปลอดภัย
-                    finalX = math.max(0, math.min(finalX, viewport.X - menuW))
-                    finalY = math.max(0, math.min(finalY, viewport.Y - menu.AbsoluteSize.Y))
-                    
-                    -- กำหนดตำแหน่งใหม่
-                    menu.Position = UDim2.new(0, math.floor(finalX), 0, math.floor(finalY))
-                    
-                    -- บังคับให้ UI อัพเดท
-                    menu.Parent = menu.Parent
-                end
+                end                
                 
                 function o.Display(t)
                     local u,v = o.Values,''
