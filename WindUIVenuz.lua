@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.5
+    This script is modified by Phoenix Version 0.0.ุ6
 ]]
 
 
@@ -2691,12 +2691,32 @@ function a.o()
                 end 
                 
                 function UpdatePosition()
-                    local t = -o.UIElements.Dropdown.AbsoluteSize.Y 
-                    if d.ViewportSize.Y-o.UIElements.Dropdown.AbsolutePosition.Y-o.UIElements.Dropdown.AbsoluteSize.Y+t<o.UIElements.MenuCanvas.AbsoluteSize.Y+10 then 
-                        t = o.UIElements.MenuCanvas.AbsoluteSize.Y-(d.ViewportSize.Y-o.UIElements.Dropdown.AbsolutePosition.Y)+10 
-                    end 
-                    o.UIElements.MenuCanvas.Position=UDim2.new(0,o.UIElements.Dropdown.AbsolutePosition.X+o.UIElements.Dropdown.AbsoluteSize.X+1,0,o.UIElements.Dropdown.AbsolutePosition.Y+o.UIElements.Dropdown.AbsoluteSize.Y-t)
-                end 
+                    local dropdown = o.UIElements.Dropdown
+                    local menuCanvas = o.UIElements.MenuCanvas
+                    local screenHeight = workspace.CurrentCamera.ViewportSize.Y
+                
+                    local dropdownBottom = dropdown.AbsolutePosition.Y + dropdown.AbsoluteSize.Y
+                    local menuHeight = menuCanvas.AbsoluteSize.Y
+                    local dropdownX = dropdown.AbsolutePosition.X
+                
+                    local spaceBelow = screenHeight - dropdownBottom
+                
+                    if spaceBelow < menuHeight + 10 then
+                        menuCanvas.Position = UDim2.new(
+                            0,
+                            dropdownX,
+                            0,
+                            dropdown.AbsolutePosition.Y - menuHeight - 8
+                        )
+                    else
+                        menuCanvas.Position = UDim2.new(
+                            0,
+                            dropdownX,
+                            0,
+                            dropdownBottom
+                        )
+                    end
+                end                
                 
                 function o.Display(t)
                     local u,v = o.Values,''
