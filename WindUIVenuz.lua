@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.5123
+    This script is modified by Phoenix Version 0.0.test
 ]]
 
 
@@ -2691,15 +2691,22 @@ function a.o()
                 end 
                 
                 function UpdatePosition()
-                    local s=o.UIElements.Dropdown
-                    local t=o.UIElements.MenuCanvas
-
-                    local u=d.ViewportSize.Y-(s.AbsolutePosition.Y+s.AbsoluteSize.Y)-j.MenuPadding-54
-                    local v=t.AbsoluteSize.Y+j.MenuPadding
-
-                    local w=-54
-                    if u<v then
-                    w=v-u-54
+                    local dropdown = o.UIElements.Dropdown
+                    local menu = o.UIElements.MenuCanvas
+                    local viewportHeight = d.ViewportSize.Y
+                    local padding = 10
+                    local spaceBelow = viewportHeight - (dropdown.AbsolutePosition.Y + dropdown.AbsoluteSize.Y)
+                    local menuHeight = menu.AbsoluteSize.Y + padding
+                    local offsetY = 0
+                    if spaceBelow < menuHeight then
+                        offsetY = menuHeight - spaceBelow
+                    end
+                    menu.Position = UDim2.new(
+                        0,
+                        dropdown.AbsolutePosition.X + dropdown.AbsoluteSize.X + 1,
+                        0,
+                        dropdown.AbsolutePosition.Y + dropdown.AbsoluteSize.Y - offsetY
+                    )                    
                 end 
                 
                 function o.Display(t)
