@@ -95,32 +95,12 @@ function NotificationLibrary:_getNotificationSize()
     end
 end
 
-function NotificationLibrary:_createShadow(parent)
-    local shadow = Instance.new("Frame")
-    shadow.Name = "Shadow"
-    shadow.Size = UDim2.new(1, 8, 1, 8)
-    shadow.Position = UDim2.new(0, -4, 0, 4)
-    shadow.BackgroundColor3 = self._theme.shadowColor
-    shadow.BackgroundTransparency = self._theme.shadowTransparency
-    shadow.ZIndex = 99
-    shadow.Parent = parent
-    
-    local shadowCorner = Instance.new("UICorner")
-    shadowCorner.CornerRadius = self._theme.cornerRadius
-    shadowCorner.Parent = shadow
-    
-    return shadow
-end
-
 function NotificationLibrary:_createNotificationFrame()
     local container = Instance.new("Frame")
     container.BackgroundTransparency = 1
     container.Size = self:_getNotificationSize()
     container.ClipsDescendants = false
     container.ZIndex = 100
-    
-    -- เงา
-    self:_createShadow(container)
     
     local notification = Instance.new("Frame")
     notification.Name = "MainFrame"
