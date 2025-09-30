@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.53  |  2025-09-28  |  Roblox UI Library for scripts
+    v1.6.53  |  2025-09-111111  |  Roblox UI Library for scripts
     
     This script is NOT intended to be modified.
     To view the source code, see the `src/` folder on the official GitHub repository.
@@ -4839,21 +4839,15 @@ local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}
                 Locked = af.Locked or false,
             }
             
-            -- สร้าง Title Text
-            local titleTextColor = typeof(af.Color) == "string"
-                and GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-                or typeof(af.Color) == "Color3"
-                and GetTextColorForHSB(af.Color)
-        
+            -- สร้าง Title Text (แบบง่ายๆ ไม่ใช้ GetTextColorForHSB)
             local am = ab("TextLabel", {
                 BackgroundTransparency = 1,
                 Text = af.Title or "Paragraph",
                 TextSize = 17,
                 TextXAlignment = "Left",
                 ThemeTag = {
-                    TextColor3 = not af.Color and "Text" or nil,
+                    TextColor3 = "Text",
                 },
-                TextColor3 = af.Color and titleTextColor or nil,
                 TextTransparency = 0,
                 TextWrapped = true,
                 Size = UDim2.new(af.Justify == "Between" and 1 or 0, 0, 0, 0),
@@ -4861,21 +4855,15 @@ local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}
                 FontFace = Font.new(aa.Font, Enum.FontWeight.SemiBold)
             })
         
-            -- สร้าง Desc Text
-            local descTextColor = typeof(af.Color) == "string"
-                and GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-                or typeof(af.Color) == "Color3"
-                and GetTextColorForHSB(af.Color)
-        
+            -- สร้าง Desc Text (แบบง่ายๆ ไม่ใช้ GetTextColorForHSB)
             local an = ab("TextLabel", {
                 BackgroundTransparency = 1,
                 Text = af.Desc or "",
                 TextSize = 15,
                 TextXAlignment = "Left",
                 ThemeTag = {
-                    TextColor3 = not af.Color and "Text" or nil,
+                    TextColor3 = "Text",
                 },
-                TextColor3 = af.Color and descTextColor or nil,
                 TextTransparency = 0.3,
                 TextWrapped = true,
                 Size = UDim2.new(1, 0, 0, 0),
