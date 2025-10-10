@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    This script is modified by Phoenix Version 0.0.test
+    This script is modified by Phoenix Version 0.0.6
 ]]
 
 
@@ -3840,6 +3840,17 @@ function a.o()
                                     p.Visible = false 
                                 end)
                             end)
+
+                            function e.SetTabTitle(n, o)
+                                if o and type(o) == "string" then
+                                    e.Title = o
+                                    e.UIElements.Main.TextLabel.Text = o
+                                    if e.ShowTabTitle and e.UIElements.ContainerFrameCanvas:FindFirstChild("TabTitle") then
+                                        e.UIElements.ContainerFrameCanvas.TabTitle.TextLabel.Text = o
+                                    end
+                                end
+                            end
+
                             return e 
                         end 
                         
