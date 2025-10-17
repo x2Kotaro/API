@@ -4909,7 +4909,7 @@ if af.Desc and af.Desc ~= "" then
         Name = "DescWrapper",
         Parent = ah.UIElements.Container
     }, {
-        ab("UICorner", { CornerRadius = UDim.new(0, af.Window.ElementConfig.UICorner - 11) }),
+        ab("UICorner", { CornerRadius = UDim.new(0, 8) }),
         ab("UIPadding", {
             PaddingTop = UDim.new(0, 8),
             PaddingBottom = UDim.new(0, 8),
