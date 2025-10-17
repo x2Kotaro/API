@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT CHIWDQDWQFGQWFASD
+    License: MIT
 ]]
 
 
@@ -4203,8 +4203,7 @@ function a.y()
     local ac = aa.NewRoundFrame
     local ad = aa.Tween
 
-    -- ฟังก์ชันสร้าง Paragraph UI
-    return function(o)
+    local function NewParagraph(o)
         local ParagraphFrame = ab("Frame", {
             BackgroundTransparency = 1,
             AutomaticSize = Enum.AutomaticSize.Y,
@@ -4217,7 +4216,7 @@ function a.y()
             }),
         })
 
-        -- Title
+        -- 🏷️ Title
         if o.Title then
             ab("TextLabel", {
                 Text = o.Title,
@@ -4271,7 +4270,7 @@ function a.y()
             DescWrapper.Parent = ParagraphFrame
         end
 
-        -- ถ้ามีปุ่ม
+        -- 🧩 ถ้ามีปุ่ม
         if o.Buttons and #o.Buttons > 0 then
             local ButtonContainer = ab("Frame", {
                 Size = UDim2.new(1, 0, 0, 38),
@@ -4293,6 +4292,8 @@ function a.y()
 
         return ParagraphFrame
     end
+
+    return NewParagraph
 end
 
 local function GetPerceivedBrightness(ae)
@@ -11209,7 +11210,7 @@ end
 end
 
 return ar
-end end end
+end end
 local ac={
 Window=nil,
 Theme=nil,
