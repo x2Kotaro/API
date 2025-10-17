@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT ไกไ
 ]]
 
 
@@ -4882,10 +4882,18 @@ ag.ParagraphFrame=ah
 
 -- เพิ่ม DescWrapper สำหรับ Paragraph
 if af.Desc and af.Desc ~= "" then
-    -- ซ่อน Desc เดิม
-    local originalDesc = ah.UIElements.Container.TitleFrame.TitleFrame:FindFirstChild("TextLabel")
-    if originalDesc and originalDesc.LayoutOrder ~= -1 then
-        originalDesc.Visible = false
+    -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
+    local titleFrame = ah.UIElements.Container.TitleFrame.TitleFrame
+    if titleFrame then
+        for _, child in ipairs(titleFrame:GetChildren()) do
+            if child:IsA("TextLabel") and child.Name == "TextLabel" and child.LayoutOrder ~= -1 then
+                -- เช็คว่าเป็น Desc จริงๆ โดยดูจาก TextTransparency
+                if child.TextTransparency > 0.3 then
+                    child.Visible = false
+                    break
+                end
+            end
+        end
     end
     
     -- สร้าง DescWrapper ใหม่
