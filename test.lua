@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT CHECKKKKKKKKKKKKKKKKKKKKKK
+    License: MIT CHIWDQDWQFGQWFASD
 ]]
 
 
@@ -4203,8 +4203,8 @@ function a.y()
     local ac = aa.NewRoundFrame
     local ad = aa.Tween
 
-    -- 🧱 เริ่มสร้าง Paragraph UI
-    local function NewParagraph(o)
+    -- ฟังก์ชันสร้าง Paragraph UI
+    return function(o)
         local ParagraphFrame = ab("Frame", {
             BackgroundTransparency = 1,
             AutomaticSize = Enum.AutomaticSize.Y,
@@ -4217,7 +4217,7 @@ function a.y()
             }),
         })
 
-        -- 🏷️ Title
+        -- Title
         if o.Title then
             ab("TextLabel", {
                 Text = o.Title,
@@ -4234,7 +4234,7 @@ function a.y()
             })
         end
 
-        -- ✏️ Paragraph (Desc) — ✅ แก้เฉพาะส่วนนี้
+        -- ✅ DescWrapper สำหรับ Paragraph เท่านั้น
         if o.Desc then
             local DescWrapper = ab("Frame", {
                 BackgroundColor3 = Color3.new(0, 0, 0),
@@ -4243,9 +4243,7 @@ function a.y()
                 Size = UDim2.new(1, 0, 0, 0),
                 LayoutOrder = 9999,
                 Name = "DescWrapper",
-                ThemeTag = {
-                    BackgroundColor3 = "Background",
-                },
+                ThemeTag = { BackgroundColor3 = "Background" },
             }, {
                 ab("UICorner", { CornerRadius = UDim.new(0, 8) }),
                 ab("UIPadding", {
@@ -4273,7 +4271,7 @@ function a.y()
             DescWrapper.Parent = ParagraphFrame
         end
 
-        -- 🧩 ถ้ามีปุ่มแนบมากับ Paragraph (เช่น Buttons array)
+        -- ถ้ามีปุ่ม
         if o.Buttons and #o.Buttons > 0 then
             local ButtonContainer = ab("Frame", {
                 Size = UDim2.new(1, 0, 0, 38),
@@ -4295,8 +4293,6 @@ function a.y()
 
         return ParagraphFrame
     end
-
-    return NewParagraph
 end
 
 local function GetPerceivedBrightness(ae)
