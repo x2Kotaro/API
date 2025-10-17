@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT ไกไ
+    License: MIT
 ]]
 
 
@@ -4880,6 +4880,9 @@ local ah=a.load'y'(af)
 
 ag.ParagraphFrame=ah
 
+-- ตัวแปรเก็บ reference ของ DescWrapper
+local descWrapperLabel = nil
+
 -- เพิ่ม DescWrapper สำหรับ Paragraph
 if af.Desc and af.Desc ~= "" then
     -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
@@ -4930,6 +4933,24 @@ if af.Desc and af.Desc ~= "" then
             Name = "Desc"
         })
     })
+    
+    -- เก็บ reference ของ TextLabel ใน wrapper
+    descWrapperLabel = descWrapper:FindFirstChild("Desc")
+end
+
+-- Override SetDesc function
+local originalSetDesc = ag.ParagraphFrame.SetDesc
+ag.ParagraphFrame.SetDesc = function(self, newDesc)
+    ag.Desc = newDesc
+    
+    -- ถ้ามี DescWrapper ให้ update ตัวนั้น
+    if descWrapperLabel then
+        descWrapperLabel.Text = newDesc or ""
+        descWrapperLabel.Parent.Visible = (newDesc ~= nil and newDesc ~= "")
+    else
+        -- ถ้าไม่มี wrapper ใช้วิธีเดิม
+        originalSetDesc(self, newDesc)
+    end
 end
 
 if af.Buttons and#af.Buttons>0 then
