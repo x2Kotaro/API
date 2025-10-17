@@ -12,13 +12,13 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MITๅ
 ]]
 
 
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()local b=game:GetService"RunService"local d=
 b.Heartbeat
-local e = game:GetService"UserInputService"
+local e=game:GetService"UserInputService"
 local f=game:GetService"TweenService"
 local g=game:GetService"LocalizationService"
 local h=game:GetService"HttpService"
@@ -4203,767 +4203,140 @@ function a.y()
     local ac = aa.NewRoundFrame
     local ad = aa.Tween
 
-    local function NewParagraph(o)
-        local ParagraphFrame = ab("Frame", {
-            BackgroundTransparency = 1,
+    local function Color3ToHSB(ae)
+        local af, ag, ah = ae.R, ae.G, ae.B
+        local ai = math.max(af, ag, ah)
+        local aj = math.min(af, ag, ah)
+        local ak = ai - aj
+
+        local al = 0
+        if ak ~= 0 then
+            if ai == af then
+                al = (ag - ah) / ak % 6
+            elseif ai == ag then
+                al = (ah - af) / ak + 2
+            else
+                al = (af - ag) / ak + 4
+            end
+            al = al * 60
+        else
+            al = 0
+        end
+
+        local am = (ai == 0) and 0 or (ak / ai)
+        local an = ai
+
+        return {
+            h = math.floor(al + 0.5),
+            s = am,
+            b = an
+        }
+    end
+
+    local function GetPerceivedBrightness(ae)
+        local af = ae.R
+        local ag = ae.G
+        local ah = ae.B
+        return 0.299 * af + 0.587 * ag + 0.114 * ah
+    end
+
+    local function GetTextColorForHSB(ae)
+        local af = Color3ToHSB(ae)
+        local ag, ah, ai = af.h, af.s, af.b
+        if GetPerceivedBrightness(ae) > 0.5 then
+            return Color3.fromHSV(ag/360, 0, 0.05)
+        else
+            return Color3.fromHSV(ag/360, 0, 0.98)
+        end
+    end
+
+    return function(ae)
+        local af = {
+            Title = ae.Title,
+            Desc = ae.Desc or nil,
+            Color = ae.Color,
+            Parent = ae.Parent,
+            UIPadding = ae.Window.ElementConfig.UIPadding,
+            UICorner = ae.Window.ElementConfig.UICorner,
+        }
+
+        local function CreateText(ag, ah)
+            local ai = typeof(af.Color) == "string"
+                and GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
+                or typeof(af.Color) == "Color3"
+                and GetTextColorForHSB(af.Color)
+
+            return ab("TextLabel", {
+                BackgroundTransparency = 1,
+                Text = ag or "",
+                TextSize = ah == "Desc" and 15 or 17,
+                TextXAlignment = "Left",
+                ThemeTag = {
+                    TextColor3 = not af.Color and "Text" or nil,
+                },
+                TextColor3 = af.Color and ai or nil,
+                TextTransparency = ah == "Desc" and 0.3 or 0,
+                TextWrapped = true,
+                Size = UDim2.new(1, 0, 0, 0),
+                AutomaticSize = "Y",
+                FontFace = Font.new(aa.Font, ah == "Desc" and Enum.FontWeight.Medium or Enum.FontWeight.SemiBold)
+            })
+        end
+
+        local ag = CreateText(af.Title, "Title")
+        local ah = CreateText(af.Desc, "Desc")
+        if not af.Desc or af.Desc == "" then
+            ah.Visible = false
+        end
+
+        -- สร้าง DescWrapper เท่านั้น
+        local ai = ab("Frame", {
+            BackgroundTransparency = 0.95,
             AutomaticSize = Enum.AutomaticSize.Y,
             Size = UDim2.new(1, 0, 0, 0),
-            Name = "Paragraph",
+            Name = "DescWrapper",
+            ThemeTag = { BackgroundColor3 = "Text" },
         }, {
+            ab("UICorner", { CornerRadius = UDim.new(0, 8) }),
+            ab("UIPadding", {
+                PaddingTop = UDim.new(0, 12),
+                PaddingBottom = UDim.new(0, 12),
+                PaddingLeft = UDim.new(0, 16),
+                PaddingRight = UDim.new(0, 16),
+            }),
             ab("UIListLayout", {
                 Padding = UDim.new(0, 8),
                 FillDirection = Enum.FillDirection.Vertical,
             }),
+            ag,
+            ah
         })
 
-        -- 🏷️ Title
-        if o.Title then
-            ab("TextLabel", {
-                Text = o.Title,
-                FontFace = Font.new(aa.Font, Enum.FontWeight.SemiBold),
-                TextSize = 18,
-                ThemeTag = { TextColor3 = "Text" },
-                TextWrapped = true,
-                TextXAlignment = Enum.TextXAlignment.Left,
-                AutomaticSize = Enum.AutomaticSize.Y,
-                BackgroundTransparency = 1,
-                Size = UDim2.new(1, 0, 0, 0),
-                Name = "Title",
-                Parent = ParagraphFrame,
-            })
+        ai.Parent = af.Parent
+
+        -- ฟังก์ชันจัดการ
+        function af.SetTitle(aj, ak)
+            af.Title = ak
+            ag.Text = ak
         end
 
-        -- ✅ DescWrapper สำหรับ Paragraph เท่านั้น
-        if o.Desc then
-            local DescWrapper = ab("Frame", {
-                BackgroundColor3 = Color3.new(0, 0, 0),
-                BackgroundTransparency = 0.6,
-                AutomaticSize = Enum.AutomaticSize.Y,
-                Size = UDim2.new(1, 0, 0, 0),
-                LayoutOrder = 9999,
-                Name = "DescWrapper",
-                ThemeTag = { BackgroundColor3 = "Background" },
-            }, {
-                ab("UICorner", { CornerRadius = UDim.new(0, 8) }),
-                ab("UIPadding", {
-                    PaddingTop = UDim.new(0, 8),
-                    PaddingBottom = UDim.new(0, 8),
-                    PaddingLeft = UDim.new(0, 12),
-                    PaddingRight = UDim.new(0, 12),
-                }),
-                ab("TextLabel", {
-                    Text = o.Desc,
-                    ThemeTag = { TextColor3 = not o.Color and "Text" or nil },
-                    TextColor3 = o.Color and (o.Color == "White" and Color3.new(0, 0, 0) or Color3.new(1, 1, 1)) or nil,
-                    TextTransparency = 0.2,
-                    TextSize = 17,
-                    TextWrapped = true,
-                    AutomaticSize = Enum.AutomaticSize.Y,
-                    BackgroundTransparency = 1,
-                    FontFace = Font.new(aa.Font, Enum.FontWeight.Medium),
-                    Size = UDim2.new(1, 0, 0, 0),
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    LineHeight = 1.35,
-                    Name = "Desc",
-                }),
-            })
-            DescWrapper.Parent = ParagraphFrame
-        end
-
-        -- 🧩 ถ้ามีปุ่ม
-        if o.Buttons and #o.Buttons > 0 then
-            local ButtonContainer = ab("Frame", {
-                Size = UDim2.new(1, 0, 0, 38),
-                BackgroundTransparency = 1,
-                AutomaticSize = Enum.AutomaticSize.Y,
-                Parent = ParagraphFrame,
-            }, {
-                ab("UIListLayout", {
-                    Padding = UDim.new(0, 10),
-                    FillDirection = Enum.FillDirection.Vertical,
-                }),
-            })
-
-            for _, btn in next, o.Buttons do
-                local NewButton = ad(btn.Title, btn.Icon, btn.Callback, "White", ButtonContainer, nil, nil, o.Window.NewElements and 12 or 10)
-                NewButton.Size = UDim2.new(1, 0, 0, 38)
+        function af.SetDesc(aj, ak)
+            af.Desc = ak
+            ah.Text = ak or ""
+            if not ak then
+                ah.Visible = false
+            elseif not ah.Visible then
+                ah.Visible = true
             end
         end
 
-        return ParagraphFrame
+        function af.Destroy(aj)
+            ai:Destroy()
+        end
+
+        return af
     end
-
-    return NewParagraph
-end
-
-local function GetPerceivedBrightness(ae)
-local af=ae.R
-local ag=ae.G
-local ah=ae.B
-return 0.299*af+0.587*ag+0.114*ah
-end
-
-local function GetTextColorForHSB(ae)
-local af=Color3ToHSB(ae)local
-ag, ah, ai=af.h, af.s, af.b
-if GetPerceivedBrightness(ae)>0.5 then
-return Color3.fromHSV(ag/360,0,0.05)
-else
-return Color3.fromHSV(ag/360,0,0.98)
-end
-end
-
-
-local function getElementPosition(ae,af)
-if type(af)~="number"or af~=math.floor(af)then
-return nil,1
-end
-
-
-
-
-
-
-local ag=#ae
-
-
-if ag==0 or af<1 or af>ag then
-return nil,2
-end
-
-local function isDelimiter(ah)
-if ah==nil then return true end
-local ai=ah.__type
-return ai=="Divider"or ai=="Space"or ai=="Section"or ai=="Code"
-end
-
-if isDelimiter(ae[af])then
-return nil,3
-end
-
-local function calculate(ah,ai)
-if ai==1 then return"Squircle"end
-if ah==1 then return"Squircle-TL-TR"end
-if ah==ai then return"Squircle-BL-BR"end
-return"Square"
-end
-
-local ah=1
-local ai=0
-
-for aj=1,ag do
-local ak=ae[aj]
-if isDelimiter(ak)then
-if af>=ah and af<=aj-1 then
-local al=af-ah+1
-return calculate(al,ai)
-end
-ah=aj+1
-ai=0
-else
-ai=ai+1
-end
-end
-
-
-if af>=ah and af<=ag then
-local aj=af-ah+1
-return calculate(aj,ai)
-end
-
-return nil,4
-end
-
-
-return function(ae)
-local af={
-Title=ae.Title,
-Desc=ae.Desc or nil,
-Hover=ae.Hover,
-Thumbnail=ae.Thumbnail,
-ThumbnailSize=ae.ThumbnailSize or 80,
-Image=ae.Image,
-IconThemed=ae.IconThemed or false,
-ImageSize=ae.ImageSize or 30,
-Color=ae.Color,
-Scalable=ae.Scalable,
-Parent=ae.Parent,
-Justify=ae.Justify or"Between",
-UIPadding=ae.Window.ElementConfig.UIPadding,
-UICorner=ae.Window.ElementConfig.UICorner,
-UIElements={},
-
-Index=ae.Index
-}
-
-local ag=af.ImageSize
-local ah=af.ThumbnailSize
-local ai=true
-
-
-local aj=0
-
-local ak
-local al
-if af.Thumbnail then
-ak=aa.Image(
-af.Thumbnail,
-af.Title,
-ae.Window.NewElements and af.UICorner-12 or(af.UICorner-4),
-ae.Window.Folder,
-"Thumbnail",
-false,
-af.IconThemed
-)
-ak.Size=UDim2.new(1,0,0,ah)
-end
-if af.Image then
-al=aa.Image(
-af.Image,
-af.Title,
-ae.Window.NewElements and af.UICorner-12 or(af.UICorner-4),
-ae.Window.Folder,
-"Image",
-not af.Color and true or false
-)
-if typeof(af.Color)=="string"then
-al.ImageLabel.ImageColor3=GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-elseif typeof(af.Color)=="Color3"then
-al.ImageLabel.ImageColor3=GetTextColorForHSB(af.Color)
-end
-
-al.Size=UDim2.new(0,ag,0,ag)
-
-aj=ag
-end
-
-local function CreateText(am,an)
-local ao=typeof(af.Color)=="string"
-and GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-or typeof(af.Color)=="Color3"
-and GetTextColorForHSB(af.Color)
-
-return ab("TextLabel",{
-BackgroundTransparency=1,
-Text=am or"",
-TextSize=an=="Desc"and 15 or 17,
-TextXAlignment="Left",
-ThemeTag={
-TextColor3=not af.Color and"Text"or nil,
-},
-TextColor3=af.Color and ao or nil,
-TextTransparency=an=="Desc"and.3 or 0,
-TextWrapped=true,
-Size=UDim2.new(af.Justify=="Between"and 1 or 0,0,0,0),
-AutomaticSize=af.Justify=="Between"and"Y"or"XY",
-FontFace=Font.new(aa.Font,an=="Desc"and Enum.FontWeight.Medium or Enum.FontWeight.SemiBold)
-})
-end
-
--- 🆕 Function: CreateParagraph (ใช้สำหรับ Desc เท่านั้น)
-function m.CreateParagraph(o)
-    -- สร้าง Wrapper Frame
-    local DescWrapper = m.New("Frame", {
-        BackgroundColor3 = Color3.new(0, 0, 0),
-        BackgroundTransparency = 0.6,
-        AutomaticSize = Enum.AutomaticSize.Y,
-        Size = UDim2.new(1, 0, 0, 0),
-        LayoutOrder = 9999,
-        Name = "DescWrapper",
-        ThemeTag = {
-            BackgroundColor3 = "Background", -- จะเปลี่ยนตามธีมได้ถ้ามี
-        },
-    }, {
-        -- มุมโค้ง
-        m.New("UICorner", { CornerRadius = UDim.new(0, 8) }),
-
-        -- Padding ด้านใน
-        m.New("UIPadding", {
-            PaddingTop = UDim.new(0, 8),
-            PaddingBottom = UDim.new(0, 8),
-            PaddingLeft = UDim.new(0, 12),
-            PaddingRight = UDim.new(0, 12),
-        }),
-
-        -- ตัวข้อความ Desc
-        m.New("TextLabel", {
-            Text = o.Desc or "",
-            ThemeTag = {
-                TextColor3 = not o.Color and "Text" or nil,
-            },
-            TextColor3 = o.Color and (o.Color == "White" and Color3.new(0, 0, 0) or Color3.new(1, 1, 1)) or nil,
-            TextTransparency = 0.2,
-            TextSize = 17,
-            TextWrapped = true,
-            AutomaticSize = Enum.AutomaticSize.Y,
-            BackgroundTransparency = 1,
-            FontFace = Font.new(m.Font, Enum.FontWeight.Medium),
-            Size = UDim2.new(1, 0, 0, 0),
-            TextXAlignment = Enum.TextXAlignment.Left,
-            LineHeight = 1.35,
-            Name = "Desc",
-        }),
-    })
-
-    return DescWrapper
-end
-
-local am=CreateText(af.Title,"Title")
-local an=CreateText(af.Desc,"Desc")
-if not af.Desc or af.Desc==""then
-an.Visible=false
-end
-
-af.UIElements.Container=ab("Frame",{
-Size=UDim2.new(1,0,1,0),
-AutomaticSize="Y",
-BackgroundTransparency=1,
-},{
-ab("UIListLayout",{
-Padding=UDim.new(0,af.UIPadding),
-FillDirection="Vertical",
-VerticalAlignment="Center",
-HorizontalAlignment=af.Justify=="Between"and"Left"or"Center",
-}),
-ak,
-ab("Frame",{
-Size=UDim2.new(
-af.Justify=="Between"and 1 or 0,
-af.Justify=="Between"and-ae.TextOffset or 0,
-0,
-0
-),
-AutomaticSize=af.Justify=="Between"and"Y"or"XY",
-BackgroundTransparency=1,
-Name="TitleFrame",
-},{
-ab("UIListLayout",{
-Padding=UDim.new(0,af.UIPadding),
-FillDirection="Horizontal",
-VerticalAlignment=ae.Window.NewElements and(af.Justify=="Between"and"Top"or"Center")or"Center",
-HorizontalAlignment=af.Justify~="Between"and af.Justify or"Center",
-}),
-al,
-ab("Frame",{
-BackgroundTransparency=1,
-AutomaticSize=af.Justify=="Between"and"Y"or"XY",
-Size=UDim2.new(
-af.Justify=="Between"and 1 or 0,
-af.Justify=="Between"and(al and-aj-af.UIPadding or-aj)or 0,
-1,
-0
-),
-Name="TitleFrame",
-},{
-ab("UIPadding",{
-PaddingTop=UDim.new(0,ae.Window.NewElements and af.UIPadding/2 or 0),
-PaddingLeft=UDim.new(0,ae.Window.NewElements and af.UIPadding/2 or 0),
-PaddingRight=UDim.new(0,ae.Window.NewElements and af.UIPadding/2 or 0),
-PaddingBottom=UDim.new(0,ae.Window.NewElements and af.UIPadding/2 or 0),
-}),
-ab("UIListLayout",{
-Padding=UDim.new(0,6),
-FillDirection="Vertical",
-VerticalAlignment="Center",
-HorizontalAlignment="Left",
-}),
-am,
-an
-}),
-})
-})
-
-
-
-
-
-
-local ao=aa.Image(
-"lock",
-"lock",
-0,
-ae.Window.Folder,
-"Lock",
-false
-)
-ao.Size=UDim2.new(0,20,0,20)
-ao.ImageLabel.ImageColor3=Color3.new(1,1,1)
-ao.ImageLabel.ImageTransparency=.4
-
-local ap=ab("TextLabel",{
-Text="Locked",
-TextSize=18,
-FontFace=Font.new(aa.Font,Enum.FontWeight.Medium),
-AutomaticSize="XY",
-BackgroundTransparency=1,
-TextColor3=Color3.new(1,1,1),
-TextTransparency=.05,
-})
-
-local aq=ab("Frame",{
-Size=UDim2.new(1,af.UIPadding*2,1,af.UIPadding*2),
-BackgroundTransparency=1,
-AnchorPoint=Vector2.new(0.5,0.5),
-Position=UDim2.new(0.5,0,0.5,0),
-ZIndex=9999999,
-})
-
-local ar,as=ac(af.UICorner,"Squircle",{
-Size=UDim2.new(1,0,1,0),
-ImageTransparency=.25,
-ImageColor3=Color3.new(0,0,0),
-Visible=false,
-Active=false,
-Parent=aq,
-},{
-ab("UIListLayout",{
-FillDirection="Horizontal",
-VerticalAlignment="Center",
-HorizontalAlignment="Center",
-Padding=UDim.new(0,8)
-}),
-ao,ap
-},nil,true)
-
-local at,au=ac(af.UICorner,"Squircle-Outline",{
-Size=UDim2.new(1,0,1,0),
-ImageTransparency=1,
-Active=false,
-ThemeTag={
-ImageColor3="Text",
-},
-Parent=aq,
-},{
-ab("UIListLayout",{
-FillDirection="Horizontal",
-VerticalAlignment="Center",
-HorizontalAlignment="Center",
-Padding=UDim.new(0,8)
-}),
-},nil,true)
-
-local av,aw=ac(af.UICorner,"Squircle",{
-Size=UDim2.new(1,0,1,0),
-ImageTransparency=1,
-Active=false,
-ThemeTag={
-ImageColor3="Text",
-},
-Parent=aq,
-},{
-ab("UIListLayout",{
-FillDirection="Horizontal",
-VerticalAlignment="Center",
-HorizontalAlignment="Center",
-Padding=UDim.new(0,8)
-}),
-},nil,true)
-
-local ax,ay=ac(af.UICorner,"Squircle",{
-Size=UDim2.new(1,0,0,0),
-AutomaticSize="Y",
-ImageTransparency=af.Color and.05 or.93,
-
-
-
-Parent=ae.Parent,
-ThemeTag={
-ImageColor3=not af.Color and"Text"or nil
-},
-ImageColor3=af.Color and
-(
-typeof(af.Color)=="string"
-and Color3.fromHex(aa.Colors[af.Color])
-or typeof(af.Color)=="Color3"
-and af.Color
-)or nil
-},{
-af.UIElements.Container,
-aq,
-ab("UIPadding",{
-PaddingTop=UDim.new(0,af.UIPadding),
-PaddingLeft=UDim.new(0,af.UIPadding),
-PaddingRight=UDim.new(0,af.UIPadding),
-PaddingBottom=UDim.new(0,af.UIPadding),
-}),
-},true,true)
-
-af.UIElements.Main=ax
-af.UIElements.Locked=ar
-
-if af.Hover then
-aa.AddSignal(ax.MouseEnter,function()
-if ai then
-ad(ax,.05,{ImageTransparency=af.Color and.15 or.9}):Play()
-end
-end)
-aa.AddSignal(ax.InputEnded,function()
-if ai then
-ad(ax,.05,{ImageTransparency=af.Color and.05 or.93}):Play()
-end
-end)
-end
-
-function af.SetTitle(az,aA)
-af.Title=aA
-am.Text=aA
-end
-
-function af.SetDesc(az,aA)
-af.Desc=aA
-an.Text=aA or""
-if not aA then
-an.Visible=false
-elseif not an.Visible then
-an.Visible=true
-end
-end
-
-
-function af.Colorize(az,aA,aB)
-if af.Color then
-aA[aB]=typeof(af.Color)=="string"
-and GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-or typeof(af.Color)=="Color3"
-and GetTextColorForHSB(af.Color)
-or nil
-end
-end
-
-if ae.ElementTable then
-aa.AddSignal(am:GetPropertyChangedSignal"Text",function()
-if af.Title~=am.Text then
-af:SetTitle(am.Text)
-ae.ElementTable.Title=am.Text
-end
-end)
-aa.AddSignal(an:GetPropertyChangedSignal"Text",function()
-if af.Desc~=an.Text then
-af:SetDesc(an.Text)
-ae.ElementTable.Desc=an.Text
-end
-end)
-end
-
-
-
-
-
-function af.SetThumbnail(az,aA,aB)
-af.Thumbnail=aA
-if aB then
-af.ThumbnailSize=aB
-ah=aB
-end
-
-if ak then
-if aA then
-ak:Destroy()
-ak=aa.Image(
-aA,
-af.Title,
-af.UICorner-3,
-ae.Window.Folder,
-"Thumbnail",
-false,
-af.IconThemed
-)
-ak.Size=UDim2.new(1,0,0,ah)
-ak.Parent=af.UIElements.Container
-local aC=af.UIElements.Container:FindFirstChild"UIListLayout"
-if aC then
-ak.LayoutOrder=-1
-end
-else
-ak.Visible=false
-end
-else
-if aA then
-ak=aa.Image(
-aA,
-af.Title,
-af.UICorner-3,
-ae.Window.Folder,
-"Thumbnail",
-false,
-af.IconThemed
-)
-ak.Size=UDim2.new(1,0,0,ah)
-ak.Parent=af.UIElements.Container
-local aC=af.UIElements.Container:FindFirstChild"UIListLayout"
-if aC then
-ak.LayoutOrder=-1
-end
-end
-end
-end
-
-function af.SetImage(az,aA,aB,aC,aD)
-af.Image=aA
-if aB then
-af.ImageSize=aB
-ag=aB
-end
-if aC~=nil then
-af.Color=aC
-end
-if aD~=nil then
-af.IconThemed=aD
-end
-
-if al then
-if aA then
-al.Size=UDim2.new(0,ag,0,ag)
-aa.UpdateImage(al,aA,af.Title)
-
-if typeof(af.Color)=="string"then
-al.ImageLabel.ImageColor3=GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-elseif typeof(af.Color)=="Color3"then
-al.ImageLabel.ImageColor3=GetTextColorForHSB(af.Color)
-elseif not af.Color then
-al.ImageLabel.ImageColor3=Color3.new(1,1,1)
-end
-
-al.Visible=true
-aj=ag
-else
-al.Visible=false
-aj=0
-end
-else
-if aA then
-al=aa.Image(
-aA,
-af.Title,
-af.UICorner-3,
-ae.Window.Folder,
-"Image",
-not af.Color and true or false
-)
-
-if typeof(af.Color)=="string"then
-al.ImageLabel.ImageColor3=GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))
-elseif typeof(af.Color)=="Color3"then
-al.ImageLabel.ImageColor3=GetTextColorForHSB(af.Color)
-end
-
-al.Size=UDim2.new(0,ag,0,ag)
-aj=ag
-
-local aE=af.UIElements.Container:FindFirstChild"Frame"
-if aE then
-al.Parent=aE
-local b=aE:FindFirstChild"UIListLayout"
-if b then
-al.LayoutOrder=0
-end
-end
-end
-end
-
-
-
-
-
-
-
-
-end
-
-function af.Destroy(az)
-ax:Destroy()
-end
-
-
-function af.Lock(az)
-ai=false
-ar.Active=true
-ar.Visible=true
-end
-
-function af.Unlock(az)
-ai=true
-ar.Active=false
-ar.Visible=false
-end
-
-function af.Highlight(az)
-local aA=ab("UIGradient",{
-Color=ColorSequence.new{
-ColorSequenceKeypoint.new(0,Color3.new(1,1,1)),
-ColorSequenceKeypoint.new(0.5,Color3.new(1,1,1)),
-ColorSequenceKeypoint.new(1,Color3.new(1,1,1))
-},
-Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,1),
-NumberSequenceKeypoint.new(0.1,0.9),
-NumberSequenceKeypoint.new(0.5,0.3),
-NumberSequenceKeypoint.new(0.9,0.9),
-NumberSequenceKeypoint.new(1,1)
-},
-Rotation=0,
-Offset=Vector2.new(-1,0),
-Parent=at
-})
-
-local aB=ab("UIGradient",{
-Color=ColorSequence.new{
-ColorSequenceKeypoint.new(0,Color3.new(1,1,1)),
-ColorSequenceKeypoint.new(0.5,Color3.new(1,1,1)),
-ColorSequenceKeypoint.new(1,Color3.new(1,1,1))
-},
-Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,1),
-NumberSequenceKeypoint.new(0.15,0.8),
-NumberSequenceKeypoint.new(0.5,0.1),
-NumberSequenceKeypoint.new(0.85,0.8),
-NumberSequenceKeypoint.new(1,1)
-},
-Rotation=0,
-Offset=Vector2.new(-1,0),
-Parent=av
-})
-
-at.ImageTransparency=0.25
-av.ImageTransparency=0.88
-
-ad(aA,0.75,{
-Offset=Vector2.new(1,0)
-}):Play()
-
-ad(aB,0.75,{
-Offset=Vector2.new(1,0)
-}):Play()
-
-
-task.spawn(function()
-task.wait(.75)
-at.ImageTransparency=1
-av.ImageTransparency=1
-aA:Destroy()
-aB:Destroy()
-end)
-end
-
-
-function af.UpdateShape(az)
-if ae.Window.NewElements then
-local aA=getElementPosition(az.Elements,af.Index)
-if aA and ax then
-ay:SetType(aA)
-as:SetType(aA)
-aw:SetType(aA)
-au:SetType(aA.."-Outline")
-end
-end
-end
-
-
-
-
-
-return af
-end end function a.z()
+end function a.z()
 local aa=a.load'a'
 local ab=aa.New
 
@@ -11210,7 +10583,7 @@ end
 end
 
 return ar
-end end
+end end end
 local ac={
 Window=nil,
 Theme=nil,
