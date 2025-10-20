@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1111
 ]]
 
 
@@ -4596,7 +4596,12 @@ if af.Hover then
         end
     end)
 
-    -- Scale
+    local us = h.UIElements.Main:FindFirstChildOfClass("UIScale")
+    if not us then
+        us = Instance.new("UIScale")
+        us.Parent = h.UIElements.Main
+        us.Scale = 1
+    end
     if af.Scalable then
         aa.AddSignal(ax.MouseButton1Down,function()
             if ai then
