@@ -10,9 +10,9 @@
     To view the source code, see the `src/` folder on the official GitHub repository.
     
     Author: Footagesus (Footages, .ftgs, oftgs)
-    Github: https://github.com/Footagesus/WindUI ๅ-ๅ-ๅ/-
+    Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1313124
 ]]
 
 
@@ -4901,8 +4901,8 @@ if af.Desc and af.Desc ~= "" then
     -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
     local titleFrame = ah.UIElements.Container.TitleFrame.TitleFrame
     local UIListLayoutPadding = ah.UIElements.Container.UIListLayout
-    if UIListLayout then
-    UIListLayout.Padding = UDim.new(0, 10)
+    if UIListLayoutPadding then
+    UIListLayoutPadding.Padding = UDim.new(0, 10)
     end
     if titleFrame then
         for _, child in ipairs(titleFrame:GetChildren()) do
