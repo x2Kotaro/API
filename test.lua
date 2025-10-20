@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1111
+    License: MIT
 ]]
 
 
@@ -4584,33 +4584,38 @@ af.UIElements.Main=ax
 af.UIElements.Locked=ar
 
 if af.Hover then
-    -- Highlight
-    aa.AddSignal(ax.MouseEnter,function()
+    -- Hover Highlight
+    aa.AddSignal(ax.MouseEnter, function()
         if ai then
-            ad(ax,.05,{ImageTransparency=af.Color and .15 or .9}):Play()
-        end
-    end)
-    aa.AddSignal(ax.InputEnded,function()
-        if ai then
-            ad(ax,.05,{ImageTransparency=af.Color and .05 or .93}):Play()
+            ad(ax, 0.047, {ImageTransparency = af.Color and 0.15 or 0.9}):Play()
         end
     end)
 
-    local us = h.UIElements.Main:FindFirstChildOfClass("UIScale")
+    aa.AddSignal(ax.InputEnded, function()
+        if ai then
+            ad(ax, 0.066, {ImageTransparency = af.Color and 0.05 or 0.93}):Play()
+        end
+    end)
+
+    -- หา หรือ สร้าง UIScale
+    local us = ax:FindFirstChildOfClass("UIScale")
     if not us then
         us = Instance.new("UIScale")
-        us.Parent = h.UIElements.Main
+        us.Parent = ax
         us.Scale = 1
     end
+
+    -- Click Scale effect
     if af.Scalable then
-        aa.AddSignal(ax.MouseButton1Down,function()
+        aa.AddSignal(ax.MouseButton1Down, function()
             if ai then
-                ad(ax,0.07,{Scale=0.985}):Play()
+                ad(us, 0.07, {Scale = 0.985}, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out):Play()
             end
         end)
-        aa.AddSignal(ax.InputEnded,function()
+
+        aa.AddSignal(ax.InputEnded, function()
             if ai then
-                ad(ax,0.175,{Scale=1}):Play()
+                ad(us, 0.175, {Scale = 1}, Enum.EasingStyle.Back, Enum.EasingDirection.Out):Play()
             end
         end)
     end
