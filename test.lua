@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1
+    License: MIT
 ]]
 
 
@@ -4584,16 +4584,31 @@ af.UIElements.Main=ax
 af.UIElements.Locked=ar
 
 if af.Hover then
-aa.AddSignal(ax.MouseEnter,function()
-if ai then
-ad(ax,.05,{ImageTransparency=af.Color and.15 or.9}):Play()
-end
-end)
-aa.AddSignal(ax.InputEnded,function()
-if ai then
-ad(ax,.05,{ImageTransparency=af.Color and.05 or.93}):Play()
-end
-end)
+    -- Highlight
+    aa.AddSignal(ax.MouseEnter,function()
+        if ai then
+            ad(ax,.05,{ImageTransparency=af.Color and .15 or .9}):Play()
+        end
+    end)
+    aa.AddSignal(ax.InputEnded,function()
+        if ai then
+            ad(ax,.05,{ImageTransparency=af.Color and .05 or .93}):Play()
+        end
+    end)
+
+    -- Scale
+    if af.Scalable then
+        aa.AddSignal(ax.MouseButton1Down,function()
+            if ai then
+                ad(ax,0.07,{Scale=0.985}):Play()
+            end
+        end)
+        aa.AddSignal(ax.InputEnded,function()
+            if ai then
+                ad(ax,0.175,{Scale=1}):Play()
+            end
+        end)
+    end
 end
 
 function af.SetTitle(az,aA)
@@ -5018,7 +5033,7 @@ Color=af.Color,
 Justify=af.Justify,
 TextOffset=20,
 Hover=true,
-Scalable=false,
+Scalable=true,
 Tab=ae.Tab,
 Index=ae.Index,
 ElementTable=af,
