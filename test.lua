@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1
 ]]
 
 
@@ -4887,6 +4887,10 @@ local descWrapperLabel = nil
 if af.Desc and af.Desc ~= "" then
     -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
     local titleFrame = ah.UIElements.Container.TitleFrame.TitleFrame
+    local UIListLayoutPadding = ah.UIElements.Container.UIListLayout
+    if UIListLayout then
+    UIListLayout.Padding = UDim.new(0, 10)
+    end
     if titleFrame then
         for _, child in ipairs(titleFrame:GetChildren()) do
             if child:IsA("TextLabel") and child.Name == "TextLabel" and child.LayoutOrder ~= -1 then
@@ -5014,7 +5018,7 @@ Color=af.Color,
 Justify=af.Justify,
 TextOffset=20,
 Hover=true,
-Scalable=true,
+Scalable=false,
 Tab=ae.Tab,
 Index=ae.Index,
 ElementTable=af,
@@ -5330,7 +5334,8 @@ Desc=ai.Desc,
 Window=ah.Window,
 Parent=ah.Parent,
 TextOffset=44,
-Hover=false,
+Hover=true,
+Scalable = true,
 Tab=ah.Tab,
 Index=ah.Index,
 ElementTable=ai,
