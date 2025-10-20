@@ -10,7 +10,7 @@
     To view the source code, see the `src/` folder on the official GitHub repository.
     
     Author: Footagesus (Footages, .ftgs, oftgs)
-    Github: https://github.com/Footagesus/WindUI
+    Github: https://github.com/Footagesus/WindUI ๅ-ๅ-ๅ/-
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
     License: MIT
 ]]
@@ -4555,9 +4555,6 @@ local ax,ay=ac(af.UICorner,"Squircle",{
 Size=UDim2.new(1,0,0,0),
 AutomaticSize="Y",
 ImageTransparency=af.Color and.05 or.93,
-
-
-
 Parent=ae.Parent,
 ThemeTag={
 ImageColor3=not af.Color and"Text"or nil
@@ -4570,6 +4567,7 @@ or typeof(af.Color)=="Color3"
 and af.Color
 )or nil
 },{
+ab("UIScale",{Scale=1}),
 af.UIElements.Container,
 aq,
 ab("UIPadding",{
@@ -4584,41 +4582,31 @@ af.UIElements.Main=ax
 af.UIElements.Locked=ar
 
 if af.Hover then
-    -- Hover Highlight
-    aa.AddSignal(ax.MouseEnter, function()
+    aa.AddSignal(ax.MouseEnter,function()
         if ai then
-            ad(ax, 0.047, {ImageTransparency = af.Color and 0.15 or 0.9}):Play()
+            ad(ax,.05,{ImageTransparency=af.Color and.15 or.9}):Play()
         end
     end)
-
-    aa.AddSignal(ax.InputEnded, function()
+    
+    aa.AddSignal(ax.MouseButton1Down,function()
         if ai then
-            ad(ax, 0.066, {ImageTransparency = af.Color and 0.05 or 0.93}):Play()
+            n=true
+            if af.Scalable then
+                ad(ax.UIScale,0.07,{Scale=0.985},Enum.EasingStyle.Exponential,Enum.EasingDirection.Out):Play()
+            end
         end
     end)
-
-    -- หา หรือ สร้าง UIScale
-    local us = ax:FindFirstChildOfClass("UIScale")
-    if not us then
-        us = Instance.new("UIScale")
-        us.Parent = ax
-        us.Scale = 1
-    end
-
-    -- Click Scale effect
-    if af.Scalable then
-        aa.AddSignal(ax.MouseButton1Down, function()
-            if ai then
-                ad(us, 0.07, {Scale = 0.985}, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out):Play()
+    
+    aa.AddSignal(ax.InputEnded,function()
+        if ai then
+            ad(ax,.05,{ImageTransparency=af.Color and.05 or.93}):Play()
+            if af.Scalable then
+                ad(ax.UIScale,0.175,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
             end
-        end)
-
-        aa.AddSignal(ax.InputEnded, function()
-            if ai then
-                ad(us, 0.175, {Scale = 1}, Enum.EasingStyle.Back, Enum.EasingDirection.Out):Play()
-            end
-        end)
-    end
+            task.wait(0.16)
+            n=false
+        end
+    end)
 end
 
 function af.SetTitle(az,aA)
