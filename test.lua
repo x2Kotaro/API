@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1313124
+    License: MIT
 ]]
 
 
@@ -4902,7 +4902,7 @@ if af.Desc and af.Desc ~= "" then
     local titleFrame = ah.UIElements.Container.TitleFrame.TitleFrame
     local UIListLayoutPadding = ah.UIElements.Container.UIListLayout
     if UIListLayoutPadding then
-    UIListLayoutPadding.Padding = UDim.new(0, 10)
+    UIListLayoutPadding.Padding = UDim.new(0, 7)
     end
     if titleFrame then
         for _, child in ipairs(titleFrame:GetChildren()) do
