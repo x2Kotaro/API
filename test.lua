@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 14
+    License: MIT
 ]]
 
 
@@ -7711,7 +7711,7 @@ TextTransparency=ak.TextTransparency or 0.05,
 Opened=ak.Opened or false,
 UIElements={},
 
-HeaderSize=33,
+HeaderSize=29,
 IconSize=20,
 Padding=10,
 
