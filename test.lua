@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 11
+    License: MIT
 ]]
 
 
@@ -5375,10 +5375,6 @@ UIElements={}
 ai.ToggleFrame=a.load'y'{
 Title=ai.Title,
 Desc=ai.Desc,
-
-
-
-
 Window=ah.Window,
 Parent=ah.Parent,
 TextOffset=44,
@@ -5435,6 +5431,12 @@ end
 end
 
 ai:Set(ak,false)
+
+if ak then
+    task.defer(function()
+        aa.SafeCallback(ai.Callback, ak)
+    end)
+end
 
 aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Click,function()
 ai:Set(not ak)
