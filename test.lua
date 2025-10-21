@@ -3971,82 +3971,118 @@ function af.Visible(an,ao)
 ak.Visible=ao
 end
 
-function af.Edit(an,ao)
-local ap={
-Title=ao.Title,
-Icon=ao.Icon,
-Enabled=ao.Enabled,
-Position=ao.Position,
-OnlyIcon=ao.OnlyIcon or false,
-Draggable=ao.Draggable or nil,
-OnlyMobile=ao.OnlyMobile,
-CornerRadius=ao.CornerRadius or UDim.new(1,0),
-StrokeThickness=ao.StrokeThickness or 2,
-Color=ao.Color
-or ColorSequence.new(Color3.fromHex"40c9ff",Color3.fromHex"e81cff"),
-}
+luafunction af.Edit(an, ao)
+    local ap = {
+        Title = ao.Title,
+        Icon = ao.Icon,
+        Enabled = ao.Enabled,
+        Position = ao.Position,
+        OnlyIcon = ao.OnlyIcon or false,
+        Draggable = ao.Draggable or nil,
+        OnlyMobile = ao.OnlyMobile,
+        CornerRadius = ao.CornerRadius or UDim.new(1, 0),
+        StrokeThickness = ao.StrokeThickness or 2,
+        Color = ao.Color or ColorSequence.new(
+            Color3.fromHex"40c9ff", 
+            Color3.fromHex"e81cff"
+        ),
+    }
 
+    -- ✅ แก้ไข: จัดการ Enabled ให้ถูกต้อง
+    if ap.Enabled ~= nil then
+        if ap.Enabled == false then
+            -- ซ่อนปุ่ม
+            ae.IsOpenButtonEnabled = false
+            ak.Visible = false
+            af.Button.Visible = false
+        else
+            -- แสดงปุ่ม
+            ae.IsOpenButtonEnabled = true
+            ak.Visible = true
+            af.Button.Visible = true
+        end
+    end
 
+    -- ✅ แก้ไข: จัดการ OnlyMobile ให้ถูกต้อง
+    if ap.OnlyMobile == nil then
+        ap.OnlyMobile = true  -- default
+    end
 
-if ap.Enabled==false then
-ae.IsOpenButtonEnabled=false
-end
+    -- ตรวจสอบ Platform
+    local isPC = ae.IsPC or false
+    
+    if ap.OnlyMobile == true and isPC == true then
+        -- ซ่อนใน PC
+        ak.Visible = false
+        af.Button.Visible = false
+        ae.IsOpenButtonEnabled = false
+    elseif ap.OnlyMobile == false then
+        -- แสดงทุก Platform (ถ้า Enabled ไม่ได้เป็น false)
+        if ap.Enabled ~= false then
+            ak.Visible = true
+            af.Button.Visible = true
+            ae.IsOpenButtonEnabled = true
+        end
+    end
 
-if ap.OnlyMobile~=false then
-ap.OnlyMobile=true
-else
-ae.IsPC=false
-end
+    -- ✅ เพิ่ม: Override Enabled ถ้าต้องการบังคับซ่อน
+    if ap.Enabled == false then
+        ak.Visible = false
+        af.Button.Visible = false
+        ae.IsOpenButtonEnabled = false
+    end
 
+    -- Position
+    if ap.Position and ak then
+        ak.Position = ap.Position
+    end
 
-if ap.Draggable==false and ai and aj then
-ai.Visible=ap.Draggable
-aj.Visible=ap.Draggable
+    -- Draggable
+    if ap.Draggable == false and ai and aj then
+        ai.Visible = ap.Draggable
+        aj.Visible = ap.Draggable
+        if am then
+            am:Set(ap.Draggable)
+        end
+    end
 
-if am then
-am:Set(ap.Draggable)
-end
-end
+    -- OnlyIcon
+    if ap.OnlyIcon == true and ah then
+        ah.Visible = false
+        al.TextButton.UIPadding.PaddingLeft = UDim.new(0, 7)
+        al.TextButton.UIPadding.PaddingRight = UDim.new(0, 7)
+    elseif ap.OnlyIcon == false then
+        ah.Visible = true
+        al.TextButton.UIPadding.PaddingLeft = UDim.new(0, 11)
+        al.TextButton.UIPadding.PaddingRight = UDim.new(0, 11)
+    end
 
-if ap.Position and ak then
-ak.Position=ap.Position
-end
+    -- Title
+    if ah then
+        if ap.Title then
+            ah.Text = ap.Title
+            ab:ChangeTranslationKey(ah, ap.Title)
+        end
+    end
 
-if ap.OnlyIcon==true and ah then
-ah.Visible=false
-al.TextButton.UIPadding.PaddingLeft=UDim.new(0,7)
-al.TextButton.UIPadding.PaddingRight=UDim.new(0,7)
-elseif ap.OnlyIcon==false then
-ah.Visible=true
-al.TextButton.UIPadding.PaddingLeft=UDim.new(0,11)
-al.TextButton.UIPadding.PaddingRight=UDim.new(0,11)
-end
+    -- Icon
+    if ap.Icon then
+        af:SetIcon(ap.Icon)
+    end
 
+    -- Colors
+    al.UIStroke.UIGradient.Color = ap.Color
+    if Glow then
+        Glow.UIGradient.Color = ap.Color
+    end
 
-
-
-
-if ah then
-if ap.Title then
-ah.Text=ap.Title
-ab:ChangeTranslationKey(ah,ap.Title)
-elseif ap.Title==nil then
-
-end
-end
-
-if ap.Icon then
-af:SetIcon(ap.Icon)
-end
-
-al.UIStroke.UIGradient.Color=ap.Color
-if Glow then
-Glow.UIGradient.Color=ap.Color
-end
-
-al.UICorner.CornerRadius=ap.CornerRadius
-al.TextButton.UICorner.CornerRadius=UDim.new(ap.CornerRadius.Scale,ap.CornerRadius.Offset-4)
-al.UIStroke.Thickness=ap.StrokeThickness
+    -- Corner & Stroke
+    al.UICorner.CornerRadius = ap.CornerRadius
+    al.TextButton.UICorner.CornerRadius = UDim.new(
+        ap.CornerRadius.Scale, 
+        ap.CornerRadius.Offset - 4
+    )
+    al.UIStroke.Thickness = ap.StrokeThickness
 end
 
 return af
