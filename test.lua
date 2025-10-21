@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1
 ]]
 
 
@@ -2891,11 +2891,11 @@ Name="Dark",
 
 Accent=Color3.fromHex"#18181b",
 Dialog=Color3.fromHex"#161616",
-Outline=Color3.fromHex"#FFFFFF",
+Outline=Color3.fromHex"#000000",
 Text=Color3.fromHex"#FFFFFF",
 Placeholder=Color3.fromHex"#7a7a7a",
 Background=Color3.fromHex"#101010",
-Button=Color3.fromHex"#52525b",
+Button=Color3.fromHex"#FFFFFF",
 Icon=Color3.fromHex"#a1a1aa"
 },
 Light={
