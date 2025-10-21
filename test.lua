@@ -13,7 +13,7 @@
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
     License: MIT
-]]
+]] 1
 
 
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()local b=game:GetService"RunService"local d=
@@ -5296,27 +5296,51 @@ NumberSequenceKeypoint.new(1,1),
 ak,
 })
 
-function ai.Set(am,an)
-if an then
-ad(al.Layer,0.06,{
-ImageTransparency=0,
-}):Play()
-ad(al.Stroke,0.06,{
-ImageTransparency=0.95,
-}):Play()
-ad(ak,0.06,{
-ImageTransparency=0,
-}):Play()
-else
-ad(al.Layer,0.05,{
-ImageTransparency=1,
-}):Play()
-ad(al.Stroke,0.05,{
-ImageTransparency=1,
-}):Play()
-ad(ak,0.06,{
-ImageTransparency=1,
-}):Play()
+function ai.Set(am, an, ao)
+    if an then
+        -- ถ้า Theme เป็น Dark → เปลี่ยน Frame เป็นสีดำ
+        if ab.Theme.Name == "Dark" then
+            ad(al.Frame, 0.15, {
+                ImageColor3 = Color3.new(0, 0, 0) -- สีดำตอน Active
+            }):Play()
+        else
+            -- ถ้าไม่ใช่ Dark ให้ใช้สีปกติ (ขาวหรือ Button)
+            ad(al.Frame, 0.15, {
+                ImageColor3 = Color3.new(1, 1, 1)
+            }):Play()
+        end
+
+        ad(al.Frame, 0.15, {
+            Position = UDim2.new(1, -22, 0.5, 0),
+        }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+
+        ad(al.Layer, 0.1, { ImageTransparency = 0 }):Play()
+        ad(al.Stroke, 0.1, { ImageTransparency = 0.95 }):Play()
+
+        if ak then
+            ad(ak, 0.1, { ImageTransparency = 0 }):Play()
+        end
+    else
+        -- ปิด toggle → กลับเป็นสีปกติ
+        ad(al.Frame, 0.15, {
+            Position = UDim2.new(0, 4, 0.5, 0),
+            ImageColor3 = Color3.new(1, 1, 1), -- คืนค่าเดิม
+        }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+
+        ad(al.Layer, 0.1, { ImageTransparency = 1 }):Play()
+        ad(al.Stroke, 0.1, { ImageTransparency = 1 }):Play()
+
+        if ak then
+            ad(ak, 0.1, { ImageTransparency = 1 }):Play()
+        end
+    end
+
+    if ao ~= false then ao = true end
+    task.spawn(function()
+        if ah and ao then
+            ab.SafeCallback(ah, an)
+        end
+    end)
 end
 
 task.spawn(function()
