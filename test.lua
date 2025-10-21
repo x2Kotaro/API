@@ -5104,6 +5104,8 @@ local ad=ab.Tween
 function aa.New(ae,af,ag,ah)
 local ai={}
 
+-- ตรวจสอบว่าใช้ Dark Theme หรือไม่
+local isDarkTheme = ab.Theme and ab.Theme.Name == "Dark"
 
 local aj=13
 local ak
@@ -5117,7 +5119,8 @@ Image=ab.Icon(af)[1],
 ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
 ImageRectSize=ab.Icon(af)[2].ImageRectSize,
 ImageTransparency=1,
-ImageColor3=Color3.new(0,0,0),
+-- เปลี่ยนสี Icon เป็นขาวสำหรับ Dark Theme
+ImageColor3=isDarkTheme and Color3.new(1,1,1) or Color3.new(0,0,0),
 })
 end
 
@@ -5132,9 +5135,11 @@ Size=UDim2.new(0,41.6,0,26),
 ab.NewRoundFrame(aj,"Squircle",{
 Size=UDim2.new(1,0,1,0),
 Name="Layer",
-ThemeTag={
+-- ถ้าเป็น Dark Theme ให้ใช้สีขาว ไม่งั้นใช้ Button
+ThemeTag=isDarkTheme and {} or {
 ImageColor3="Button",
 },
+ImageColor3=isDarkTheme and Color3.new(1,1,1) or nil,
 ImageTransparency=1,
 }),
 ab.NewRoundFrame(aj,"SquircleOutline",{
@@ -5158,7 +5163,8 @@ Size=UDim2.new(0,18,0,18),
 Position=UDim2.new(0,3,0.5,0),
 AnchorPoint=Vector2.new(0,0.5),
 ImageTransparency=0,
-ImageColor3=Color3.new(1,1,1),
+-- Frame เป็นสีดำสำหรับ Dark Theme
+ImageColor3=isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1),
 
 
 
@@ -5221,7 +5227,9 @@ return al,ai
 end
 
 
-return aa end function a.C()
+return aa end 
+
+function a.C()
 local aa={}
 
 local ab=a.load'a'
@@ -5234,6 +5242,9 @@ local ai={}
 
 af=af or"check"
 
+-- ตรวจสอบว่าใช้ Dark Theme หรือไม่
+local isDarkTheme = ab.Theme and ab.Theme.Name == "Dark"
+
 local aj=10
 local ak=ac("ImageLabel",{
 Size=UDim2.new(1,-10,1,-10),
@@ -5244,7 +5255,8 @@ Image=ab.Icon(af)[1],
 ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
 ImageRectSize=ab.Icon(af)[2].ImageRectSize,
 ImageTransparency=1,
-ImageColor3=Color3.new(1,1,1),
+-- Icon เป็นสีขาวสำหรับ Dark Theme
+ImageColor3=isDarkTheme and Color3.new(1,1,1) or Color3.new(1,1,1),
 })
 
 local al=ab.NewRoundFrame(aj,"Squircle",{
@@ -5258,9 +5270,11 @@ Size=UDim2.new(0,27,0,27),
 ab.NewRoundFrame(aj,"Squircle",{
 Size=UDim2.new(1,0,1,0),
 Name="Layer",
-ThemeTag={
+-- ถ้าเป็น Dark Theme ให้ใช้สีขาว ไม่งั้นใช้ Button
+ThemeTag=isDarkTheme and {} or {
 ImageColor3="Button",
 },
+ImageColor3=isDarkTheme and Color3.new(1,1,1) or nil,
 ImageTransparency=1,
 }),
 ab.NewRoundFrame(aj,"SquircleOutline",{
