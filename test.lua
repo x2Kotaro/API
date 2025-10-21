@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT123123
+    License: MIT
 ]]
 
 
@@ -5095,214 +5095,183 @@ end
 
 return ac end 
 function a.B()
-local aa={}
+    local aa = {}
+    local ab = a.load'a'
+    local ac = ab.New
+    local ad = ab.Tween
 
-local ab=a.load'a'
-local ac=ab.New
-local ad=ab.Tween
+    function aa.New(ae, af, ag, ah)
+        local ai = {}
 
+        -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
+        local isDarkTheme = (ab.Theme.Name == "Dark")
 
-function aa.New(ae,af,ag,ah)
-local ai={}
+        local aj = 13
+        local ak
+        if af and af ~= "" then
+            ak = ac("ImageLabel", {
+                Size = UDim2.new(1, -7, 1, -7),
+                BackgroundTransparency = 1,
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                Position = UDim2.new(0.5, 0, 0.5, 0),
+                Image = ab.Icon(af)[1],
+                ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
+                ImageRectSize = ab.Icon(af)[2].ImageRectSize,
+                ImageTransparency = 1,
+                ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
+            })
+        end
 
-local isDarkTheme = (ab.Theme.Name == "Dark")
-
--- Icon
-if af and af~="" then
-    ak = ac("ImageLabel", {
-        Size = UDim2.new(1, -7, 1, -7),
-        BackgroundTransparency = 1,
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Position = UDim2.new(0.5, 0, 0.5, 0),
-        Image = ab.Icon(af)[1],
-        ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
-        ImageRectSize = ab.Icon(af)[2].ImageRectSize,
-        ImageTransparency = 1,
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button, -- บังคับสี
-    })
-end
-
-local al = ab.NewRoundFrame(aj, "Squircle", {
-    ImageTransparency = 0.93,
-    ThemeTag = { ImageColor3 = "Text" },
-    Parent = ag,
-    Size = UDim2.new(0, 41.6, 0, 26),
-}, {
-    -- Layer
-    ab.NewRoundFrame(aj, "Squircle", {
-        Size = UDim2.new(1,0,1,0),
-        Name = "Layer",
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button, -- ขาวเฉพาะ Dark
-        ImageTransparency = 1,
-    }),
-    -- Stroke
-    ab.NewRoundFrame(aj, "SquircleOutline", {
-        Size = UDim2.new(1,0,1,0),
-        Name = "Stroke",
-        ImageColor3 = Color3.new(1,1,1),
-        ImageTransparency = 1,
-    }, {
-        ac("UIGradient", {
-            Rotation = 90,
-            Transparency = NumberSequence.new{ NumberSequenceKeypoint.new(0,0), NumberSequenceKeypoint.new(1,1) }
+        local al = ab.NewRoundFrame(aj, "Squircle", {
+            ImageTransparency = 0.93,
+            ThemeTag = { ImageColor3 = "Text" },
+            Parent = ag,
+            Size = UDim2.new(0, 41.6, 0, 26),
+        }, {
+            -- Layer
+            ab.NewRoundFrame(aj, "Squircle", {
+                Size = UDim2.new(1,0,1,0),
+                Name = "Layer",
+                ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
+                ImageTransparency = 1,
+            }),
+            -- Stroke
+            ab.NewRoundFrame(aj, "SquircleOutline", {
+                Size = UDim2.new(1,0,1,0),
+                Name = "Stroke",
+                ImageColor3 = Color3.new(1,1,1),
+                ImageTransparency = 1,
+            }, {
+                ac("UIGradient", {
+                    Rotation = 90,
+                    Transparency = NumberSequence.new{ NumberSequenceKeypoint.new(0,0), NumberSequenceKeypoint.new(1,1) }
+                })
+            }),
+            -- Frame
+            ab.NewRoundFrame(aj, "Squircle", {
+                Size = UDim2.new(0,18,0,18),
+                Position = UDim2.new(0,3,0.5,0),
+                AnchorPoint = Vector2.new(0,0.5),
+                ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1),
+                ImageTransparency = 0,
+                Name = "Frame",
+            }, { ak })
         })
-    }),
-    -- Frame
-    ab.NewRoundFrame(aj, "Squircle", {
-        Size = UDim2.new(0,18,0,18),
-        Position = UDim2.new(0,3,0.5,0),
-        AnchorPoint = Vector2.new(0,0.5),
-        ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1), -- ดำเฉพาะ Dark
-        ImageTransparency = 0,
-        Name = "Frame",
-    }, { ak })
-})
 
-function ai.Set(am, an, ao)
-    if an then
-        -- ถ้า Theme เป็น Dark → เปลี่ยน Frame เป็นสีดำ
-        if ab.Theme.Name == "Dark" then
-            ad(al.Frame, 0.15, {
-                ImageColor3 = Color3.new(0, 0, 0) -- สีดำตอน Active
-            }):Play()
-        else
-            -- ถ้าไม่ใช่ Dark ให้ใช้สีปกติ (ขาวหรือ Button)
-            ad(al.Frame, 0.15, {
-                ImageColor3 = Color3.new(1, 1, 1)
-            }):Play()
+        function ai.Set(am, an, ao)
+            if an then
+                ad(al.Frame, 0.15, {
+                    ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1)
+                }):Play()
+                ad(al.Frame, 0.15, {
+                    Position = UDim2.new(1, -22, 0.5, 0),
+                }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                ad(al.Layer, 0.1, { ImageTransparency = 0 }):Play()
+                ad(al.Stroke, 0.1, { ImageTransparency = 0.95 }):Play()
+                if ak then ad(ak, 0.1, { ImageTransparency = 0 }):Play() end
+            else
+                ad(al.Frame, 0.15, {
+                    Position = UDim2.new(0, 4, 0.5, 0),
+                    ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1),
+                }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+                ad(al.Layer, 0.1, { ImageTransparency = 1 }):Play()
+                ad(al.Stroke, 0.1, { ImageTransparency = 1 }):Play()
+                if ak then ad(ak, 0.1, { ImageTransparency = 1 }):Play() end
+            end
+
+            if ao ~= false then ao = true end
+            task.spawn(function()
+                if ah and ao then
+                    ab.SafeCallback(ah, an)
+                end
+            end)
         end
 
-        ad(al.Frame, 0.15, {
-            Position = UDim2.new(1, -22, 0.5, 0),
-        }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
-
-        ad(al.Layer, 0.1, { ImageTransparency = 0 }):Play()
-        ad(al.Stroke, 0.1, { ImageTransparency = 0.95 }):Play()
-
-        if ak then
-            ad(ak, 0.1, { ImageTransparency = 0 }):Play()
-        end
-    else
-        -- ปิด toggle → กลับเป็นสีปกติ
-        ad(al.Frame, 0.15, {
-            Position = UDim2.new(0, 4, 0.5, 0),
-            ImageColor3 = Color3.new(1, 1, 1), -- คืนค่าเดิม
-        }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
-
-        ad(al.Layer, 0.1, { ImageTransparency = 1 }):Play()
-        ad(al.Stroke, 0.1, { ImageTransparency = 1 }):Play()
-
-        if ak then
-            ad(ak, 0.1, { ImageTransparency = 1 }):Play()
-        end
+        return al, ai
     end
 
-    if ao ~= false then ao = true end
-    task.spawn(function()
-        if ah and ao then
-            ab.SafeCallback(ah, an)
-        end
-    end)
+    return aa
 end
-
-return al,ai
-end
-
-
-return aa end 
 
 function a.C()
-local aa={}
+    local aa = {}
+    local ab = a.load'a'
+    local ac = ab.New
+    local ad = ab.Tween
 
-local ab=a.load'a'
-local ac=ab.New
-local ad=ab.Tween
+    function aa.New(ae, af, ag, ah)
+        local ai = {}
 
+        af = af or "check"
 
-function aa.New(ae,af,ag,ah)
-local ai={}
+        -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
+        local isDarkTheme = (ab.Theme.Name == "Dark")
 
-af=af or"check"
-
-local isDarkTheme = (ab.Theme.Name == "Dark")
-
-local ak=ac("ImageLabel",{
-    Size=UDim2.new(1,-10,1,-10),
-    BackgroundTransparency=1,
-    AnchorPoint=Vector2.new(0.5,0.5),
-    Position=UDim2.new(0.5,0,0.5,0),
-    Image=ab.Icon(af)[1],
-    ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
-    ImageRectSize=ab.Icon(af)[2].ImageRectSize,
-    ImageTransparency=1,
-    ImageColor3 = isDarkTheme and Color3.new(1,1,1) or nil, -- ขาวแค่ Dark Theme
-})
-
-local al=ab.NewRoundFrame(aj,"Squircle",{
-    ImageTransparency=.95,
-    ThemeTag={ ImageColor3="Text" },
-    Parent=ag,
-    Size=UDim2.new(0,27,0,27),
-},{
-    ab.NewRoundFrame(aj,"Squircle",{
-        Size=UDim2.new(1,0,1,0),
-        Name="Layer",
-        ThemeTag = isDarkTheme and {} or { ImageColor3="Button" },
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or nil, -- ขาวแค่ Dark Theme
-        ImageTransparency=1,
-    }),
-    ab.NewRoundFrame(aj,"SquircleOutline",{
-        Size=UDim2.new(1,0,1,0),
-        Name="Stroke",
-        ImageColor3=Color3.new(1,1,1),
-        ImageTransparency=1,
-    },{
-        ac("UIGradient",{
-            Rotation=90,
-            Transparency=NumberSequence.new{
-                NumberSequenceKeypoint.new(0,0),
-                NumberSequenceKeypoint.new(1,1),
-            }
+        local aj = 10
+        local ak = ac("ImageLabel", {
+            Size = UDim2.new(1,-10,1,-10),
+            BackgroundTransparency = 1,
+            AnchorPoint = Vector2.new(0.5,0.5),
+            Position = UDim2.new(0.5,0,0.5,0),
+            Image = ab.Icon(af)[1],
+            ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
+            ImageRectSize = ab.Icon(af)[2].ImageRectSize,
+            ImageTransparency = 1,
+            ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
         })
-    }),
-    ak,
-})
 
-function ai.Set(am,an)
-if an then
-ad(al.Layer,0.06,{
-ImageTransparency=0,
-}):Play()
-ad(al.Stroke,0.06,{
-ImageTransparency=0.95,
-}):Play()
-ad(ak,0.06,{
-ImageTransparency=0,
-}):Play()
-else
-ad(al.Layer,0.05,{
-ImageTransparency=1,
-}):Play()
-ad(al.Stroke,0.05,{
-ImageTransparency=1,
-}):Play()
-ad(ak,0.06,{
-ImageTransparency=1,
-}):Play()
+        local al = ab.NewRoundFrame(aj, "Squircle", {
+            ImageTransparency = .95,
+            ThemeTag = { ImageColor3="Text" },
+            Parent = ag,
+            Size = UDim2.new(0,27,0,27),
+        }, {
+            ab.NewRoundFrame(aj, "Squircle", {
+                Size = UDim2.new(1,0,1,0),
+                Name = "Layer",
+                ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
+                ImageTransparency = 1,
+            }),
+            ab.NewRoundFrame(aj, "SquircleOutline", {
+                Size = UDim2.new(1,0,1,0),
+                Name = "Stroke",
+                ImageColor3 = Color3.new(1,1,1),
+                ImageTransparency = 1,
+            }, {
+                ac("UIGradient", {
+                    Rotation = 90,
+                    Transparency = NumberSequence.new{
+                        NumberSequenceKeypoint.new(0,0),
+                        NumberSequenceKeypoint.new(1,1),
+                    }
+                })
+            }),
+            ak,
+        })
+
+        function ai.Set(am, an)
+            if an then
+                ad(al.Layer,0.06,{ImageTransparency=0}):Play()
+                ad(al.Stroke,0.06,{ImageTransparency=0.95}):Play()
+                ad(ak,0.06,{ImageTransparency=0}):Play()
+            else
+                ad(al.Layer,0.05,{ImageTransparency=1}):Play()
+                ad(al.Stroke,0.05,{ImageTransparency=1}):Play()
+                ad(ak,0.06,{ImageTransparency=1}):Play()
+            end
+            task.spawn(function()
+                if ah then
+                    ab.SafeCallback(ah,an)
+                end
+            end)
+        end
+
+        return al, ai
+    end
+
+    return aa
 end
-
-task.spawn(function()
-if ah then
-ab.SafeCallback(ah,an)
-end
-end)
-end
-
-return al,ai
-end
-
-
-return aa end function a.D()
+function a.D()
 local aa=a.load'a'local ab=
 aa.New local ac=
 aa.Tween
