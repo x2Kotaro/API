@@ -2887,28 +2887,15 @@ return aa end function a.r()
 return function(aa)
 return{
 Dark={
-Name="Dark",
-
-Accent=Color3.fromHex"#18181b",
-Dialog=Color3.fromHex"#161616",
-Outline=Color3.fromHex"#FFFFFF",
-Text=Color3.fromHex"#FFFFFF",
-Placeholder=Color3.fromHex"#7a7a7a",
-Background=Color3.fromHex"#101010",
-Button=Color3.fromHex"#52525b",
-Icon=Color3.fromHex"#a1a1aa"
-},
-Light={
-Name="Light",
-
-Accent=Color3.fromHex"#FFFFFF",
-Dialog=Color3.fromHex"#f4f4f5",
-Outline=Color3.fromHex"#09090b",
-Text=Color3.fromHex"#000000",
-Placeholder=Color3.fromHex"#555555",
-Background=Color3.fromHex"#e4e4e7",
-Button=Color3.fromHex"#18181b",
-Icon=Color3.fromHex"#52525b",
+    Name="Dark",
+    Accent=Color3.fromHex"#3b82f6",
+    Dialog=Color3.fromHex"#1a1a1a",
+    Outline=Color3.fromHex"#3b82f6",
+    Text=Color3.fromHex"#f0f0f0",
+    Placeholder=Color3.fromHex"#71717a",
+    Background=Color3.fromHex"#0a0a0a",
+    Button=Color3.fromHex"#2563eb",
+    Icon=Color3.fromHex"#60a5fa"
 },
 Rose={
 Name="Rose",
@@ -3054,56 +3041,6 @@ Background=Color3.fromHex"#1a0b2e",
 Button=Color3.fromHex"#d946ef",
 Icon=Color3.fromHex"#06b6d4",
 },
-Rainbow={
-Name="Rainbow",
-
-Accent=aa:Gradient({
-["0"]={Color=Color3.fromHex"#00ff41",Transparency=0},
-["33"]={Color=Color3.fromHex"#00ffff",Transparency=0},
-["66"]={Color=Color3.fromHex"#0080ff",Transparency=0},
-["100"]={Color=Color3.fromHex"#8000ff",Transparency=0},
-},{
-Rotation=45,
-}),
-
-Dialog=aa:Gradient({
-["0"]={Color=Color3.fromHex"#ff0080",Transparency=0},
-["25"]={Color=Color3.fromHex"#8000ff",Transparency=0},
-["50"]={Color=Color3.fromHex"#0080ff",Transparency=0},
-["75"]={Color=Color3.fromHex"#00ff80",Transparency=0},
-["100"]={Color=Color3.fromHex"#ff8000",Transparency=0},
-},{
-Rotation=135,
-}),
-
-Outline=Color3.fromHex"#ffffff",
-Text=Color3.fromHex"#ffffff",
-
-Placeholder=Color3.fromHex"#00ff80",
-
-Background=aa:Gradient({
-["0"]={Color=Color3.fromHex"#ff0040",Transparency=0},
-["20"]={Color=Color3.fromHex"#ff4000",Transparency=0},
-["40"]={Color=Color3.fromHex"#ffff00",Transparency=0},
-["60"]={Color=Color3.fromHex"#00ff40",Transparency=0},
-["80"]={Color=Color3.fromHex"#0040ff",Transparency=0},
-["100"]={Color=Color3.fromHex"#4000ff",Transparency=0},
-},{
-Rotation=90,
-}),
-
-Button=aa:Gradient({
-["0"]={Color=Color3.fromHex"#ff0080",Transparency=0},
-["25"]={Color=Color3.fromHex"#ff8000",Transparency=0},
-["50"]={Color=Color3.fromHex"#ffff00",Transparency=0},
-["75"]={Color=Color3.fromHex"#80ff00",Transparency=0},
-["100"]={Color=Color3.fromHex"#00ffff",Transparency=0},
-},{
-Rotation=60,
-}),
-
-Icon=Color3.fromHex"#ffffff",
-}
 }
 end end function a.s()
 local aa={}
@@ -5095,182 +5032,326 @@ end
 
 return ac end 
 function a.B()
-    local aa = {}
-    local ab = a.load'a'
-    local ac = ab.New
-    local ad = ab.Tween
+local aa=a.load'b'local ab=
+aa.New
 
-    function aa.New(ae, af, ag, ah)
-        local ai = {}
+local ac={}
 
-        -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
-        local isDarkTheme = (ab.Theme.Name == "Dark")
+function ac.New(ad,ae)
+local af={
+__type="Button",
+Title=ae.Title or"Button",
+Desc=ae.Desc or nil,
+Icon=ae.Icon or"mouse-pointer-click",
+IconThemed=ae.IconThemed or false,
+Color=ae.Color,
+Justify=ae.Justify or"Between",
+IconAlign=ae.IconAlign or"Right",
+Locked=ae.Locked or false,
+Callback=ae.Callback or function()end,
+UIElements={}
+}
 
-        local aj = 13
-        local ak
-        if af and af ~= "" then
-            ak = ac("ImageLabel", {
-                Size = UDim2.new(1, -7, 1, -7),
-                BackgroundTransparency = 1,
-                AnchorPoint = Vector2.new(0.5, 0.5),
-                Position = UDim2.new(0.5, 0, 0.5, 0),
-                Image = ab.Icon(af)[1],
-                ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
-                ImageRectSize = ab.Icon(af)[2].ImageRectSize,
-                ImageTransparency = 1,
-                ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
-            })
-        end
+local ag=true
 
-        local al = ab.NewRoundFrame(aj, "Squircle", {
-            ImageTransparency = 0.93,
-            ThemeTag = { ImageColor3 = "Text" },
-            Parent = ag,
-            Size = UDim2.new(0, 41.6, 0, 26),
-        }, {
-            -- Layer
-            ab.NewRoundFrame(aj, "Squircle", {
-                Size = UDim2.new(1,0,1,0),
-                Name = "Layer",
-                ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
-                ImageTransparency = 1,
-            }),
-            -- Stroke
-            ab.NewRoundFrame(aj, "SquircleOutline", {
-                Size = UDim2.new(1,0,1,0),
-                Name = "Stroke",
-                ImageColor3 = Color3.new(1,1,1),
-                ImageTransparency = 1,
-            }, {
-                ac("UIGradient", {
-                    Rotation = 90,
-                    Transparency = NumberSequence.new{ NumberSequenceKeypoint.new(0,0), NumberSequenceKeypoint.new(1,1) }
-                })
-            }),
-            -- Frame
-            ab.NewRoundFrame(aj, "Squircle", {
-                Size = UDim2.new(0,18,0,18),
-                Position = UDim2.new(0,3,0.5,0),
-                AnchorPoint = Vector2.new(0,0.5),
-                ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1),
-                ImageTransparency = 0,
-                Name = "Frame",
-            }, { ak })
-        })
+af.ButtonFrame=a.load'z'{
+Title=af.Title,
+Desc=af.Desc,
+Parent=ae.Parent,
 
-        function ai.Set(am, an, ao)
-            if an then
-                ad(al.Frame, 0.15, {
-                    ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1)
-                }):Play()
-                ad(al.Frame, 0.15, {
-                    Position = UDim2.new(1, -22, 0.5, 0),
-                }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
-                ad(al.Layer, 0.1, { ImageTransparency = 0 }):Play()
-                ad(al.Stroke, 0.1, { ImageTransparency = 0.95 }):Play()
-                if ak then ad(ak, 0.1, { ImageTransparency = 0 }):Play() end
-            else
-                ad(al.Frame, 0.15, {
-                    Position = UDim2.new(0, 4, 0.5, 0),
-                    ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1),
-                }, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
-                ad(al.Layer, 0.1, { ImageTransparency = 1 }):Play()
-                ad(al.Stroke, 0.1, { ImageTransparency = 1 }):Play()
-                if ak then ad(ak, 0.1, { ImageTransparency = 1 }):Play() end
-            end
 
-            if ao ~= false then ao = true end
-            task.spawn(function()
-                if ah and ao then
-                    ab.SafeCallback(ah, an)
-                end
-            end)
-        end
 
-        return al, ai
-    end
 
-    return aa
+Window=ae.Window,
+Color=af.Color,
+Justify=af.Justify,
+TextOffset=20,
+Hover=true,
+Scalable=true,
+Tab=ae.Tab,
+Index=ae.Index,
+ElementTable=af,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+af.UIElements.ButtonIcon=aa.Image(
+af.Icon,
+af.Icon,
+0,
+ae.Window.Folder,
+"Button",
+not af.Color and true or nil,
+af.IconThemed
+)
+
+af.UIElements.ButtonIcon.Size=UDim2.new(0,20,0,20)
+af.UIElements.ButtonIcon.Parent=af.Justify=="Between"and af.ButtonFrame.UIElements.Main or af.ButtonFrame.UIElements.Container.TitleFrame
+af.UIElements.ButtonIcon.LayoutOrder=af.IconAlign=="Left"and-99999 or 99999
+af.UIElements.ButtonIcon.AnchorPoint=Vector2.new(1,0.5)
+af.UIElements.ButtonIcon.Position=UDim2.new(1,0,0.5,0)
+
+af.ButtonFrame:Colorize(af.UIElements.ButtonIcon.ImageLabel,"ImageColor3")
+
+function af.Lock(ah)
+af.Locked=true
+ag=false
+return af.ButtonFrame:Lock()
+end
+function af.Unlock(ah)
+af.Locked=false
+ag=true
+return af.ButtonFrame:Unlock()
 end
 
-function a.C()
-    local aa = {}
-    local ab = a.load'a'
-    local ac = ab.New
-    local ad = ab.Tween
-
-    function aa.New(ae, af, ag, ah)
-        local ai = {}
-
-        af = af or "check"
-
-        -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
-        local isDarkTheme = (ab.Theme.Name == "Dark")
-
-        local aj = 10
-        local ak = ac("ImageLabel", {
-            Size = UDim2.new(1,-10,1,-10),
-            BackgroundTransparency = 1,
-            AnchorPoint = Vector2.new(0.5,0.5),
-            Position = UDim2.new(0.5,0,0.5,0),
-            Image = ab.Icon(af)[1],
-            ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
-            ImageRectSize = ab.Icon(af)[2].ImageRectSize,
-            ImageTransparency = 1,
-            ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
-        })
-
-        local al = ab.NewRoundFrame(aj, "Squircle", {
-            ImageTransparency = .95,
-            ThemeTag = { ImageColor3="Text" },
-            Parent = ag,
-            Size = UDim2.new(0,27,0,27),
-        }, {
-            ab.NewRoundFrame(aj, "Squircle", {
-                Size = UDim2.new(1,0,1,0),
-                Name = "Layer",
-                ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
-                ImageTransparency = 1,
-            }),
-            ab.NewRoundFrame(aj, "SquircleOutline", {
-                Size = UDim2.new(1,0,1,0),
-                Name = "Stroke",
-                ImageColor3 = Color3.new(1,1,1),
-                ImageTransparency = 1,
-            }, {
-                ac("UIGradient", {
-                    Rotation = 90,
-                    Transparency = NumberSequence.new{
-                        NumberSequenceKeypoint.new(0,0),
-                        NumberSequenceKeypoint.new(1,1),
-                    }
-                })
-            }),
-            ak,
-        })
-
-        function ai.Set(am, an)
-            if an then
-                ad(al.Layer,0.06,{ImageTransparency=0}):Play()
-                ad(al.Stroke,0.06,{ImageTransparency=0.95}):Play()
-                ad(ak,0.06,{ImageTransparency=0}):Play()
-            else
-                ad(al.Layer,0.05,{ImageTransparency=1}):Play()
-                ad(al.Stroke,0.05,{ImageTransparency=1}):Play()
-                ad(ak,0.06,{ImageTransparency=1}):Play()
-            end
-            task.spawn(function()
-                if ah then
-                    ab.SafeCallback(ah,an)
-                end
-            end)
-        end
-
-        return al, ai
-    end
-
-    return aa
+if af.Locked then
+af:Lock()
 end
+
+aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Click,function()
+if ag then
+task.spawn(function()
+aa.SafeCallback(af.Callback)
+end)
+end
+end)
+return af.__type,af
+end
+
+return ac end function a.C()
+local aa={}
+
+local ab=a.load'b'
+local ac=ab.New
+local ad=ab.Tween
+
+
+function aa.New(ae,af,ag,ah)
+local ai={}
+
+
+local aj=13
+local ak
+if af and af~=""then
+ak=ac("ImageLabel",{
+Size=UDim2.new(1,-7,1,-7),
+BackgroundTransparency=1,
+AnchorPoint=Vector2.new(0.5,0.5),
+Position=UDim2.new(0.5,0,0.5,0),
+Image=ab.Icon(af)[1],
+ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
+ImageRectSize=ab.Icon(af)[2].ImageRectSize,
+ImageTransparency=1,
+ImageColor3=Color3.new(0,0,0),
+})
+end
+
+local al=ab.NewRoundFrame(aj,"Squircle",{
+ImageTransparency=.93,
+ThemeTag={
+ImageColor3="Text"
+},
+Parent=ag,
+Size=UDim2.new(0,41.6,0,26),
+},{
+ab.NewRoundFrame(aj,"Squircle",{
+Size=UDim2.new(1,0,1,0),
+Name="Layer",
+ThemeTag={
+ImageColor3="Button",
+},
+ImageTransparency=1,
+}),
+ab.NewRoundFrame(aj,"SquircleOutline",{
+Size=UDim2.new(1,0,1,0),
+Name="Stroke",
+ImageColor3=Color3.new(1,1,1),
+ImageTransparency=1,
+},{
+ac("UIGradient",{
+Rotation=90,
+Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0),
+NumberSequenceKeypoint.new(1,1),
+}
+})
+}),
+
+
+ab.NewRoundFrame(aj,"Squircle",{
+Size=UDim2.new(0,18,0,18),
+Position=UDim2.new(0,3,0.5,0),
+AnchorPoint=Vector2.new(0,0.5),
+ImageTransparency=0,
+ImageColor3=Color3.new(1,1,1),
+
+
+
+Name="Frame",
+},{
+ak,
+})
+})
+
+
+function ai.Set(am,an,ao)
+if an then
+ad(al.Frame,0.15,{
+Position=UDim2.new(1,-22,0.5,0),
+
+},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ad(al.Layer,0.1,{
+ImageTransparency=0,
+}):Play()
+ad(al.Stroke,0.1,{
+ImageTransparency=0.95,
+}):Play()
+
+if ak then
+ad(ak,0.1,{
+ImageTransparency=0,
+}):Play()
+end
+else
+ad(al.Frame,0.15,{
+Position=UDim2.new(0,4,0.5,0),
+Size=UDim2.new(0,18,0,18),
+},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ad(al.Layer,0.1,{
+ImageTransparency=1,
+}):Play()
+ad(al.Stroke,0.1,{
+ImageTransparency=1,
+}):Play()
+
+if ak then
+ad(ak,0.1,{
+ImageTransparency=1,
+}):Play()
+end
+end
+
+if ao~=false then ao=true end
+
+task.spawn(function()
+if ah and ao then
+ab.SafeCallback(ah,an)
+end
+end)
+
+
+end
+
+return al,ai
+end
+
+
+return aa end function a.D()
+local aa={}
+
+local ab=a.load'b'
+local ac=ab.New
+local ad=ab.Tween
+
+
+function aa.New(ae,af,ag,ah)
+local ai={}
+
+af=af or"check"
+
+local aj=10
+local ak=ac("ImageLabel",{
+Size=UDim2.new(1,-10,1,-10),
+BackgroundTransparency=1,
+AnchorPoint=Vector2.new(0.5,0.5),
+Position=UDim2.new(0.5,0,0.5,0),
+Image=ab.Icon(af)[1],
+ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
+ImageRectSize=ab.Icon(af)[2].ImageRectSize,
+ImageTransparency=1,
+ImageColor3=Color3.new(1,1,1),
+})
+
+local al=ab.NewRoundFrame(aj,"Squircle",{
+ImageTransparency=.95,
+ThemeTag={
+ImageColor3="Text"
+},
+Parent=ag,
+Size=UDim2.new(0,27,0,27),
+},{
+ab.NewRoundFrame(aj,"Squircle",{
+Size=UDim2.new(1,0,1,0),
+Name="Layer",
+ThemeTag={
+ImageColor3="Button",
+},
+ImageTransparency=1,
+}),
+ab.NewRoundFrame(aj,"SquircleOutline",{
+Size=UDim2.new(1,0,1,0),
+Name="Stroke",
+ImageColor3=Color3.new(1,1,1),
+ImageTransparency=1,
+},{
+ac("UIGradient",{
+Rotation=90,
+Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,0),
+NumberSequenceKeypoint.new(1,1),
+}
+})
+}),
+
+ak,
+})
+
+function ai.Set(am,an)
+if an then
+ad(al.Layer,0.06,{
+ImageTransparency=0,
+}):Play()
+ad(al.Stroke,0.06,{
+ImageTransparency=0.95,
+}):Play()
+ad(ak,0.06,{
+ImageTransparency=0,
+}):Play()
+else
+ad(al.Layer,0.05,{
+ImageTransparency=1,
+}):Play()
+ad(al.Stroke,0.05,{
+ImageTransparency=1,
+}):Play()
+ad(ak,0.06,{
+ImageTransparency=1,
+}):Play()
+end
+
+task.spawn(function()
+if ah then
+ab.SafeCallback(ah,an)
+end
+end)
+end
+
+return al,ai
+end
+
+
+return aa end
 function a.D()
 local aa=a.load'a'local ab=
 aa.New local ac=
