@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1
 ]]
 
 
@@ -5135,6 +5135,7 @@ local al = ab.NewRoundFrame(aj, "Squircle", {
         Size = UDim2.new(1,0,1,0),
         Name = "Layer",
         ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button, -- Layer ตาม Theme
+        ThemeTag = {},
         ImageTransparency = 1,
     }),
     -- Stroke
@@ -5241,7 +5242,7 @@ ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
 ImageRectSize=ab.Icon(af)[2].ImageRectSize,
 ImageTransparency=1,
 -- Icon เป็นสีขาวสำหรับ Dark Theme
-ImageColor3=isDarkTheme and Color3.new(1,1,1) or Color3.new(1,1,1),
+ImageColor3 = isDarkTheme and Color3.new(1,1,1) or Color3.new(0,0,0),
 })
 
 local al=ab.NewRoundFrame(aj,"Squircle",{
