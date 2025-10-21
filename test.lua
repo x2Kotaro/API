@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 11331
+    License: MIT
 ]]
 
 
@@ -5341,13 +5341,6 @@ function ai.Set(am, an, ao)
             ab.SafeCallback(ah, an)
         end
     end)
-end
-
-task.spawn(function()
-if ah then
-ab.SafeCallback(ah,an)
-end
-end)
 end
 
 return al,ai
