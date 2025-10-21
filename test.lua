@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT ๅ
+    License: MIT
 ]]
 
 
@@ -2887,16 +2887,15 @@ return aa end function a.r()
 return function(aa)
 return{
 Dark={
-Name="Dark",
-
-Accent=Color3.fromHex"#18181b",
-Dialog=Color3.fromHex"#161616",
-Outline=Color3.fromHex"#FFFFFF",
-Text=Color3.fromHex"#FFFFFF",
-Placeholder=Color3.fromHex"#7a7a7a",
-Background=Color3.fromHex"#101010",
-Button=Color3.fromHex"#52525b",
-Icon=Color3.fromHex"#a1a1aa"
+    Name="Dark",
+    Accent=Color3.fromHex"#3b82f6",      -- สีน้ำเงินสดใส
+    Dialog=Color3.fromHex"#1a1a1a",      -- เทาดำเข้มขึ้นนิด
+    Outline=Color3.fromHex"#3b82f6",     -- ใช้สีเดียวกับ Accent
+    Text=Color3.fromHex"#f0f0f0",        -- ขาวนวลตา
+    Placeholder=Color3.fromHex"#71717a", -- เทากลางๆ
+    Background=Color3.fromHex"#0a0a0a",  -- ดำสนิท
+    Button=Color3.fromHex"#2563eb",      -- น้ำเงินเข้มกว่า Accent
+    Icon=Color3.fromHex"#60a5fa"         -- น้ำเงินอ่อน
 },
 Light={
 Name="Light",
