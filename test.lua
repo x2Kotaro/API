@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1111
 ]]
 
 
@@ -2888,14 +2888,26 @@ return function(aa)
 return{
 Dark={
     Name="Dark",
-    Accent=Color3.fromHex"#3b82f6",
-    Dialog=Color3.fromHex"#1a1a1a",
-    Outline=Color3.fromHex"#3b82f6",
-    Text=Color3.fromHex"#f0f0f0",
-    Placeholder=Color3.fromHex"#71717a",
-    Background=Color3.fromHex"#0a0a0a",
-    Button=Color3.fromHex"#2563eb",
-    Icon=Color3.fromHex"#60a5fa"
+    Accent=Color3.fromHex"#3b82f6",      -- สีน้ำเงินสดใส
+    Dialog=Color3.fromHex"#1a1a1a",      -- เทาดำเข้มขึ้นนิด
+    Outline=Color3.fromHex"#3b82f6",     -- ใช้สีเดียวกับ Accent
+    Text=Color3.fromHex"#f0f0f0",        -- ขาวนวลตา
+    Placeholder=Color3.fromHex"#71717a", -- เทากลางๆ
+    Background=Color3.fromHex"#0a0a0a",  -- ดำสนิท
+    Button=Color3.fromHex"#2563eb",      -- น้ำเงินเข้มกว่า Accent
+    Icon=Color3.fromHex"#60a5fa"         -- น้ำเงินอ่อน
+},
+Light={
+Name="Light",
+
+Accent=Color3.fromHex"#FFFFFF",
+Dialog=Color3.fromHex"#f4f4f5",
+Outline=Color3.fromHex"#09090b",
+Text=Color3.fromHex"#000000",
+Placeholder=Color3.fromHex"#555555",
+Background=Color3.fromHex"#e4e4e7",
+Button=Color3.fromHex"#18181b",
+Icon=Color3.fromHex"#52525b",
 },
 Rose={
 Name="Rose",
@@ -3041,6 +3053,56 @@ Background=Color3.fromHex"#1a0b2e",
 Button=Color3.fromHex"#d946ef",
 Icon=Color3.fromHex"#06b6d4",
 },
+Rainbow={
+Name="Rainbow",
+
+Accent=aa:Gradient({
+["0"]={Color=Color3.fromHex"#00ff41",Transparency=0},
+["33"]={Color=Color3.fromHex"#00ffff",Transparency=0},
+["66"]={Color=Color3.fromHex"#0080ff",Transparency=0},
+["100"]={Color=Color3.fromHex"#8000ff",Transparency=0},
+},{
+Rotation=45,
+}),
+
+Dialog=aa:Gradient({
+["0"]={Color=Color3.fromHex"#ff0080",Transparency=0},
+["25"]={Color=Color3.fromHex"#8000ff",Transparency=0},
+["50"]={Color=Color3.fromHex"#0080ff",Transparency=0},
+["75"]={Color=Color3.fromHex"#00ff80",Transparency=0},
+["100"]={Color=Color3.fromHex"#ff8000",Transparency=0},
+},{
+Rotation=135,
+}),
+
+Outline=Color3.fromHex"#ffffff",
+Text=Color3.fromHex"#ffffff",
+
+Placeholder=Color3.fromHex"#00ff80",
+
+Background=aa:Gradient({
+["0"]={Color=Color3.fromHex"#ff0040",Transparency=0},
+["20"]={Color=Color3.fromHex"#ff4000",Transparency=0},
+["40"]={Color=Color3.fromHex"#ffff00",Transparency=0},
+["60"]={Color=Color3.fromHex"#00ff40",Transparency=0},
+["80"]={Color=Color3.fromHex"#0040ff",Transparency=0},
+["100"]={Color=Color3.fromHex"#4000ff",Transparency=0},
+},{
+Rotation=90,
+}),
+
+Button=aa:Gradient({
+["0"]={Color=Color3.fromHex"#ff0080",Transparency=0},
+["25"]={Color=Color3.fromHex"#ff8000",Transparency=0},
+["50"]={Color=Color3.fromHex"#ffff00",Transparency=0},
+["75"]={Color=Color3.fromHex"#80ff00",Transparency=0},
+["100"]={Color=Color3.fromHex"#00ffff",Transparency=0},
+},{
+Rotation=60,
+}),
+
+Icon=Color3.fromHex"#ffffff",
+}
 }
 end end function a.s()
 local aa={}
@@ -5351,14 +5413,13 @@ return al,ai
 end
 
 
-return aa end
-function a.D()
-local aa=a.load'a'local ab=
+return aa end function a.E()
+local aa=a.load'b'local ab=
 aa.New local ac=
 aa.Tween
 
-local ad=a.load'B'.New
-local ae=a.load'C'.New
+local ad=a.load'C'.New
+local ae=a.load'D'.New
 
 local af={}
 
@@ -5374,7 +5435,7 @@ Type=ah.Type or"Toggle",
 Callback=ah.Callback or function()end,
 UIElements={}
 }
-ai.ToggleFrame=a.load'y'{
+ai.ToggleFrame=a.load'z'{
 Title=ai.Title,
 Desc=ai.Desc,
 
@@ -5384,8 +5445,7 @@ Desc=ai.Desc,
 Window=ah.Window,
 Parent=ah.Parent,
 TextOffset=44,
-Hover=true,
-Scalable = true,
+Hover=false,
 Tab=ah.Tab,
 Index=ah.Index,
 ElementTable=ai,
