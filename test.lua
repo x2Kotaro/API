@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT123123
 ]]
 
 
@@ -5105,10 +5105,9 @@ local ad=ab.Tween
 function aa.New(ae,af,ag,ah)
 local ai={}
 
--- ตรวจสอบว่าเป็น Dark Theme หรือไม่
 local isDarkTheme = (ab.Theme.Name == "Dark")
 
--- ImageLabel (Icon)
+-- Icon
 if af and af~="" then
     ak = ac("ImageLabel", {
         Size = UDim2.new(1, -7, 1, -7),
@@ -5119,7 +5118,7 @@ if af and af~="" then
         ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
         ImageRectSize = ab.Icon(af)[2].ImageRectSize,
         ImageTransparency = 1,
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or nil, -- ขาวแค่ Dark Theme
+        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button, -- บังคับสี
     })
 end
 
@@ -5133,8 +5132,7 @@ local al = ab.NewRoundFrame(aj, "Squircle", {
     ab.NewRoundFrame(aj, "Squircle", {
         Size = UDim2.new(1,0,1,0),
         Name = "Layer",
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
-        ThemeTag = {},
+        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button, -- ขาวเฉพาะ Dark
         ImageTransparency = 1,
     }),
     -- Stroke
@@ -5154,12 +5152,11 @@ local al = ab.NewRoundFrame(aj, "Squircle", {
         Size = UDim2.new(0,18,0,18),
         Position = UDim2.new(0,3,0.5,0),
         AnchorPoint = Vector2.new(0,0.5),
-        ImageColor3 = isDarkTheme and Color3.new(0,0,0) or nil, -- ดำแค่ Dark Theme
+        ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1), -- ดำเฉพาะ Dark
         ImageTransparency = 0,
         Name = "Frame",
     }, { ak })
 })
-
 
 function ai.Set(am, an, ao)
     if an then
