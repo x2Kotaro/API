@@ -5106,7 +5106,7 @@ function aa.New(ae,af,ag,ah)
 local ai={}
 
 -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
-local isDarkTheme = (ac.Theme.Name == "Dark")
+local isDarkTheme = (ab.Theme.Name == "Dark")
 
 local aj=13
 local ak
@@ -5244,7 +5244,7 @@ local ai={}
 af=af or"check"
 
 -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
-local isDarkTheme = (ac.Theme.Name == "Dark")
+local isDarkTheme = (ab.Theme.Name == "Dark")
 
 local aj=10
 local ak=ac("ImageLabel",{
