@@ -2888,14 +2888,14 @@ return function(aa)
 return{
 Dark={
     Name="Dark",
-    Accent=Color3.fromHex"#3b82f6",      -- สีน้ำเงินสดใส
-    Dialog=Color3.fromHex"#1a1a1a",      -- เทาดำเข้มขึ้นนิด
-    Outline=Color3.fromHex"#3b82f6",     -- ใช้สีเดียวกับ Accent
-    Text=Color3.fromHex"#f0f0f0",        -- ขาวนวลตา
-    Placeholder=Color3.fromHex"#71717a", -- เทากลางๆ
-    Background=Color3.fromHex"#0a0a0a",  -- ดำสนิท
-    Button=Color3.fromHex"#2563eb",      -- น้ำเงินเข้มกว่า Accent
-    Icon=Color3.fromHex"#60a5fa"         -- น้ำเงินอ่อน
+    Accent=Color3.fromHex"#8b5cf6",      -- Violet-500 หรูหรา ดูแพง
+    Dialog=Color3.fromHex"#1c1c1e",      -- เทาดำอุ่น ไม่จ้า
+    Outline=Color3.fromHex"#a78bfa",     -- Violet-400 เรืองแสงนุ่ม
+    Text=Color3.fromHex"#f5f5f7",        -- Off-white ระดับ Apple
+    Placeholder=Color3.fromHex"#8e8e93", -- เทากลาง สบายตา
+    Background=Color3.fromHex"#000000",  -- ดำสนิท OLED-style
+    Button=Color3.fromHex"#7c3aed",      -- Violet-600 ลึกลับ
+    Icon=Color3.fromHex"#c4b5fd"         -- Violet-300 อ่อนหวาน
 },
 Light={
 Name="Light",
