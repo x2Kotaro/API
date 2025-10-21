@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 11
 ]]
 
 
@@ -3971,7 +3971,7 @@ function af.Visible(an,ao)
 ak.Visible=ao
 end
 
-luafunction af.Edit(an, ao)
+function af.Edit(an, ao)
     local ap = {
         Title = ao.Title,
         Icon = ao.Icon,
