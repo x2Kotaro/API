@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1111
+    License: MIT ๅ
 ]]
 
 
@@ -2887,15 +2887,16 @@ return aa end function a.r()
 return function(aa)
 return{
 Dark={
-    Name="Dark",
-    Accent=Color3.fromHex"#3b82f6",      -- สีน้ำเงินสดใส
-    Dialog=Color3.fromHex"#1a1a1a",      -- เทาดำเข้มขึ้นนิด
-    Outline=Color3.fromHex"#3b82f6",     -- ใช้สีเดียวกับ Accent
-    Text=Color3.fromHex"#f0f0f0",        -- ขาวนวลตา
-    Placeholder=Color3.fromHex"#71717a", -- เทากลางๆ
-    Background=Color3.fromHex"#0a0a0a",  -- ดำสนิท
-    Button=Color3.fromHex"#2563eb",      -- น้ำเงินเข้มกว่า Accent
-    Icon=Color3.fromHex"#60a5fa"         -- น้ำเงินอ่อน
+Name="Dark",
+
+Accent=Color3.fromHex"#18181b",
+Dialog=Color3.fromHex"#161616",
+Outline=Color3.fromHex"#FFFFFF",
+Text=Color3.fromHex"#FFFFFF",
+Placeholder=Color3.fromHex"#7a7a7a",
+Background=Color3.fromHex"#101010",
+Button=Color3.fromHex"#52525b",
+Icon=Color3.fromHex"#a1a1aa"
 },
 Light={
 Name="Light",
@@ -5092,109 +5093,10 @@ end)
 return af.__type,af
 end
 
-return ac end 
-function a.B()
-local aa=a.load'b'local ab=
-aa.New
-
-local ac={}
-
-function ac.New(ad,ae)
-local af={
-__type="Button",
-Title=ae.Title or"Button",
-Desc=ae.Desc or nil,
-Icon=ae.Icon or"mouse-pointer-click",
-IconThemed=ae.IconThemed or false,
-Color=ae.Color,
-Justify=ae.Justify or"Between",
-IconAlign=ae.IconAlign or"Right",
-Locked=ae.Locked or false,
-Callback=ae.Callback or function()end,
-UIElements={}
-}
-
-local ag=true
-
-af.ButtonFrame=a.load'z'{
-Title=af.Title,
-Desc=af.Desc,
-Parent=ae.Parent,
-
-
-
-
-Window=ae.Window,
-Color=af.Color,
-Justify=af.Justify,
-TextOffset=20,
-Hover=true,
-Scalable=true,
-Tab=ae.Tab,
-Index=ae.Index,
-ElementTable=af,
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-af.UIElements.ButtonIcon=aa.Image(
-af.Icon,
-af.Icon,
-0,
-ae.Window.Folder,
-"Button",
-not af.Color and true or nil,
-af.IconThemed
-)
-
-af.UIElements.ButtonIcon.Size=UDim2.new(0,20,0,20)
-af.UIElements.ButtonIcon.Parent=af.Justify=="Between"and af.ButtonFrame.UIElements.Main or af.ButtonFrame.UIElements.Container.TitleFrame
-af.UIElements.ButtonIcon.LayoutOrder=af.IconAlign=="Left"and-99999 or 99999
-af.UIElements.ButtonIcon.AnchorPoint=Vector2.new(1,0.5)
-af.UIElements.ButtonIcon.Position=UDim2.new(1,0,0.5,0)
-
-af.ButtonFrame:Colorize(af.UIElements.ButtonIcon.ImageLabel,"ImageColor3")
-
-function af.Lock(ah)
-af.Locked=true
-ag=false
-return af.ButtonFrame:Lock()
-end
-function af.Unlock(ah)
-af.Locked=false
-ag=true
-return af.ButtonFrame:Unlock()
-end
-
-if af.Locked then
-af:Lock()
-end
-
-aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Click,function()
-if ag then
-task.spawn(function()
-aa.SafeCallback(af.Callback)
-end)
-end
-end)
-return af.__type,af
-end
-
-return ac end function a.C()
+return ac end function a.B()
 local aa={}
 
-local ab=a.load'b'
+local ab=a.load'a'
 local ac=ab.New
 local ad=ab.Tween
 
@@ -5319,10 +5221,10 @@ return al,ai
 end
 
 
-return aa end function a.D()
+return aa end function a.C()
 local aa={}
 
-local ab=a.load'b'
+local ab=a.load'a'
 local ac=ab.New
 local ad=ab.Tween
 
@@ -5413,13 +5315,13 @@ return al,ai
 end
 
 
-return aa end function a.E()
-local aa=a.load'b'local ab=
+return aa end function a.D()
+local aa=a.load'a'local ab=
 aa.New local ac=
 aa.Tween
 
-local ad=a.load'C'.New
-local ae=a.load'D'.New
+local ad=a.load'B'.New
+local ae=a.load'C'.New
 
 local af={}
 
@@ -5435,7 +5337,7 @@ Type=ah.Type or"Toggle",
 Callback=ah.Callback or function()end,
 UIElements={}
 }
-ai.ToggleFrame=a.load'z'{
+ai.ToggleFrame=a.load'y'{
 Title=ai.Title,
 Desc=ai.Desc,
 
@@ -5445,7 +5347,8 @@ Desc=ai.Desc,
 Window=ah.Window,
 Parent=ah.Parent,
 TextOffset=44,
-Hover=false,
+Hover=true,
+Scalable = true,
 Tab=ah.Tab,
 Index=ah.Index,
 ElementTable=ai,
