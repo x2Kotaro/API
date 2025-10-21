@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1
+    License: MIT
 ]]
 
 
@@ -5105,11 +5105,10 @@ local ad=ab.Tween
 function aa.New(ae,af,ag,ah)
 local ai={}
 
--- ตรวจสอบว่าใช้ Dark Theme หรือไม่
+-- ตรวจสอบว่าเป็น Dark Theme หรือไม่
 local isDarkTheme = (ab.Theme.Name == "Dark")
 
-local aj=13
-local ak
+-- ImageLabel (Icon)
 if af and af~="" then
     ak = ac("ImageLabel", {
         Size = UDim2.new(1, -7, 1, -7),
@@ -5120,7 +5119,7 @@ if af and af~="" then
         ImageRectOffset = ab.Icon(af)[2].ImageRectPosition,
         ImageRectSize = ab.Icon(af)[2].ImageRectSize,
         ImageTransparency = 1,
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or Color3.new(0,0,0), -- Icon สีตาม Theme
+        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or nil, -- ขาวแค่ Dark Theme
     })
 end
 
@@ -5134,7 +5133,7 @@ local al = ab.NewRoundFrame(aj, "Squircle", {
     ab.NewRoundFrame(aj, "Squircle", {
         Size = UDim2.new(1,0,1,0),
         Name = "Layer",
-        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button, -- Layer ตาม Theme
+        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or ab.Theme.Button,
         ThemeTag = {},
         ImageTransparency = 1,
     }),
@@ -5155,7 +5154,7 @@ local al = ab.NewRoundFrame(aj, "Squircle", {
         Size = UDim2.new(0,18,0,18),
         Position = UDim2.new(0,3,0.5,0),
         AnchorPoint = Vector2.new(0,0.5),
-        ImageColor3 = isDarkTheme and Color3.new(0,0,0) or Color3.new(1,1,1), -- Frame สีตาม Theme
+        ImageColor3 = isDarkTheme and Color3.new(0,0,0) or nil, -- ดำแค่ Dark Theme
         ImageTransparency = 0,
         Name = "Frame",
     }, { ak })
@@ -5228,57 +5227,48 @@ local ai={}
 
 af=af or"check"
 
--- ตรวจสอบว่าใช้ Dark Theme หรือไม่
 local isDarkTheme = (ab.Theme.Name == "Dark")
 
-local aj=10
 local ak=ac("ImageLabel",{
-Size=UDim2.new(1,-10,1,-10),
-BackgroundTransparency=1,
-AnchorPoint=Vector2.new(0.5,0.5),
-Position=UDim2.new(0.5,0,0.5,0),
-Image=ab.Icon(af)[1],
-ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
-ImageRectSize=ab.Icon(af)[2].ImageRectSize,
-ImageTransparency=1,
--- Icon เป็นสีขาวสำหรับ Dark Theme
-ImageColor3 = isDarkTheme and Color3.new(1,1,1) or Color3.new(0,0,0),
+    Size=UDim2.new(1,-10,1,-10),
+    BackgroundTransparency=1,
+    AnchorPoint=Vector2.new(0.5,0.5),
+    Position=UDim2.new(0.5,0,0.5,0),
+    Image=ab.Icon(af)[1],
+    ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
+    ImageRectSize=ab.Icon(af)[2].ImageRectSize,
+    ImageTransparency=1,
+    ImageColor3 = isDarkTheme and Color3.new(1,1,1) or nil, -- ขาวแค่ Dark Theme
 })
 
 local al=ab.NewRoundFrame(aj,"Squircle",{
-ImageTransparency=.95,
-ThemeTag={
-ImageColor3="Text"
-},
-Parent=ag,
-Size=UDim2.new(0,27,0,27),
+    ImageTransparency=.95,
+    ThemeTag={ ImageColor3="Text" },
+    Parent=ag,
+    Size=UDim2.new(0,27,0,27),
 },{
-ab.NewRoundFrame(aj,"Squircle",{
-Size=UDim2.new(1,0,1,0),
-Name="Layer",
--- ถ้าเป็น Dark Theme ให้ใช้สีขาว ไม่งั้นใช้ Button
-ThemeTag=isDarkTheme and {} or {
-ImageColor3="Button",
-},
-ImageColor3=isDarkTheme and Color3.new(1,1,1) or nil,
-ImageTransparency=1,
-}),
-ab.NewRoundFrame(aj,"SquircleOutline",{
-Size=UDim2.new(1,0,1,0),
-Name="Stroke",
-ImageColor3=Color3.new(1,1,1),
-ImageTransparency=1,
-},{
-ac("UIGradient",{
-Rotation=90,
-Transparency=NumberSequence.new{
-NumberSequenceKeypoint.new(0,0),
-NumberSequenceKeypoint.new(1,1),
-}
-})
-}),
-
-ak,
+    ab.NewRoundFrame(aj,"Squircle",{
+        Size=UDim2.new(1,0,1,0),
+        Name="Layer",
+        ThemeTag = isDarkTheme and {} or { ImageColor3="Button" },
+        ImageColor3 = isDarkTheme and Color3.new(1,1,1) or nil, -- ขาวแค่ Dark Theme
+        ImageTransparency=1,
+    }),
+    ab.NewRoundFrame(aj,"SquircleOutline",{
+        Size=UDim2.new(1,0,1,0),
+        Name="Stroke",
+        ImageColor3=Color3.new(1,1,1),
+        ImageTransparency=1,
+    },{
+        ac("UIGradient",{
+            Rotation=90,
+            Transparency=NumberSequence.new{
+                NumberSequenceKeypoint.new(0,0),
+                NumberSequenceKeypoint.new(1,1),
+            }
+        })
+    }),
+    ak,
 })
 
 function ai.Set(am,an)
