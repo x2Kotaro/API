@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT ๅ
 ]]
 
 
@@ -5093,7 +5093,8 @@ end)
 return af.__type,af
 end
 
-return ac end function a.B()
+return ac end 
+function a.B()
 local aa={}
 
 local ab=a.load'a'
@@ -5105,7 +5106,7 @@ function aa.New(ae,af,ag,ah)
 local ai={}
 
 -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
-local isDarkTheme = ab.Theme and ab.Theme.Name == "Dark"
+local isDarkTheme = (ab.Theme == "Dark")
 
 local aj=13
 local ak
@@ -5243,7 +5244,7 @@ local ai={}
 af=af or"check"
 
 -- ตรวจสอบว่าใช้ Dark Theme หรือไม่
-local isDarkTheme = ab.Theme and ab.Theme.Name == "Dark"
+local isDarkTheme = (ab.Theme == "Dark")
 
 local aj=10
 local ak=ac("ImageLabel",{
