@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 111
+    License: MIT
 ]]
 
 
@@ -6072,112 +6072,109 @@ end
 
 for aw,ax in next,at do
 
-local ay = {
-    Name = typeof(ax) == "table" and ax.Title or ax,
-    Icon = typeof(ax) == "table" and ax.Icon or nil,
-    Desc = typeof(ax) == "table" and ax.Desc or nil,
-    Original = ax,
-    Selected = false,
-    UIElements = {},
+local ay={
+Name=typeof(ax)=="table"and ax.Title or ax,
+Icon=typeof(ax)=="table"and ax.Icon or nil,
+Original=ax,
+Selected=false,
+UIElements={},
 }
-
-local aA = ay.Desc and 52 or 36
 local az
-
 if ay.Icon then
-    az = ai.Image(
-        ay.Icon,
-        ay.Icon,
-        0,
-        al.Window.Folder,
-        "Dropdown",
-        true
-    )
-    az.Size = UDim2.new(0, an.TabIcon, 0, an.TabIcon)
-    az.ImageLabel.ImageTransparency = .2
-    ay.UIElements.TabIcon = az
+az=ai.Image(
+ay.Icon,
+ay.Icon,
+0,
+al.Window.Folder,
+"Dropdown",
+true
+)
+az.Size=UDim2.new(0,an.TabIcon,0,an.TabIcon)
+az.ImageLabel.ImageTransparency=.2
+ay.UIElements.TabIcon=az
 end
+ay.UIElements.TabItem=ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"Squircle",{
+Size=UDim2.new(1,0,0,36),
 
-ay.UIElements.TabItem = ai.NewRoundFrame(
-    an.MenuCorner - an.MenuPadding,
-    "Squircle",
-    {
-        Size = UDim2.new(1, 0, 0, 36),
-        ImageTransparency = 1,
-        Parent = am.UIElements.Menu.Frame.ScrollingFrame,
-        ImageColor3 = Color3.new(1, 1, 1),
-    },
-    {
-        ai.NewRoundFrame(
-            an.MenuCorner - an.MenuPadding,
-            "SquircleOutline",
-            {
-                Size = UDim2.new(1, 0, 1, 0),
-                ImageColor3 = Color3.new(1, 1, 1),
-                ImageTransparency = 1,
-                Name = "Highlight",
-            },
-            {
-                aj("UIGradient", {
-                    Rotation = 80,
-                    Color = ColorSequence.new {
-                        ColorSequenceKeypoint.new(0.0, Color3.fromRGB(255, 255, 255)),
-                        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
-                        ColorSequenceKeypoint.new(1.0, Color3.fromRGB(255, 255, 255)),
-                    },
-                    Transparency = NumberSequence.new {
-                        NumberSequenceKeypoint.new(0.0, 0.1),
-                        NumberSequenceKeypoint.new(0.5, 1),
-                        NumberSequenceKeypoint.new(1.0, 0.1),
-                    },
-                }),
-            }
-        ),
+ImageTransparency=1,
+Parent=am.UIElements.Menu.Frame.ScrollingFrame,
 
-        aj("Frame", {
-            Size = UDim2.new(1, 0, 1, 0),
-            BackgroundTransparency = 1,
-        }, {
-            aj("UIListLayout", {
-                Padding = UDim.new(0, an.TabPadding),
-                FillDirection = "Horizontal",
-                VerticalAlignment = "Center",
-            }),
-            aj("UIPadding", {
-                PaddingLeft = UDim.new(0, an.TabPadding),
-                PaddingRight = UDim.new(0, an.TabPadding),
-            }),
-            aj("UICorner", {
-                CornerRadius = UDim.new(0, an.MenuCorner - an.MenuPadding),
-            }),
+ImageColor3=Color3.new(1,1,1),
 
-            az,
+},{
+ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"SquircleOutline",{
+Size=UDim2.new(1,0,1,0),
+ImageColor3=Color3.new(1,1,1),
+ImageTransparency=1,
+Name="Highlight",
+},{
+aj("UIGradient",{
+Rotation=80,
+Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0.0,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(0.5,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(1.0,Color3.fromRGB(255,255,255)),
+},
+Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0.0,0.1),
+NumberSequenceKeypoint.new(0.5,1),
+NumberSequenceKeypoint.new(1.0,0.1),
+}
+}),
+}),
+aj("Frame",{
+Size=UDim2.new(1,0,1,0),
+BackgroundTransparency=1,
+},{
+aj("UIListLayout",{
+Padding=UDim.new(0,an.TabPadding),
+FillDirection="Horizontal",
+VerticalAlignment="Center",
+}),
+aj("UIPadding",{
 
-            aj("Frame", {
-                Name = "TextContainer",
-                BackgroundTransparency = 1,
-                AutomaticSize = "Y",
-                Size = UDim2.new(1, az and -an.TabPadding - an.TabIcon or 0, 0, 0),
-                AnchorPoint = Vector2.new(0, 0.5),
-                Position = UDim2.new(0, 0, 0.5, 0),
-            }, {
-                aj("TextLabel", { -- Title
-                    Text = ay.Name,
-                    TextSize = 17,
-                    FontFace = Font.new(ai.Font, Enum.FontWeight.Regular),
-                    BackgroundTransparency = 1,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                }),
-                ay.Desc and aj("TextLabel", { -- Description
-                    Text = ay.Desc,
-                    TextSize = 15,
-                    TextTransparency = .6,
-                    BackgroundTransparency = 1,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                }) or nil,
-            }),
-        }),
-    },true)
+PaddingLeft=UDim.new(0,an.TabPadding),
+PaddingRight=UDim.new(0,an.TabPadding),
+
+}),
+aj("UICorner",{
+CornerRadius=UDim.new(0,an.MenuCorner-an.MenuPadding)
+}),
+
+
+
+
+
+
+
+
+
+
+
+
+
+az,
+aj("TextLabel",{
+Text=ay.Name,
+TextXAlignment="Left",
+FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
+ThemeTag={
+TextColor3="Text",
+BackgroundColor3="Text"
+},
+TextSize=15,
+BackgroundTransparency=1,
+TextTransparency=.4,
+LayoutOrder=999,
+AutomaticSize="Y",
+
+Size=UDim2.new(1,az and-an.TabPadding-an.TabIcon or 0,0,0),
+AnchorPoint=Vector2.new(0,0.5),
+Position=UDim2.new(0,0,0.5,0),
+})
+})
+},true)
+
 
 if am.Multi then
 ay.Selected=table.find(am.Value or{},ay.Name)
@@ -6217,41 +6214,10 @@ ay.Selected=true
 ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
 ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
--- ✅ ตัวแปรเดียว ใช้ชื่อ targetObject เพื่อรองรับทั้ง Title และ Icon
-local targetObject
-
--- 🔍 ตรวจหา Text (รองรับทั้งโครงสร้างใหม่และเก่า)
-if ay.UIElements.TabItem:FindFirstChild("ContentFrame") then
-    local contentFrame = ay.UIElements.TabItem.ContentFrame
-    if contentFrame:FindFirstChild("TextFrame") then
-        targetObject = contentFrame.TextFrame:FindFirstChild("Title")
-    end
-elseif ay.UIElements.TabItem:FindFirstChild("Frame") then
-    local frame = ay.UIElements.TabItem.Frame
-    if frame:FindFirstChild("TextContainer") then
-        targetObject = frame.TextContainer:FindFirstChildWhichIsA("TextLabel")
-    end
+ak(ay.UIElements.TabItem.Frame.TextLabel,0.1,{TextTransparency=0}):Play()
+if ay.UIElements.TabIcon then
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
 end
-
--- 🔍 ถ้ายังไม่เจอ ให้ลองหา Icon (TabIcon)
-if not targetObject and ay.UIElements.TabIcon then
-    local iconFrame = ay.UIElements.TabIcon
-    local iconLabel = iconFrame:FindFirstChild("ImageLabel")
-    if iconLabel then
-        targetObject = iconLabel
-    end
-end
-
--- 🌀 Tween เฉพาะสิ่งที่เจอ (Text หรือ Icon)
-if targetObject then
-    -- ตรวจว่าคือ ImageLabel หรือ TextLabel เพื่อเลือก property ที่เหมาะสม
-    if targetObject:IsA("ImageLabel") then
-        ak(targetObject, 0.1, { ImageTransparency = 0 }):Play()
-    elseif targetObject:IsA("TextLabel") then
-        ak(targetObject, 0.1, { TextTransparency = 0 }):Play()
-    end
-end
-
 table.insert(am.Value,ay.Original)
 else
 if not am.AllowNone and#am.Value==1 then
@@ -6454,7 +6420,7 @@ MenuCorner=15,
 MenuPadding=5,
 TabPadding=10,
 SearchBarHeight=39,
-TabIcon=24,
+TabIcon=30,
 }
 
 function ak.New(al,am)
