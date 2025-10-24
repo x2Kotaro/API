@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1
 ]]
 
 
@@ -6420,7 +6420,7 @@ MenuCorner=15,
 MenuPadding=5,
 TabPadding=10,
 SearchBarHeight=39,
-TabIcon=30,
+TabIcon=42,
 }
 
 function ak.New(al,am)
