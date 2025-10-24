@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 111
+    License: MIT
 ]]
 
 
@@ -6420,7 +6420,7 @@ MenuCorner=15,
 MenuPadding=5,
 TabPadding=10,
 SearchBarHeight=39,
-TabIcon=18,
+TabIcon=42,
 }
 
 function ak.New(al,am)
@@ -6443,6 +6443,7 @@ Opened=false,
 Tabs={},
 
 Width=150,
+TabsIcon = am.TabsIcon or ak.TabIcon,
 }
 
 if an.Multi and not an.Value then
