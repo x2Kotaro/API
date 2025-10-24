@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1111
+    License: MIT
 ]]
 
 
@@ -6095,19 +6095,19 @@ az.ImageLabel.ImageTransparency=.2
 ay.UIElements.TabIcon=az
 end
 
-ay.UIElements.TabItem=ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"Squircle",{
-Size=UDim2.new(1,0,0,ay.Desc and 56 or 36),
+ay.UIElements.TabItem=ab.NewRoundFrame(ai.MenuCorner-ai.MenuPadding,"Squircle",{
+Size=UDim2.new(1,0,0,ay.Desc and 56 or 36),  -- ✅ เพิ่มความสูงถ้ามี Desc
 ImageTransparency=1,
 Parent=am.UIElements.Menu.Frame.ScrollingFrame,
 ImageColor3=Color3.new(1,1,1),
 },{
-ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"SquircleOutline",{
+ab.NewRoundFrame(ai.MenuCorner-ai.MenuPadding,"SquircleOutline",{
 Size=UDim2.new(1,0,1,0),
 ImageColor3=Color3.new(1,1,1),
 ImageTransparency=1,
 Name="Highlight",
 },{
-aj("UIGradient",{
+ac("UIGradient",{
 Rotation=80,
 Color=ColorSequence.new{
 ColorSequenceKeypoint.new(0.0,Color3.fromRGB(255,255,255)),
@@ -6121,44 +6121,39 @@ NumberSequenceKeypoint.new(1.0,0.1),
 }
 })
 }),
-aj("Frame",{
+ac("Frame",{
 Size=UDim2.new(1,0,1,0),
 BackgroundTransparency=1,
-Name="ContentFrame",  -- ✅ ตั้งชื่อให้ชัดเจน
+Name="ContentFrame",  -- ✅ ตั้งชื่อ
 },{
-aj("UIListLayout",{
-Padding=UDim.new(0,an.TabPadding),
+ac("UIListLayout",{
+Padding=UDim.new(0,ai.TabPadding),
 FillDirection="Horizontal",
 VerticalAlignment="Center",
 }),
-aj("UIPadding",{
-PaddingLeft=UDim.new(0,an.TabPadding),
-PaddingRight=UDim.new(0,an.TabPadding),
+ac("UIPadding",{
+PaddingLeft=UDim.new(0,ai.TabPadding),
+PaddingRight=UDim.new(0,ai.TabPadding),
 }),
-aj("UICorner",{
-CornerRadius=UDim.new(0,an.MenuCorner-an.MenuPadding)
+ac("UICorner",{
+CornerRadius=UDim.new(0,ai.MenuCorner-ai.MenuPadding)
 }),
 az,
-aj("Frame",{  -- ✅ Frame สำหรับ Title + Desc
+ac("Frame",{  -- ✅ Frame สำหรับ Title + Desc
 BackgroundTransparency=1,
 AutomaticSize="Y",
-Name="TextFrame",  -- ✅ ตั้งชื่อให้ชัดเจน
-Size=UDim2.new(
-1,
-az and-an.TabPadding-24 or 0,
-0,
-0
-),
+Name="TextFrame",
+Size=UDim2.new(1,az and-ai.TabPadding-24 or 0,0,0),
 },{
-aj("UIListLayout",{
+ac("UIListLayout",{
 Padding=UDim.new(0,3),
 FillDirection="Vertical",
 VerticalAlignment="Center",
 }),
-aj("TextLabel",{
+ac("TextLabel",{
 Text=ay.Name,
 TextXAlignment="Left",
-FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
+FontFace=Font.new(ab.Font,Enum.FontWeight.Regular),
 ThemeTag={
 TextColor3="Text",
 BackgroundColor3="Text"
@@ -6171,10 +6166,10 @@ AutomaticSize="Y",
 Size=UDim2.new(1,0,0,0),
 Name="Title",
 }),
-ay.Desc and aj("TextLabel",{
+ay.Desc and ac("TextLabel",{
 Text=ay.Desc,
 TextXAlignment="Left",
-FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
+FontFace=Font.new(ab.Font,Enum.FontWeight.Regular),
 ThemeTag={
 TextColor3="Text",
 },
@@ -6187,16 +6182,21 @@ Size=UDim2.new(1,0,0,0),
 TextWrapped=true,
 Name="Desc",
 }) or nil,
-})
-})
-},true)
+})  -- ✅ ปิด TextFrame
+})  -- ✅ ปิด ContentFrame
+},true)  -- ✅ ปิด TabItem
 
--- ✅ แก้ไขการเข้าถึง Elements
+if am.Multi then
+ay.Selected=table.find(am.Value or{},ay.Name)
+else
+ay.Selected=typeof(am.Value)=="table"and am.Value.Title==ay.Name
+or am.Value==ay.Name
+end
+
 if ay.Selected then
 ay.UIElements.TabItem.ImageTransparency=.95
 ay.UIElements.TabItem.Highlight.ImageTransparency=.75
 
--- ✅ ใช้ ContentFrame.TextFrame แทน Frame.Frame
 ay.UIElements.TabItem.ContentFrame.TextFrame.Title.TextTransparency=0
 if ay.Desc then
 ay.UIElements.TabItem.ContentFrame.TextFrame.Desc.TextTransparency=.3
@@ -6206,21 +6206,31 @@ ay.UIElements.TabIcon.ImageLabel.ImageTransparency=0
 end
 end
 
--- ✅ แก้ไข Callback animations ทั้งหมด
-ai.AddSignal(ay.UIElements.TabItem.MouseButton1Click,function()
-if ap=="Dropdown"then
+am.Tabs[aw]=ay
+
+aq:Display()
+
+local function Callback()
+aq:Display()
+task.spawn(function()
+ab.SafeCallback(am.Callback,am.Value)
+end)
+end
+
+ab.AddSignal(ay.UIElements.TabItem.MouseButton1Click,function()
+if ao=="Dropdown"then
 if am.Multi then
 if not ay.Selected then
 ay.Selected=true
-ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
-ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
+ad(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
+ad(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
-ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
+ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
 if ay.Desc then
-ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
+ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
 end
 if ay.UIElements.TabIcon then
-ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
+ad(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
 end
 table.insert(am.Value,ay.Original)
 else
@@ -6228,15 +6238,15 @@ if not am.AllowNone and#am.Value==1 then
 return
 end
 ay.Selected=false
-ak(ay.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
-ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
+ad(ay.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
+ad(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
 
-ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
+ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
 if ay.Desc then
-ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
+ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
 end
 if ay.UIElements.TabIcon then
-ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
+ad(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
 end
 
 for aA,aB in ipairs(am.Value)do
@@ -6248,28 +6258,28 @@ end
 end
 else
 for aA,aB in next,am.Tabs do
-ak(aB.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
-ak(aB.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
+ad(aB.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
+ad(aB.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
 
-ak(aB.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
+ad(aB.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
 if aB.Desc then
-ak(aB.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
+ad(aB.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
 end
 if aB.UIElements.TabIcon then
-ak(aB.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
+ad(aB.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
 end
 aB.Selected=false
 end
 ay.Selected=true
-ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
-ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
+ad(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
+ad(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
-ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
+ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
 if ay.Desc then
-ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
+ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
 end
 if ay.UIElements.TabIcon then
-ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
+ad(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
 end
 am.Value=ay.Original
 end
@@ -6277,7 +6287,10 @@ Callback()
 end
 end)
 
--- ✅ แก้ไขการคำนวณความกว้าง
+RecalculateCanvasSize()
+RecalculateListSize()
+end  -- ✅ ปิด for loop
+
 local ay=0
 for az,aA in next,am.Tabs do
 if aA.UIElements.TabItem.ContentFrame.TextFrame.Title then
@@ -6287,7 +6300,8 @@ end
 end
 
 am.UIElements.MenuCanvas.Size=UDim2.new(0,ay+6+6+5+5+24+6+6,am.UIElements.MenuCanvas.Size.Y.Scale,am.UIElements.MenuCanvas.Size.Y.Offset)
-end
+
+end  -- ✅ ปิด ag.Refresh
 
 
 aq:Refresh(am.Values)
