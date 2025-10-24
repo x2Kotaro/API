@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 1111
 ]]
 
 
@@ -6095,214 +6095,195 @@ az.ImageLabel.ImageTransparency=.2
 ay.UIElements.TabIcon=az
 end
 
-    ay.UIElements.TabItem=ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"Squircle",{
-        Size=UDim2.new(1,0,0,ay.Desc and 52 or 36),  -- เพิ่มความสูงถ้ามี Desc
-        ImageTransparency=1,
-        Parent=am.UIElements.Menu.Frame.ScrollingFrame,
-        ImageColor3=Color3.new(1,1,1),
-    },{
-        ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"SquircleOutline",{
-            Size=UDim2.new(1,0,1,0),
-            ImageColor3=Color3.new(1,1,1),
-            ImageTransparency=1,
-            Name="Highlight",
-        },{
-            aj("UIGradient",{
-                Rotation=80,
-                Color=ColorSequence.new{
-                    ColorSequenceKeypoint.new(0.0,Color3.fromRGB(255,255,255)),
-                    ColorSequenceKeypoint.new(0.5,Color3.fromRGB(255,255,255)),
-                    ColorSequenceKeypoint.new(1.0,Color3.fromRGB(255,255,255)),
-                },
-                Transparency=NumberSequence.new{
-                    NumberSequenceKeypoint.new(0.0,0.1),
-                    NumberSequenceKeypoint.new(0.5,1),
-                    NumberSequenceKeypoint.new(1.0,0.1),
-                }
-            }),
-        }),
-        aj("Frame",{
-            Size=UDim2.new(1,0,1,0),
-            BackgroundTransparency=1,
-        },{
-            aj("UIListLayout",{
-                Padding=UDim.new(0,an.TabPadding),
-                FillDirection="Horizontal",
-                VerticalAlignment="Center",
-            }),
-            aj("UIPadding",{
-                PaddingLeft=UDim.new(0,an.TabPadding),
-                PaddingRight=UDim.new(0,an.TabPadding),
-            }),
-            aj("UICorner",{
-                CornerRadius=UDim.new(0,an.MenuCorner-an.MenuPadding)
-            }),
-            az,  -- Icon
-            aj("Frame",{  -- เปลี่ยนจาก TextLabel เดี่ยวเป็น Frame ที่มี Title + Desc
-                BackgroundTransparency=1,
-                AutomaticSize="Y",
-                Size=UDim2.new(
-                    1,
-                    az and-an.TabPadding-an.TabIcon or 0,
-                    0,
-                    0
-                ),
-            },{
-                aj("UIListLayout",{
-                    Padding=UDim.new(0,4),
-                    FillDirection="Vertical",
-                    VerticalAlignment="Center",
-                }),
-                aj("TextLabel",{
-                    Text=ay.Name,
-                    TextXAlignment="Left",
-                    FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
-                    ThemeTag={
-                        TextColor3="Text",
-                    },
-                    TextSize=15,
-                    BackgroundTransparency=1,
-                    TextTransparency=.4,
-                    LayoutOrder=1,
-                    AutomaticSize="Y",
-                    Size=UDim2.new(1,0,0,0),
-                    Name="Title",
-                }),
-                -- เพิ่ม Desc Label
-                ay.Desc and aj("TextLabel",{
-                    Text=ay.Desc,
-                    TextXAlignment="Left",
-                    FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
-                    ThemeTag={
-                        TextColor3="Text",
-                    },
-                    TextSize=13,
-                    BackgroundTransparency=1,
-                    TextTransparency=.6,
-                    LayoutOrder=2,
-                    AutomaticSize="Y",
-                    Size=UDim2.new(1,0,0,0),
-                    TextWrapped=true,
-                    Name="Desc",
-                }) or nil,
-            })
-        })
-    },true)
+ay.UIElements.TabItem=ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"Squircle",{
+Size=UDim2.new(1,0,0,ay.Desc and 56 or 36),
+ImageTransparency=1,
+Parent=am.UIElements.Menu.Frame.ScrollingFrame,
+ImageColor3=Color3.new(1,1,1),
+},{
+ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"SquircleOutline",{
+Size=UDim2.new(1,0,1,0),
+ImageColor3=Color3.new(1,1,1),
+ImageTransparency=1,
+Name="Highlight",
+},{
+aj("UIGradient",{
+Rotation=80,
+Color=ColorSequence.new{
+ColorSequenceKeypoint.new(0.0,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(0.5,Color3.fromRGB(255,255,255)),
+ColorSequenceKeypoint.new(1.0,Color3.fromRGB(255,255,255)),
+},
+Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0.0,0.1),
+NumberSequenceKeypoint.new(0.5,1),
+NumberSequenceKeypoint.new(1.0,0.1),
+}
+})
+}),
+aj("Frame",{
+Size=UDim2.new(1,0,1,0),
+BackgroundTransparency=1,
+Name="ContentFrame",  -- ✅ ตั้งชื่อให้ชัดเจน
+},{
+aj("UIListLayout",{
+Padding=UDim.new(0,an.TabPadding),
+FillDirection="Horizontal",
+VerticalAlignment="Center",
+}),
+aj("UIPadding",{
+PaddingLeft=UDim.new(0,an.TabPadding),
+PaddingRight=UDim.new(0,an.TabPadding),
+}),
+aj("UICorner",{
+CornerRadius=UDim.new(0,an.MenuCorner-an.MenuPadding)
+}),
+az,
+aj("Frame",{  -- ✅ Frame สำหรับ Title + Desc
+BackgroundTransparency=1,
+AutomaticSize="Y",
+Name="TextFrame",  -- ✅ ตั้งชื่อให้ชัดเจน
+Size=UDim2.new(
+1,
+az and-an.TabPadding-24 or 0,
+0,
+0
+),
+},{
+aj("UIListLayout",{
+Padding=UDim.new(0,3),
+FillDirection="Vertical",
+VerticalAlignment="Center",
+}),
+aj("TextLabel",{
+Text=ay.Name,
+TextXAlignment="Left",
+FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
+ThemeTag={
+TextColor3="Text",
+BackgroundColor3="Text"
+},
+TextSize=15,
+BackgroundTransparency=1,
+TextTransparency=.4,
+LayoutOrder=1,
+AutomaticSize="Y",
+Size=UDim2.new(1,0,0,0),
+Name="Title",
+}),
+ay.Desc and aj("TextLabel",{
+Text=ay.Desc,
+TextXAlignment="Left",
+FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
+ThemeTag={
+TextColor3="Text",
+},
+TextSize=13,
+BackgroundTransparency=1,
+TextTransparency=.6,
+LayoutOrder=2,
+AutomaticSize="Y",
+Size=UDim2.new(1,0,0,0),
+TextWrapped=true,
+Name="Desc",
+}) or nil,
+})
+})
+},true)
 
+-- ✅ แก้ไขการเข้าถึง Elements
+if ay.Selected then
+ay.UIElements.TabItem.ImageTransparency=.95
+ay.UIElements.TabItem.Highlight.ImageTransparency=.75
 
-    if am.Multi then
-        ay.Selected=table.find(am.Value or{},ay.Name)
-    else
-        ay.Selected=typeof(am.Value)=="table"and am.Value.Title==ay.Name
-        or am.Value==ay.Name
-    end
+-- ✅ ใช้ ContentFrame.TextFrame แทน Frame.Frame
+ay.UIElements.TabItem.ContentFrame.TextFrame.Title.TextTransparency=0
+if ay.Desc then
+ay.UIElements.TabItem.ContentFrame.TextFrame.Desc.TextTransparency=.3
+end
+if ay.UIElements.TabIcon then
+ay.UIElements.TabIcon.ImageLabel.ImageTransparency=0
+end
+end
 
-    if ay.Selected then
-        ay.UIElements.TabItem.ImageTransparency=.95
-        ay.UIElements.TabItem.Highlight.ImageTransparency=.75
-        
-        -- อัปเดต Title Transparency
-        ay.UIElements.TabItem.Frame.Frame.Title.TextTransparency=0
-        if ay.Desc then
-            ay.UIElements.TabItem.Frame.Frame.Desc.TextTransparency=.3
-        end
-        if ay.UIElements.TabIcon then
-            ay.UIElements.TabIcon.ImageLabel.ImageTransparency=0
-        end
-    end
+-- ✅ แก้ไข Callback animations ทั้งหมด
+ai.AddSignal(ay.UIElements.TabItem.MouseButton1Click,function()
+if ap=="Dropdown"then
+if am.Multi then
+if not ay.Selected then
+ay.Selected=true
+ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
+ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
-am.Tabs[aw]=ay
+ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
+if ay.Desc then
+ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
+end
+if ay.UIElements.TabIcon then
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
+end
+table.insert(am.Value,ay.Original)
+else
+if not am.AllowNone and#am.Value==1 then
+return
+end
+ay.Selected=false
+ak(ay.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
+ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
 
-aq:Display()
+ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
+if ay.Desc then
+ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
+end
+if ay.UIElements.TabIcon then
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
+end
 
-local function Callback()
-aq:Display()
-task.spawn(function()
-ai.SafeCallback(am.Callback,am.Value)
+for aA,aB in ipairs(am.Value)do
+if typeof(aB)=="table"and(aB.Title==ay.Name)or(aB==ay.Name)then
+table.remove(am.Value,aA)
+break
+end
+end
+end
+else
+for aA,aB in next,am.Tabs do
+ak(aB.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
+ak(aB.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
+
+ak(aB.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
+if aB.Desc then
+ak(aB.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
+end
+if aB.UIElements.TabIcon then
+ak(aB.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
+end
+aB.Selected=false
+end
+ay.Selected=true
+ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
+ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
+
+ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
+if ay.Desc then
+ak(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
+end
+if ay.UIElements.TabIcon then
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
+end
+am.Value=ay.Original
+end
+Callback()
+end
 end)
-end
 
-
-    ai.AddSignal(ay.UIElements.TabItem.MouseButton1Click,function()
-        if ap=="Dropdown"then
-            if am.Multi then
-                if not ay.Selected then
-                    ay.Selected=true
-                    ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
-                    ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
-                    
-                    ak(ay.UIElements.TabItem.Frame.Frame.Title,0.1,{TextTransparency=0}):Play()
-                    if ay.Desc then
-                        ak(ay.UIElements.TabItem.Frame.Frame.Desc,0.1,{TextTransparency=.3}):Play()
-                    end
-                    if ay.UIElements.TabIcon then
-                        ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
-                    end
-                    table.insert(am.Value,ay.Original)
-                else
-                    if not am.AllowNone and#am.Value==1 then
-                        return
-                    end
-                    ay.Selected=false
-                    ak(ay.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
-                    ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
-                    
-                    ak(ay.UIElements.TabItem.Frame.Frame.Title,0.1,{TextTransparency=.4}):Play()
-                    if ay.Desc then
-                        ak(ay.UIElements.TabItem.Frame.Frame.Desc,0.1,{TextTransparency=.6}):Play()
-                    end
-                    if ay.UIElements.TabIcon then
-                        ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
-                    end
-
-                    for aA,aB in ipairs(am.Value)do
-                        if typeof(aB)=="table"and(aB.Title==ay.Name)or(aB==ay.Name)then
-                            table.remove(am.Value,aA)
-                            break
-                        end
-                    end
-                end
-            else
-                for aA,aB in next,am.Tabs do
-                    ak(aB.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
-                    ak(aB.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
-                    
-                    ak(aB.UIElements.TabItem.Frame.Frame.Title,0.1,{TextTransparency=.4}):Play()
-                    if aB.Desc then
-                        ak(aB.UIElements.TabItem.Frame.Frame.Desc,0.1,{TextTransparency=.6}):Play()
-                    end
-                    if aB.UIElements.TabIcon then
-                        ak(aB.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
-                    end
-                    aB.Selected=false
-                end
-                ay.Selected=true
-                ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
-                ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
-                
-                ak(ay.UIElements.TabItem.Frame.Frame.Title,0.1,{TextTransparency=0}):Play()
-                if ay.Desc then
-                    ak(ay.UIElements.TabItem.Frame.Frame.Desc,0.1,{TextTransparency=.3}):Play()
-                end
-                if ay.UIElements.TabIcon then
-                    ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
-                end
-                am.Value=ay.Original
-            end
-            Callback()
-        end
-    end)
-
-    RecalculateCanvasSize()
-    RecalculateListSize()
-end
-
+-- ✅ แก้ไขการคำนวณความกว้าง
 local ay=0
 for az,aA in next,am.Tabs do
-    if aA.UIElements.TabItem.Frame.Frame.Title then
-        local aB=aA.UIElements.TabItem.Frame.Frame.Title.TextBounds.X
-        ay=math.max(ay,aB)
-    end
+if aA.UIElements.TabItem.ContentFrame.TextFrame.Title then
+local aB=aA.UIElements.TabItem.ContentFrame.TextFrame.Title.TextBounds.X
+ay=math.max(ay,aB)
+end
 end
 
 am.UIElements.MenuCanvas.Size=UDim2.new(0,ay+6+6+5+5+24+6+6,am.UIElements.MenuCanvas.Size.Y.Scale,am.UIElements.MenuCanvas.Size.Y.Offset)
