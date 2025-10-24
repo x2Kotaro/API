@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 111
 ]]
 
 
@@ -6217,27 +6217,39 @@ ay.Selected=true
 ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
 ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
-local TitleObject
+-- ✅ ตัวแปรเดียว ใช้ชื่อ targetObject เพื่อรองรับทั้ง Title และ Icon
+local targetObject
 
+-- 🔍 ตรวจหา Text (รองรับทั้งโครงสร้างใหม่และเก่า)
 if ay.UIElements.TabItem:FindFirstChild("ContentFrame") then
-    TitleObject = ay.UIElements.TabItem.ContentFrame.TextFrame:FindFirstChild("Title")
-elseif ay.UIElements.TabItem:FindFirstChild("TextContainer") then
-    TitleObject = ay.UIElements.TabItem.TextContainer:FindFirstChildWhichIsA("TextLabel")
-end
-
-if TitleObject then
-    ak(TitleObject, 0.1, { TextTransparency = 0 }):Play()
-end
-
-if not targetLabel and ay.UIElements.TabIcon then
-    local iconLabel = ay.UIElements.TabIcon:FindFirstChild("ImageLabel")
-    if iconLabel then
-        targetLabel = iconLabel
+    local contentFrame = ay.UIElements.TabItem.ContentFrame
+    if contentFrame:FindFirstChild("TextFrame") then
+        targetObject = contentFrame.TextFrame:FindFirstChild("Title")
+    end
+elseif ay.UIElements.TabItem:FindFirstChild("Frame") then
+    local frame = ay.UIElements.TabItem.Frame
+    if frame:FindFirstChild("TextContainer") then
+        targetObject = frame.TextContainer:FindFirstChildWhichIsA("TextLabel")
     end
 end
 
-if targetLabel then
-    ak(targetLabel, 0.1, { ImageTransparency = 0, TextTransparency = 0 }):Play()
+-- 🔍 ถ้ายังไม่เจอ ให้ลองหา Icon (TabIcon)
+if not targetObject and ay.UIElements.TabIcon then
+    local iconFrame = ay.UIElements.TabIcon
+    local iconLabel = iconFrame:FindFirstChild("ImageLabel")
+    if iconLabel then
+        targetObject = iconLabel
+    end
+end
+
+-- 🌀 Tween เฉพาะสิ่งที่เจอ (Text หรือ Icon)
+if targetObject then
+    -- ตรวจว่าคือ ImageLabel หรือ TextLabel เพื่อเลือก property ที่เหมาะสม
+    if targetObject:IsA("ImageLabel") then
+        ak(targetObject, 0.1, { ImageTransparency = 0 }):Play()
+    elseif targetObject:IsA("TextLabel") then
+        ak(targetObject, 0.1, { TextTransparency = 0 }):Play()
+    end
 end
 
 table.insert(am.Value,ay.Original)
