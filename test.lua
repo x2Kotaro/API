@@ -12,7 +12,7 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT
+    License: MIT 111
 ]]
 
 
@@ -6075,7 +6075,6 @@ for aw,ax in next,at do
 local ay={
 Name=typeof(ax)=="table"and ax.Title or ax,
 Icon=typeof(ax)=="table"and ax.Icon or nil,
-Desc=typeof(ax)=="table"and ax.Desc or nil,
 Original=ax,
 Selected=false,
 UIElements={},
@@ -6094,20 +6093,22 @@ az.Size=UDim2.new(0,an.TabIcon,0,an.TabIcon)
 az.ImageLabel.ImageTransparency=.2
 ay.UIElements.TabIcon=az
 end
+ay.UIElements.TabItem=ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"Squircle",{
+Size=UDim2.new(1,0,0,36),
 
-ay.UIElements.TabItem=ab.NewRoundFrame(ai.MenuCorner-ai.MenuPadding,"Squircle",{
-Size=UDim2.new(1,0,0,ay.Desc and 56 or 36),  -- ✅ เพิ่มความสูงถ้ามี Desc
 ImageTransparency=1,
 Parent=am.UIElements.Menu.Frame.ScrollingFrame,
+
 ImageColor3=Color3.new(1,1,1),
+
 },{
-ab.NewRoundFrame(ai.MenuCorner-ai.MenuPadding,"SquircleOutline",{
+ai.NewRoundFrame(an.MenuCorner-an.MenuPadding,"SquircleOutline",{
 Size=UDim2.new(1,0,1,0),
 ImageColor3=Color3.new(1,1,1),
 ImageTransparency=1,
 Name="Highlight",
 },{
-ac("UIGradient",{
+aj("UIGradient",{
 Rotation=80,
 Color=ColorSequence.new{
 ColorSequenceKeypoint.new(0.0,Color3.fromRGB(255,255,255)),
@@ -6119,41 +6120,44 @@ NumberSequenceKeypoint.new(0.0,0.1),
 NumberSequenceKeypoint.new(0.5,1),
 NumberSequenceKeypoint.new(1.0,0.1),
 }
-})
 }),
-ac("Frame",{
+}),
+aj("Frame",{
 Size=UDim2.new(1,0,1,0),
 BackgroundTransparency=1,
-Name="ContentFrame",  -- ✅ ตั้งชื่อ
 },{
-ac("UIListLayout",{
-Padding=UDim.new(0,ai.TabPadding),
+aj("UIListLayout",{
+Padding=UDim.new(0,an.TabPadding),
 FillDirection="Horizontal",
 VerticalAlignment="Center",
 }),
-ac("UIPadding",{
-PaddingLeft=UDim.new(0,ai.TabPadding),
-PaddingRight=UDim.new(0,ai.TabPadding),
+aj("UIPadding",{
+
+PaddingLeft=UDim.new(0,an.TabPadding),
+PaddingRight=UDim.new(0,an.TabPadding),
+
 }),
-ac("UICorner",{
-CornerRadius=UDim.new(0,ai.MenuCorner-ai.MenuPadding)
+aj("UICorner",{
+CornerRadius=UDim.new(0,an.MenuCorner-an.MenuPadding)
 }),
+
+
+
+
+
+
+
+
+
+
+
+
+
 az,
-ac("Frame",{  -- ✅ Frame สำหรับ Title + Desc
-BackgroundTransparency=1,
-AutomaticSize="Y",
-Name="TextFrame",
-Size=UDim2.new(1,az and-ai.TabPadding-24 or 0,0,0),
-},{
-ac("UIListLayout",{
-Padding=UDim.new(0,3),
-FillDirection="Vertical",
-VerticalAlignment="Center",
-}),
-ac("TextLabel",{
+aj("TextLabel",{
 Text=ay.Name,
 TextXAlignment="Left",
-FontFace=Font.new(ab.Font,Enum.FontWeight.Regular),
+FontFace=Font.new(ai.Font,Enum.FontWeight.Regular),
 ThemeTag={
 TextColor3="Text",
 BackgroundColor3="Text"
@@ -6161,30 +6165,16 @@ BackgroundColor3="Text"
 TextSize=15,
 BackgroundTransparency=1,
 TextTransparency=.4,
-LayoutOrder=1,
+LayoutOrder=999,
 AutomaticSize="Y",
-Size=UDim2.new(1,0,0,0),
-Name="Title",
-}),
-ay.Desc and ac("TextLabel",{
-Text=ay.Desc,
-TextXAlignment="Left",
-FontFace=Font.new(ab.Font,Enum.FontWeight.Regular),
-ThemeTag={
-TextColor3="Text",
-},
-TextSize=13,
-BackgroundTransparency=1,
-TextTransparency=.6,
-LayoutOrder=2,
-AutomaticSize="Y",
-Size=UDim2.new(1,0,0,0),
-TextWrapped=true,
-Name="Desc",
-}) or nil,
-})  -- ✅ ปิด TextFrame
-})  -- ✅ ปิด ContentFrame
-},true)  -- ✅ ปิด TabItem
+
+Size=UDim2.new(1,az and-an.TabPadding-an.TabIcon or 0,0,0),
+AnchorPoint=Vector2.new(0,0.5),
+Position=UDim2.new(0,0,0.5,0),
+})
+})
+},true)
+
 
 if am.Multi then
 ay.Selected=table.find(am.Value or{},ay.Name)
@@ -6197,10 +6187,8 @@ if ay.Selected then
 ay.UIElements.TabItem.ImageTransparency=.95
 ay.UIElements.TabItem.Highlight.ImageTransparency=.75
 
-ay.UIElements.TabItem.ContentFrame.TextFrame.Title.TextTransparency=0
-if ay.Desc then
-ay.UIElements.TabItem.ContentFrame.TextFrame.Desc.TextTransparency=.3
-end
+
+ay.UIElements.TabItem.Frame.TextLabel.TextTransparency=0
 if ay.UIElements.TabIcon then
 ay.UIElements.TabIcon.ImageLabel.ImageTransparency=0
 end
@@ -6213,24 +6201,22 @@ aq:Display()
 local function Callback()
 aq:Display()
 task.spawn(function()
-ab.SafeCallback(am.Callback,am.Value)
+ai.SafeCallback(am.Callback,am.Value)
 end)
 end
 
-ab.AddSignal(ay.UIElements.TabItem.MouseButton1Click,function()
-if ao=="Dropdown"then
+
+ai.AddSignal(ay.UIElements.TabItem.MouseButton1Click,function()
+if ap=="Dropdown"then
 if am.Multi then
 if not ay.Selected then
 ay.Selected=true
-ad(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
-ad(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
+ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
+ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
-ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
-if ay.Desc then
-ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
-end
+ak(ay.UIElements.TabItem.Frame.TextLabel,0.1,{TextTransparency=0}):Play()
 if ay.UIElements.TabIcon then
-ad(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
 end
 table.insert(am.Value,ay.Original)
 else
@@ -6238,15 +6224,12 @@ if not am.AllowNone and#am.Value==1 then
 return
 end
 ay.Selected=false
-ad(ay.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
-ad(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
+ak(ay.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
+ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
 
-ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
-if ay.Desc then
-ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
-end
+ak(ay.UIElements.TabItem.Frame.TextLabel,0.1,{TextTransparency=.4}):Play()
 if ay.UIElements.TabIcon then
-ad(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
 end
 
 for aA,aB in ipairs(am.Value)do
@@ -6258,28 +6241,23 @@ end
 end
 else
 for aA,aB in next,am.Tabs do
-ad(aB.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
-ad(aB.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
 
-ad(aB.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=.4}):Play()
-if aB.Desc then
-ad(aB.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.6}):Play()
-end
+ak(aB.UIElements.TabItem,0.1,{ImageTransparency=1}):Play()
+ak(aB.UIElements.TabItem.Highlight,0.1,{ImageTransparency=1}):Play()
+
+ak(aB.UIElements.TabItem.Frame.TextLabel,0.1,{TextTransparency=.4}):Play()
 if aB.UIElements.TabIcon then
-ad(aB.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
+ak(aB.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=.2}):Play()
 end
 aB.Selected=false
 end
 ay.Selected=true
-ad(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
-ad(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
+ak(ay.UIElements.TabItem,0.1,{ImageTransparency=.95}):Play()
+ak(ay.UIElements.TabItem.Highlight,0.1,{ImageTransparency=.75}):Play()
 
-ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Title,0.1,{TextTransparency=0}):Play()
-if ay.Desc then
-ad(ay.UIElements.TabItem.ContentFrame.TextFrame.Desc,0.1,{TextTransparency=.3}):Play()
-end
+ak(ay.UIElements.TabItem.Frame.TextLabel,0.1,{TextTransparency=0}):Play()
 if ay.UIElements.TabIcon then
-ad(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
+ak(ay.UIElements.TabIcon.ImageLabel,0.1,{ImageTransparency=0}):Play()
 end
 am.Value=ay.Original
 end
@@ -6289,19 +6267,21 @@ end)
 
 RecalculateCanvasSize()
 RecalculateListSize()
-end  -- ✅ ปิด for loop
+end
 
 local ay=0
 for az,aA in next,am.Tabs do
-if aA.UIElements.TabItem.ContentFrame.TextFrame.Title then
-local aB=aA.UIElements.TabItem.ContentFrame.TextFrame.Title.TextBounds.X
+if aA.UIElements.TabItem.Frame.TextLabel then
+
+local aB=aA.UIElements.TabItem.Frame.TextLabel.TextBounds.X
 ay=math.max(ay,aB)
 end
 end
 
-am.UIElements.MenuCanvas.Size=UDim2.new(0,ay+6+6+5+5+24+6+6,am.UIElements.MenuCanvas.Size.Y.Scale,am.UIElements.MenuCanvas.Size.Y.Offset)
+am.UIElements.MenuCanvas.Size=UDim2.new(0,ay+6+6+5+5+18+6+6,am.UIElements.MenuCanvas.Size.Y.Scale,am.UIElements.MenuCanvas.Size.Y.Offset)
 
-end  -- ✅ ปิด ag.Refresh
+
+end
 
 
 aq:Refresh(am.Values)
@@ -6440,7 +6420,7 @@ MenuCorner=15,
 MenuPadding=5,
 TabPadding=10,
 SearchBarHeight=39,
-TabIcon=24,
+TabIcon=18,
 }
 
 function ak.New(al,am)
