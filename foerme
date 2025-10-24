@@ -12,8 +12,8 @@
     Author: Footagesus (Footages, .ftgs, oftgs)
     Github: https://github.com/Footagesus/WindUI
     Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
-    License: MIT 1132133321323
-]] 
+    License: MIT
+]]
 
 
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()local b=game:GetService"RunService"local d=
@@ -6229,10 +6229,17 @@ if TitleObject then
     ak(TitleObject, 0.1, { TextTransparency = 0 }):Play()
 end
 
-local iconLabel = az:FindFirstChild("ImageLabel")
-if iconLabel then
-    ak(iconLabel, 0.1, { ImageTransparency = 0 }):Play()
+if not targetLabel and ay.UIElements.TabIcon then
+    local iconLabel = ay.UIElements.TabIcon:FindFirstChild("ImageLabel")
+    if iconLabel then
+        targetLabel = iconLabel
+    end
 end
+
+if targetLabel then
+    ak(targetLabel, 0.1, { ImageTransparency = 0, TextTransparency = 0 }):Play()
+end
+
 table.insert(am.Value,ay.Original)
 else
 if not am.AllowNone and#am.Value==1 then
