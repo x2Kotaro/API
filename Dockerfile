@@ -1,8 +1,9 @@
-FROM php:8.2-cli
+FROM php:8.2-fpm
 
-WORKDIR /app
-COPY . .
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-EXPOSE 10000
+# copy project
+COPY . /var/www/html
+WORKDIR /var/www/html
 
-CMD ["php", "-S", "0.0.0.0:10000"]
+CMD ["php", "-S", "0.0.0.0:10000", "-t", "/var/www/html"]
