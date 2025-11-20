@@ -1,41 +1,69 @@
 <?php
-error_reporting(0);
-ini_set('display_errors', 0);
+// ============ DEBUG MODE (ปิดตอน production) ============
+$DEBUG_MODE = true; // เปลี่ยนเป็น false เมื่อเสร็จแล้ว
 
+if ($DEBUG_MODE) {
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+} else {
+    ini_set('display_errors', 0);
+    error_reporting(0);
+}
+
+// ============ HEADERS ============
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
+// ============ LOG FUNCTION ============
+function logDebug($message, $data = null) {
+    global $DEBUG_MODE;
+    if ($DEBUG_MODE) {
+        error_log("[DEBUG] $message: " . json_encode($data));
+    }
+}
+
+// ============ PREFLIGHT ============
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
+    echo json_encode(['message' => 'CORS OK']);
     exit();
 }
 
+// ============ DATABASE CONNECTION ============
 $servername = "caboose.proxy.rlwy.net";
 $username = "root";
 $password = "uuEilzwNfhvWKZaCEOcIdDSRIHyChOZb";
 $dbname = "railway";
 $port = 39358;
 
+logDebug("Attempting database connection");
+
 try {
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
     
     if ($conn->connect_error) {
-        throw new Exception('Database connection failed');
+        throw new Exception('Database connection failed: ' . $conn->connect_error);
     }
     
     $conn->set_charset("utf8mb4");
-    
-    // สำคัญ! ตั้งค่า isolation level
     $conn->query("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED");
     
+    logDebug("Database connected successfully");
+    
 } catch (Exception $e) {
+    logDebug("Database connection error", $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database connection failed',
+        'error' => $DEBUG_MODE ? $e->getMessage() : 'Internal server error'
+    ]);
     exit();
 }
 
+// ============ CREATE TABLE ============
 $createTable = "CREATE TABLE IF NOT EXISTS user_verification (
     id INT AUTO_INCREMENT PRIMARY KEY,
     discord_id VARCHAR(255) NOT NULL,
@@ -54,31 +82,41 @@ $createTable = "CREATE TABLE IF NOT EXISTS user_verification (
     INDEX idx_verified_processing (verified, processing),
     INDEX idx_roblox_user_id (roblox_user_id)
 ) ENGINE=InnoDB";
-$conn->query($createTable);
+
+if (!$conn->query($createTable)) {
+    logDebug("Table creation failed", $conn->error);
+}
 
 $method = $_SERVER['REQUEST_METHOD'];
+logDebug("Request method", $method);
 
-// ================== POST REQUEST ==================
+// ============ POST REQUEST ============
 if ($method === 'POST') {
     try {
         $rawInput = file_get_contents('php://input');
+        logDebug("Raw POST input", $rawInput);
+        
+        if (empty($rawInput)) {
+            throw new Exception('Empty request body');
+        }
+        
         $data = json_decode($rawInput, true);
         
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Invalid JSON');
+            throw new Exception('Invalid JSON: ' . json_last_error_msg());
         }
+        
+        logDebug("Parsed POST data", $data);
         
         // กรณีบันทึกข้อมูลจาก Discord
         if (!isset($data['action'])) {
             if (!isset($data['discord_id']) || !isset($data['roblox_user_id'])) {
-                throw new Exception('Missing required fields');
+                throw new Exception('Missing required fields: discord_id or roblox_user_id');
             }
             
-            // เริ่ม transaction
             $conn->begin_transaction();
             
             try {
-                // ใช้ prepared statement ป้องกัน SQL injection และ race condition
                 $stmt = $conn->prepare("
                     INSERT INTO user_verification 
                     (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, verified, processing) 
@@ -103,11 +141,13 @@ if ($method === 'POST') {
                 );
                 
                 if (!$stmt->execute()) {
-                    throw new Exception('Database insert failed');
+                    throw new Exception('Database insert failed: ' . $stmt->error);
                 }
                 
                 $conn->commit();
                 $stmt->close();
+                
+                logDebug("Data saved successfully", $data['roblox_username']);
                 
                 echo json_encode([
                     'success' => true,
@@ -120,6 +160,7 @@ if ($method === 'POST') {
                 
             } catch (Exception $e) {
                 $conn->rollback();
+                logDebug("Transaction rollback", $e->getMessage());
                 throw $e;
             }
             exit();
@@ -127,10 +168,11 @@ if ($method === 'POST') {
         
         // กรณีอัพเดทชื่อจาก Roblox
         if ($data['action'] === 'update_nickname') {
+            logDebug("Update nickname request", $data);
+            
             $conn->begin_transaction();
             
             try {
-                // Lock row เพื่อป้องกัน concurrent update
                 $stmt = $conn->prepare("
                     SELECT * FROM user_verification 
                     WHERE roblox_user_id = ? 
@@ -144,6 +186,7 @@ if ($method === 'POST') {
                 
                 if ($result->num_rows === 0) {
                     $conn->rollback();
+                    logDebug("User not found for update", $data['roblox_user_id']);
                     echo json_encode([
                         'success' => false,
                         'message' => 'User not found or already verified'
@@ -154,7 +197,6 @@ if ($method === 'POST') {
                 $userData = $result->fetch_assoc();
                 $stmt->close();
                 
-                // อัพเดทข้อมูล
                 $updateStmt = $conn->prepare("
                     UPDATE user_verification 
                     SET verified = 1, 
@@ -169,11 +211,13 @@ if ($method === 'POST') {
                 $updateStmt->bind_param("sis", $data['new_nickname'], $rank, $data['roblox_user_id']);
                 
                 if (!$updateStmt->execute()) {
-                    throw new Exception('Update failed');
+                    throw new Exception('Update failed: ' . $updateStmt->error);
                 }
                 
                 $conn->commit();
                 $updateStmt->close();
+                
+                logDebug("Nickname updated successfully", $userData['discord_username']);
                 
                 echo json_encode([
                     'success' => true,
@@ -187,21 +231,31 @@ if ($method === 'POST') {
                 
             } catch (Exception $e) {
                 $conn->rollback();
+                logDebug("Update transaction rollback", $e->getMessage());
                 throw $e;
             }
+            exit();
         }
         
     } catch (Exception $e) {
+        logDebug("POST error", $e->getMessage());
         http_response_code(400);
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        echo json_encode([
+            'success' => false,
+            'message' => $DEBUG_MODE ? $e->getMessage() : 'Bad request'
+        ]);
         exit();
     }
 }
 
-// ================== GET REQUEST ==================
+// ============ GET REQUEST ============
 elseif ($method === 'GET') {
+    logDebug("GET parameters", $_GET);
+    
     $roblox_user_id = isset($_GET['roblox_user_id']) ? $conn->real_escape_string($_GET['roblox_user_id']) : '';
     $action = isset($_GET['action']) ? $_GET['action'] : 'check';
+    
+    logDebug("GET action", $action);
     
     if ($action === 'check' && !empty($roblox_user_id)) {
         $stmt = $conn->prepare("SELECT * FROM user_verification WHERE roblox_user_id = ?");
@@ -239,9 +293,9 @@ elseif ($method === 'GET') {
             ]);
         }
         $stmt->close();
+        exit();
     }
     
-    // ดึงข้อมูลที่รอการอัพเดท (จำกัด 10 รายการต่อครั้ง)
     elseif ($action === 'get_pending_updates') {
         $stmt = $conn->prepare("
             SELECT discord_id, new_nickname, rank_id, roblox_user_id 
@@ -265,9 +319,9 @@ elseif ($method === 'GET') {
             'count' => count($updates)
         ]);
         $stmt->close();
+        exit();
     }
     
-    // เคลียร์สถานะหลังอัพเดทเสร็จ
     elseif ($action === 'clear_update') {
         $discord_id = isset($_GET['discord_id']) ? $conn->real_escape_string($_GET['discord_id']) : '';
         
@@ -285,8 +339,28 @@ elseif ($method === 'GET') {
                 echo json_encode(['success' => false, 'message' => 'Failed']);
             }
             $stmt->close();
+            exit();
         }
     }
+    
+    // ถ้าไม่มี action ที่ตรง
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid action or missing parameters',
+        'action' => $action,
+        'params' => $_GET
+    ]);
+    exit();
+}
+
+// ถ้าไม่ใช่ GET หรือ POST
+else {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Method not allowed',
+        'method' => $method
+    ]);
+    exit();
 }
 
 $conn->close();
