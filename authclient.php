@@ -1,8 +1,18 @@
 <?php
+// ป้องกัน error แสดงออกมา
+error_reporting(0);
+ini_set('display_errors', 0);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
+
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 $servername = "caboose.proxy.rlwy.net";
 $username = "root";
@@ -10,13 +20,21 @@ $password = "uuEilzwNfhvWKZaCEOcIdDSRIHyChOZb";
 $dbname = "railway";
 $port = 39358;
 
-$conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-if ($conn->connect_error) {
-    die(json_encode([
+try {
+    $conn = new mysqli($servername, $username, $password, $dbname, $port);
+    
+    if ($conn->connect_error) {
+        throw new Exception('Database connection failed: ' . $conn->connect_error);
+    }
+    
+    $conn->set_charset("utf8mb4");
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
         'success' => false,
-        'message' => 'Database connection failed: ' . $conn->connect_error
-    ]));
+        'message' => $e->getMessage()
+    ]);
+    exit();
 }
 
 $createTable = "CREATE TABLE IF NOT EXISTS user_verification (
@@ -37,42 +55,73 @@ $conn->query($createTable);
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    
-    // กรณีบันทึกข้อมูลจาก Discord
-    if (!isset($data['action'])) {
-        $discord_id = $conn->real_escape_string($data['discord_id']);
-        $discord_username = $conn->real_escape_string($data['discord_username']);
-        $roblox_username = $conn->real_escape_string($data['roblox_username']);
-        $roblox_user_id = $conn->real_escape_string($data['roblox_user_id']);
-        $roblox_profile_url = $conn->real_escape_string($data['roblox_profile_url']);
+    try {
+        $rawInput = file_get_contents('php://input');
+        $data = json_decode($rawInput, true);
         
-        $checkSql = "SELECT * FROM user_verification WHERE roblox_user_id = '$roblox_user_id'";
-        $result = $conn->query($checkSql);
-        
-        if ($result->num_rows > 0) {
-            $updateSql = "UPDATE user_verification SET 
-                          discord_id = '$discord_id',
-                          discord_username = '$discord_username',
-                          roblox_username = '$roblox_username',
-                          verified = 0
-                          WHERE roblox_user_id = '$roblox_user_id'";
-            $conn->query($updateSql);
-        } else {
-            $insertSql = "INSERT INTO user_verification 
-                          (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, verified) 
-                          VALUES ('$discord_id', '$discord_username', '$roblox_username', '$roblox_user_id', '$roblox_profile_url', 0)";
-            $conn->query($insertSql);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Exception('Invalid JSON: ' . json_last_error_msg());
         }
         
+        // กรณีบันทึกข้อมูลจาก Discord
+        if (!isset($data['action'])) {
+            if (!isset($data['discord_id']) || !isset($data['roblox_user_id'])) {
+                throw new Exception('Missing required fields');
+            }
+            
+            $discord_id = $conn->real_escape_string($data['discord_id']);
+            $discord_username = $conn->real_escape_string($data['discord_username']);
+            $roblox_username = $conn->real_escape_string($data['roblox_username']);
+            $roblox_user_id = $conn->real_escape_string($data['roblox_user_id']);
+            $roblox_profile_url = $conn->real_escape_string($data['roblox_profile_url']);
+            
+            $checkSql = "SELECT * FROM user_verification WHERE roblox_user_id = '$roblox_user_id'";
+            $result = $conn->query($checkSql);
+            
+            if (!$result) {
+                throw new Exception('Database query failed: ' . $conn->error);
+            }
+            
+            if ($result->num_rows > 0) {
+                $updateSql = "UPDATE user_verification SET 
+                              discord_id = '$discord_id',
+                              discord_username = '$discord_username',
+                              roblox_username = '$roblox_username',
+                              verified = 0,
+                              new_nickname = NULL,
+                              rank_id = NULL
+                              WHERE roblox_user_id = '$roblox_user_id'";
+                
+                if (!$conn->query($updateSql)) {
+                    throw new Exception('Update failed: ' . $conn->error);
+                }
+            } else {
+                $insertSql = "INSERT INTO user_verification 
+                              (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, verified) 
+                              VALUES ('$discord_id', '$discord_username', '$roblox_username', '$roblox_user_id', '$roblox_profile_url', 0)";
+                
+                if (!$conn->query($insertSql)) {
+                    throw new Exception('Insert failed: ' . $conn->error);
+                }
+            }
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Data saved successfully',
+                'data' => [
+                    'discord_username' => $discord_username,
+                    'roblox_username' => $roblox_username
+                ]
+            ]);
+            exit();
+        }
+    } catch (Exception $e) {
+        http_response_code(400);
         echo json_encode([
-            'success' => true,
-            'message' => 'Data saved successfully',
-            'data' => [
-                'discord_username' => $discord_username,
-                'roblox_username' => $roblox_username
-            ]
+            'success' => false,
+            'message' => $e->getMessage()
         ]);
+        exit();
     }
     // กรณีอัพเดทชื่อจาก Roblox
     else if ($data['action'] === 'update_nickname') {
