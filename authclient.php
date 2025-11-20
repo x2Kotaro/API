@@ -124,7 +124,7 @@ if ($method === 'POST') {
         exit();
     }
     // กรณีอัพเดทชื่อจาก Roblox
-    else if ($data['action'] === 'update_nickname') {
+    elseif ($data['action'] === 'update_nickname') {
         $roblox_user_id = $conn->real_escape_string($data['roblox_user_id']);
         $new_nickname = $conn->real_escape_string($data['new_nickname']);
         $rank = isset($data['rank']) ? intval($data['rank']) : 0;
