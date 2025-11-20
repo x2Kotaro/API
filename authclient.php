@@ -90,7 +90,7 @@ if (!$conn->query($createTable)) {
 $method = $_SERVER['REQUEST_METHOD'];
 logDebug("Request method", $method);
 
-// ============ POST REQUEST ============
+// ================== POST REQUEST ==================
 if ($method === 'POST') {
     try {
         $rawInput = file_get_contents('php://input');
@@ -108,7 +108,7 @@ if ($method === 'POST') {
         
         logDebug("Parsed POST data", $data);
         
-        // กรณีบันทึกข้อมูลจาก Discord
+        // ============ กรณีบันทึกข้อมูลจาก Discord (ครั้งแรก) ============
         if (!isset($data['action'])) {
             if (!isset($data['discord_id']) || !isset($data['roblox_user_id'])) {
                 throw new Exception('Missing required fields: discord_id or roblox_user_id');
@@ -166,7 +166,7 @@ if ($method === 'POST') {
             exit();
         }
         
-        // กรณีอัพเดทชื่อจาก Roblox
+        // ============ กรณียืนยันตัวตนครั้งแรกจาก Roblox ============
         if ($data['action'] === 'update_nickname') {
             logDebug("Update nickname request", $data);
             
@@ -237,6 +237,87 @@ if ($method === 'POST') {
             exit();
         }
         
+        // ============ กรณีอัพเดทยศ (สำหรับคนที่ verified แล้ว) ============
+        if ($data['action'] === 'update_rank') {
+            logDebug("Update rank request", $data);
+            
+            $conn->begin_transaction();
+            
+            try {
+                // ตรวจสอบว่า user มีอยู่และ verified แล้ว
+                $stmt = $conn->prepare("
+                    SELECT * FROM user_verification 
+                    WHERE roblox_user_id = ? 
+                    AND verified = 1
+                    FOR UPDATE
+                ");
+                $stmt->bind_param("s", $data['roblox_user_id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                if ($result->num_rows === 0) {
+                    $conn->rollback();
+                    logDebug("User not found or not verified for rank update", $data['roblox_user_id']);
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'User not found or not verified yet'
+                    ]);
+                    exit();
+                }
+                
+                $userData = $result->fetch_assoc();
+                $oldRank = $userData['rank_id'];
+                $stmt->close();
+                
+                // อัพเดทยศและชื่อใหม่
+                $updateStmt = $conn->prepare("
+                    UPDATE user_verification 
+                    SET new_nickname = ?,
+                        rank_id = ?,
+                        processing = 1,
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE roblox_user_id = ?
+                ");
+                
+                $rank = isset($data['rank']) ? intval($data['rank']) : 0;
+                $updateStmt->bind_param("sis", $data['new_nickname'], $rank, $data['roblox_user_id']);
+                
+                if (!$updateStmt->execute()) {
+                    throw new Exception('Rank update failed: ' . $updateStmt->error);
+                }
+                
+                $conn->commit();
+                $updateStmt->close();
+                
+                logDebug("Rank updated successfully", [
+                    'discord_username' => $userData['discord_username'],
+                    'old_rank' => $oldRank,
+                    'new_rank' => $rank
+                ]);
+                
+                echo json_encode([
+                    'success' => true,
+                    'status' => 'rank_updated',
+                    'message' => 'อัพเดทยศสำเร็จ',
+                    'discord_username' => $userData['discord_username'],
+                    'discord_id' => $userData['discord_id'],
+                    'new_nickname' => $data['new_nickname'],
+                    'old_rank' => $oldRank,
+                    'new_rank' => $rank,
+                    'action' => 'update_rank'
+                ]);
+                
+            } catch (Exception $e) {
+                $conn->rollback();
+                logDebug("Rank update transaction rollback", $e->getMessage());
+                throw $e;
+            }
+            exit();
+        }
+        
+        // ถ้าไม่มี action ที่รู้จัก
+        throw new Exception('Unknown action: ' . ($data['action'] ?? 'none'));
+        
     } catch (Exception $e) {
         logDebug("POST error", $e->getMessage());
         http_response_code(400);
@@ -248,7 +329,7 @@ if ($method === 'POST') {
     }
 }
 
-// ============ GET REQUEST ============
+// ================== GET REQUEST ==================
 elseif ($method === 'GET') {
     logDebug("GET parameters", $_GET);
     
@@ -257,6 +338,7 @@ elseif ($method === 'GET') {
     
     logDebug("GET action", $action);
     
+    // ============ ตรวจสอบสถานะการยืนยัน ============
     if ($action === 'check' && !empty($roblox_user_id)) {
         $stmt = $conn->prepare("SELECT * FROM user_verification WHERE roblox_user_id = ?");
         $stmt->bind_param("s", $roblox_user_id);
@@ -272,6 +354,8 @@ elseif ($method === 'GET') {
                     'status' => 'verified',
                     'message' => 'คุณได้รับการยืนยันแล้ว',
                     'discord_username' => $row['discord_username'],
+                    'rank_id' => $row['rank_id'],
+                    'new_nickname' => $row['new_nickname'],
                     'action' => 'kick'
                 ]);
             } else {
@@ -296,6 +380,7 @@ elseif ($method === 'GET') {
         exit();
     }
     
+    // ============ ดึงข้อมูลที่รอการอัพเดท (สำหรับ Discord Bot) ============
     elseif ($action === 'get_pending_updates') {
         $stmt = $conn->prepare("
             SELECT discord_id, new_nickname, rank_id, roblox_user_id 
@@ -313,6 +398,8 @@ elseif ($method === 'GET') {
             $updates[] = $row;
         }
         
+        logDebug("Fetched pending updates", count($updates));
+        
         echo json_encode([
             'success' => true,
             'updates' => $updates,
@@ -322,6 +409,7 @@ elseif ($method === 'GET') {
         exit();
     }
     
+    // ============ เคลียร์สถานะหลังอัพเดทเสร็จ ============
     elseif ($action === 'clear_update') {
         $discord_id = isset($_GET['discord_id']) ? $conn->real_escape_string($_GET['discord_id']) : '';
         
@@ -334,13 +422,47 @@ elseif ($method === 'GET') {
             $stmt->bind_param("s", $discord_id);
             
             if ($stmt->execute()) {
+                logDebug("Cleared update status", $discord_id);
                 echo json_encode(['success' => true, 'message' => 'Cleared']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Failed']);
             }
             $stmt->close();
             exit();
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Missing discord_id parameter'
+            ]);
+            exit();
         }
+    }
+    
+    // ============ ดึงสถิติระบบ (เพิ่มเติม) ============
+    elseif ($action === 'stats') {
+        $stats = [];
+        
+        // นับจำนวนผู้ใช้ทั้งหมด
+        $result = $conn->query("SELECT COUNT(*) as total FROM user_verification");
+        $stats['total_users'] = $result->fetch_assoc()['total'];
+        
+        // นับจำนวนที่ verified แล้ว
+        $result = $conn->query("SELECT COUNT(*) as verified FROM user_verification WHERE verified = 1");
+        $stats['verified_users'] = $result->fetch_assoc()['verified'];
+        
+        // นับจำนวนที่รอยืนยัน
+        $result = $conn->query("SELECT COUNT(*) as pending FROM user_verification WHERE verified = 0");
+        $stats['pending_users'] = $result->fetch_assoc()['pending'];
+        
+        // นับจำนวนที่รออัพเดท
+        $result = $conn->query("SELECT COUNT(*) as processing FROM user_verification WHERE processing = 1");
+        $stats['processing_updates'] = $result->fetch_assoc()['processing'];
+        
+        echo json_encode([
+            'success' => true,
+            'stats' => $stats
+        ]);
+        exit();
     }
     
     // ถ้าไม่มี action ที่ตรง
@@ -348,17 +470,20 @@ elseif ($method === 'GET') {
         'success' => false,
         'message' => 'Invalid action or missing parameters',
         'action' => $action,
-        'params' => $_GET
+        'params' => $_GET,
+        'available_actions' => ['check', 'get_pending_updates', 'clear_update', 'stats']
     ]);
     exit();
 }
 
-// ถ้าไม่ใช่ GET หรือ POST
+// =============== METHOD ไม่ถูกต้อง ===============
 else {
+    http_response_code(405);
     echo json_encode([
         'success' => false,
         'message' => 'Method not allowed',
-        'method' => $method
+        'method' => $method,
+        'allowed_methods' => ['GET', 'POST', 'OPTIONS']
     ]);
     exit();
 }
