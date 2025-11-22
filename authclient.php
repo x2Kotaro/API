@@ -1,6 +1,6 @@
 <?php
 // ============ DEBUG MODE (ปิดตอน production) ============
-$DEBUG_MODE = true; // เปลี่ยนเป็น false เมื่อเสร็จแล้ว
+$DEBUG_MODE = true;
 
 if ($DEBUG_MODE) {
     ini_set('display_errors', 1);
@@ -63,8 +63,8 @@ try {
     exit();
 }
 
-// ============ CREATE TABLE ============
-$createTable = "CREATE TABLE IF NOT EXISTS user_verification (
+// ============ CREATE TABLES ============
+$createUserTable = "CREATE TABLE IF NOT EXISTS user_verification (
     id INT AUTO_INCREMENT PRIMARY KEY,
     discord_id VARCHAR(255) NOT NULL,
     discord_username VARCHAR(255) NOT NULL,
@@ -83,8 +83,8 @@ $createTable = "CREATE TABLE IF NOT EXISTS user_verification (
     INDEX idx_roblox_user_id (roblox_user_id)
 ) ENGINE=InnoDB";
 
-if (!$conn->query($createTable)) {
-    logDebug("Table creation failed", $conn->error);
+if (!$conn->query($createUserTable)) {
+    logDebug("User table creation failed", $conn->error);
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -108,7 +108,7 @@ if ($method === 'POST') {
         
         logDebug("Parsed POST data", $data);
         
-        // ============ กรณีบันทึกข้อมูลจาก Discord (ครั้งแรก) ============
+        // ============ บันทึกข้อมูลจาก Discord (ครั้งแรก) ============
         if (!isset($data['action'])) {
             if (!isset($data['discord_id']) || !isset($data['roblox_user_id'])) {
                 throw new Exception('Missing required fields: discord_id or roblox_user_id');
@@ -166,7 +166,7 @@ if ($method === 'POST') {
             exit();
         }
         
-        // ============ กรณียืนยันตัวตนครั้งแรกจาก Roblox ============
+        // ============ ยืนยันตัวตนครั้งแรกจาก Roblox ============
         if ($data['action'] === 'update_nickname') {
             logDebug("Update nickname request", $data);
             
@@ -226,6 +226,7 @@ if ($method === 'POST') {
                     'discord_username' => $userData['discord_username'],
                     'discord_id' => $userData['discord_id'],
                     'new_nickname' => $data['new_nickname'],
+                    'rank_id' => $rank,
                     'action' => 'update_nickname'
                 ]);
                 
@@ -237,14 +238,13 @@ if ($method === 'POST') {
             exit();
         }
         
-        // ============ กรณีอัพเดทยศ (สำหรับคนที่ verified แล้ว) ============
+        // ============ อัพเดทยศ (สำหรับคนที่ verified แล้ว) ============
         if ($data['action'] === 'update_rank') {
             logDebug("Update rank request", $data);
             
             $conn->begin_transaction();
             
             try {
-                // ตรวจสอบว่า user มีอยู่และ verified แล้ว
                 $stmt = $conn->prepare("
                     SELECT * FROM user_verification 
                     WHERE roblox_user_id = ? 
@@ -269,7 +269,6 @@ if ($method === 'POST') {
                 $oldRank = $userData['rank_id'];
                 $stmt->close();
                 
-                // อัพเดทยศและชื่อใหม่
                 $updateStmt = $conn->prepare("
                     UPDATE user_verification 
                     SET new_nickname = ?,
@@ -315,7 +314,6 @@ if ($method === 'POST') {
             exit();
         }
         
-        // ถ้าไม่มี action ที่รู้จัก
         throw new Exception('Unknown action: ' . ($data['action'] ?? 'none'));
         
     } catch (Exception $e) {
@@ -438,23 +436,19 @@ elseif ($method === 'GET') {
         }
     }
     
-    // ============ ดึงสถิติระบบ (เพิ่มเติม) ============
+    // ============ ดึงสถิติระบบ ============
     elseif ($action === 'stats') {
         $stats = [];
         
-        // นับจำนวนผู้ใช้ทั้งหมด
         $result = $conn->query("SELECT COUNT(*) as total FROM user_verification");
         $stats['total_users'] = $result->fetch_assoc()['total'];
         
-        // นับจำนวนที่ verified แล้ว
         $result = $conn->query("SELECT COUNT(*) as verified FROM user_verification WHERE verified = 1");
         $stats['verified_users'] = $result->fetch_assoc()['verified'];
         
-        // นับจำนวนที่รอยืนยัน
         $result = $conn->query("SELECT COUNT(*) as pending FROM user_verification WHERE verified = 0");
         $stats['pending_users'] = $result->fetch_assoc()['pending'];
         
-        // นับจำนวนที่รออัพเดท
         $result = $conn->query("SELECT COUNT(*) as processing FROM user_verification WHERE processing = 1");
         $stats['processing_updates'] = $result->fetch_assoc()['processing'];
         
@@ -465,7 +459,6 @@ elseif ($method === 'GET') {
         exit();
     }
     
-    // ถ้าไม่มี action ที่ตรง
     echo json_encode([
         'success' => false,
         'message' => 'Invalid action or missing parameters',
@@ -476,7 +469,6 @@ elseif ($method === 'GET') {
     exit();
 }
 
-// =============== METHOD ไม่ถูกต้อง ===============
 else {
     http_response_code(405);
     echo json_encode([
