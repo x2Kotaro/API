@@ -379,29 +379,30 @@ elseif ($method === 'GET') {
     }
     
     // ============ ดึงข้อมูลที่รอการอัพเดท (สำหรับ Discord Bot) ============
-    elseif ($action === 'get_pending_updates') {
+    elseif ($action === 'get_pending') {
         $stmt = $conn->prepare("
             SELECT discord_id, new_nickname, rank_id, roblox_user_id 
             FROM user_verification 
             WHERE verified = 1 
             AND new_nickname IS NOT NULL 
             AND processing = 1
-            LIMIT 10
+            ORDER BY updated_at ASC
+            LIMIT 20
         ");
         $stmt->execute();
         $result = $stmt->get_result();
         
-        $updates = [];
+        $data = [];
         while ($row = $result->fetch_assoc()) {
-            $updates[] = $row;
+            $data[] = $row;
         }
         
-        logDebug("Fetched pending updates", count($updates));
+        logDebug("Fetched pending (new)", count($data));
         
         echo json_encode([
             'success' => true,
-            'updates' => $updates,
-            'count' => count($updates)
+            'data' => $data,
+            'count' => count($data)
         ]);
         $stmt->close();
         exit();
