@@ -32,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // ============ DATABASE CONNECTION ============
-$servername = "caboose.proxy.rlwy.net";
+$servername = "127.0.0.1";
 $username = "root";
-$password = "uuEilzwNfhvWKZaCEOcIdDSRIHyChOZb";
-$dbname = "railway";
-$port = 39358;
+$password = "Deep1432";
+$dbname = "auth_system";
+$port = 3306;
 
 logDebug("Attempting database connection");
 
@@ -63,30 +63,6 @@ try {
     exit();
 }
 
-// ============ CREATE TABLES ============
-$createUserTable = "CREATE TABLE IF NOT EXISTS user_verification (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    discord_id VARCHAR(255) NOT NULL,
-    discord_username VARCHAR(255) NOT NULL,
-    roblox_username VARCHAR(255) NOT NULL,
-    roblox_user_id VARCHAR(255) NOT NULL UNIQUE,
-    roblox_profile_url TEXT,
-    verified TINYINT(1) DEFAULT 0,
-    new_nickname VARCHAR(255) NULL,
-    rank_id INT NULL,
-    processing TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    verified_at TIMESTAMP NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_discord_id (discord_id),
-    INDEX idx_verified_processing (verified, processing),
-    INDEX idx_roblox_user_id (roblox_user_id)
-) ENGINE=InnoDB";
-
-if (!$conn->query($createUserTable)) {
-    logDebug("User table creation failed", $conn->error);
-}
-
 $method = $_SERVER['REQUEST_METHOD'];
 logDebug("Request method", $method);
 
@@ -94,37 +70,27 @@ logDebug("Request method", $method);
 if ($method === 'POST') {
     try {
         $rawInput = file_get_contents('php://input');
-        logDebug("Raw POST input", $rawInput);
-        
-        if (empty($rawInput)) {
-            throw new Exception('Empty request body');
-        }
-        
         $data = json_decode($rawInput, true);
-        
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Invalid JSON: ' . json_last_error_msg());
-        }
-        
-        logDebug("Parsed POST data", $data);
         
         // ============ บันทึกข้อมูลจาก Discord (ครั้งแรก) ============
         if (!isset($data['action'])) {
-            if (!isset($data['discord_id']) || !isset($data['roblox_user_id'])) {
-                throw new Exception('Missing required fields: discord_id or roblox_user_id');
+            if (!isset($data['discord_id']) || !isset($data['roblox_user_id']) || !isset($data['map_id'])) {
+                throw new Exception('Missing required fields: discord_id, roblox_user_id, or map_id');
             }
             
             $conn->begin_transaction();
             
             try {
+                // ⭐ เพิ่ม map_id ในการบันทึก
                 $stmt = $conn->prepare("
                     INSERT INTO user_verification 
-                    (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, verified, processing) 
-                    VALUES (?, ?, ?, ?, ?, 0, 0)
+                    (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, map_id, verified, processing) 
+                    VALUES (?, ?, ?, ?, ?, ?, 0, 0)
                     ON DUPLICATE KEY UPDATE 
                         discord_id = VALUES(discord_id),
                         discord_username = VALUES(discord_username),
                         roblox_username = VALUES(roblox_username),
+                        map_id = VALUES(map_id),
                         verified = 0,
                         processing = 0,
                         new_nickname = NULL,
@@ -132,12 +98,13 @@ if ($method === 'POST') {
                 ");
                 
                 $stmt->bind_param(
-                    "sssss",
+                    "ssssss",
                     $data['discord_id'],
                     $data['discord_username'],
                     $data['roblox_username'],
                     $data['roblox_user_id'],
-                    $data['roblox_profile_url']
+                    $data['roblox_profile_url'],
+                    $data['map_id']  // ⭐ เพิ่มตัวนี้
                 );
                 
                 if (!$stmt->execute()) {
@@ -147,20 +114,18 @@ if ($method === 'POST') {
                 $conn->commit();
                 $stmt->close();
                 
-                logDebug("Data saved successfully", $data['roblox_username']);
-                
                 echo json_encode([
                     'success' => true,
                     'message' => 'Data saved successfully',
                     'data' => [
                         'discord_username' => $data['discord_username'],
-                        'roblox_username' => $data['roblox_username']
+                        'roblox_username' => $data['roblox_username'],
+                        'map_id' => $data['map_id']
                     ]
                 ]);
                 
             } catch (Exception $e) {
                 $conn->rollback();
-                logDebug("Transaction rollback", $e->getMessage());
                 throw $e;
             }
             exit();
@@ -329,17 +294,16 @@ if ($method === 'POST') {
 
 // ================== GET REQUEST ==================
 elseif ($method === 'GET') {
-    logDebug("GET parameters", $_GET);
-    
     $roblox_user_id = isset($_GET['roblox_user_id']) ? $conn->real_escape_string($_GET['roblox_user_id']) : '';
+    $map_id = isset($_GET['map_id']) ? $conn->real_escape_string($_GET['map_id']) : '';
     $action = isset($_GET['action']) ? $_GET['action'] : 'check';
     
-    logDebug("GET action", $action);
-    
-    // ============ ตรวจสอบสถานะการยืนยัน ============
-    if ($action === 'check' && !empty($roblox_user_id)) {
-        $stmt = $conn->prepare("SELECT * FROM user_verification WHERE roblox_user_id = ?");
-        $stmt->bind_param("s", $roblox_user_id);
+    if ($action === 'check' && !empty($roblox_user_id) && !empty($map_id)) {
+        $stmt = $conn->prepare("
+            SELECT * FROM user_verification 
+            WHERE roblox_user_id = ? AND map_id = ?
+        ");
+        $stmt->bind_param("ss", $roblox_user_id, $map_id);
         $stmt->execute();
         $result = $stmt->get_result();
         
@@ -354,6 +318,7 @@ elseif ($method === 'GET') {
                     'discord_username' => $row['discord_username'],
                     'rank_id' => $row['rank_id'],
                     'new_nickname' => $row['new_nickname'],
+                    'map_id' => $row['map_id'],
                     'action' => 'kick'
                 ]);
             } else {
@@ -363,6 +328,7 @@ elseif ($method === 'GET') {
                     'message' => 'กรุณายืนยันตัวตน',
                     'discord_username' => $row['discord_username'],
                     'roblox_username' => $row['roblox_username'],
+                    'map_id' => $row['map_id'],
                     'action' => 'show_ui'
                 ]);
             }
@@ -374,6 +340,34 @@ elseif ($method === 'GET') {
                 'action' => 'none'
             ]);
         }
+        $stmt->close();
+        exit();
+    }
+    
+    elseif ($action === 'check_maps' && !empty($roblox_user_id)) {
+        $stmt = $conn->prepare("
+            SELECT map_id, discord_username, verified 
+            FROM user_verification 
+            WHERE roblox_user_id = ?
+        ");
+        $stmt->bind_param("s", $roblox_user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $maps = [];
+        while ($row = $result->fetch_assoc()) {
+            $maps[] = [
+                'map_id' => $row['map_id'],
+                'discord_username' => $row['discord_username'],
+                'verified' => $row['verified'] == 1
+            ];
+        }
+        
+        echo json_encode([
+            'success' => true,
+            'maps' => $maps,
+            'count' => count($maps)
+        ]);
         $stmt->close();
         exit();
     }
