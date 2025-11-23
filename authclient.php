@@ -78,45 +78,113 @@ if ($method === 'POST') {
                 throw new Exception('Missing required fields: discord_id, roblox_user_id, or map_id');
             }
             
+            // ⭐ เช็คว่า roblox_groups มี map_id อยู่จริงหรือไม่
+            $roblox_groups = isset($data['roblox_groups']) ? json_decode($data['roblox_groups'], true) : [];
+            
+            if (!in_array($data['map_id'], $roblox_groups)) {
+                http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'คุณไม่ได้อยู่ในกลุ่มหลัก กรุณาเข้าร่วมกลุ่ม Roblox ก่อนยืนยันตัวตน',
+                    'error' => 'USER_NOT_IN_MAIN_GROUP',
+                    'map_id' => $data['map_id'],
+                    'user_groups' => $roblox_groups
+                ]);
+                exit();
+            }
+            
             $conn->begin_transaction();
             
             try {
-                // ⭐ เพิ่ม map_id ในการบันทึก
-                $stmt = $conn->prepare("
-                    INSERT INTO user_verification 
-                    (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, map_id, verified, processing) 
-                    VALUES (?, ?, ?, ?, ?, ?, 0, 0)
-                    ON DUPLICATE KEY UPDATE 
-                        discord_id = VALUES(discord_id),
-                        discord_username = VALUES(discord_username),
-                        roblox_username = VALUES(roblox_username),
-                        map_id = VALUES(map_id),
-                        verified = 0,
-                        processing = 0,
-                        new_nickname = NULL,
-                        rank_id = NULL
+                // ⭐ เช็คว่ามีข้อมูลอยู่แล้วหรือไม่ (roblox_user_id + map_id)
+                $checkStmt = $conn->prepare("
+                    SELECT id FROM user_verification 
+                    WHERE roblox_user_id = ? AND map_id = ?
                 ");
+                $checkStmt->bind_param("ss", $data['roblox_user_id'], $data['map_id']);
+                $checkStmt->execute();
+                $existing = $checkStmt->get_result()->fetch_assoc();
+                $checkStmt->close();
                 
-                $stmt->bind_param(
-                    "ssssss",
-                    $data['discord_id'],
-                    $data['discord_username'],
-                    $data['roblox_username'],
-                    $data['roblox_user_id'],
-                    $data['roblox_profile_url'],
-                    $data['map_id']  // ⭐ เพิ่มตัวนี้
-                );
+                if ($existing) {
+                    // ⭐ มีข้อมูลอยู่แล้ว - ทำ UPDATE (กรณีเปลี่ยน Discord Account)
+                    logDebug("Updating existing record", [
+                        'roblox_user_id' => $data['roblox_user_id'],
+                        'map_id' => $data['map_id']
+                    ]);
+                    
+                    $stmt = $conn->prepare("
+                        UPDATE user_verification 
+                        SET discord_id = ?,
+                            discord_username = ?,
+                            roblox_username = ?,
+                            roblox_profile_url = ?,
+                            roblox_groups = ?,
+                            verified = 0,
+                            processing = 0,
+                            new_nickname = NULL,
+                            rank_id = NULL,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE roblox_user_id = ? AND map_id = ?
+                    ");
+                    
+                    $stmt->bind_param(
+                        "sssssss",
+                        $data['discord_id'],
+                        $data['discord_username'],
+                        $data['roblox_username'],
+                        $data['roblox_profile_url'],
+                        $data['roblox_groups'],
+                        $data['roblox_user_id'],
+                        $data['map_id']
+                    );
+                    
+                    $action = 'updated';
+                } else {
+                    // ⭐ ไม่มีข้อมูล - ทำ INSERT (ครั้งแรก)
+                    logDebug("Inserting new record", [
+                        'roblox_user_id' => $data['roblox_user_id'],
+                        'map_id' => $data['map_id']
+                    ]);
+                    
+                    $stmt = $conn->prepare("
+                        INSERT INTO user_verification 
+                        (discord_id, discord_username, roblox_username, roblox_user_id, roblox_profile_url, roblox_groups, map_id, verified, processing) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)
+                    ");
+                    
+                    $stmt->bind_param(
+                        "sssssss",
+                        $data['discord_id'],
+                        $data['discord_username'],
+                        $data['roblox_username'],
+                        $data['roblox_user_id'],
+                        $data['roblox_profile_url'],
+                        $data['roblox_groups'],
+                        $data['map_id']
+                    );
+                    
+                    $action = 'inserted';
+                }
                 
                 if (!$stmt->execute()) {
-                    throw new Exception('Database insert failed: ' . $stmt->error);
+                    throw new Exception('Database operation failed: ' . $stmt->error);
                 }
                 
                 $conn->commit();
                 $stmt->close();
                 
+                logDebug("Data saved successfully", [
+                    'action' => $action,
+                    'discord_username' => $data['discord_username'],
+                    'roblox_username' => $data['roblox_username'],
+                    'map_id' => $data['map_id']
+                ]);
+                
                 echo json_encode([
                     'success' => true,
-                    'message' => 'Data saved successfully',
+                    'message' => $action === 'updated' ? 'Data updated successfully' : 'Data saved successfully',
+                    'action' => $action,
                     'data' => [
                         'discord_username' => $data['discord_username'],
                         'roblox_username' => $data['roblox_username'],
@@ -391,7 +459,7 @@ elseif ($method === 'GET') {
             $data[] = $row;
         }
         
-        logDebug("Fetched pending (new)", count($data));
+        logDebug("Fetched pending", count($data));
         
         echo json_encode([
             'success' => true,
@@ -459,7 +527,7 @@ elseif ($method === 'GET') {
         'message' => 'Invalid action or missing parameters',
         'action' => $action,
         'params' => $_GET,
-        'available_actions' => ['check', 'get_pending_updates', 'clear_update', 'stats']
+        'available_actions' => ['check', 'check_maps', 'get_pending', 'clear_update', 'stats']
     ]);
     exit();
 }
