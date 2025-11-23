@@ -32,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // ============ DATABASE CONNECTION ============
-$servername = "127.0.0.1";
+$servername = "caboose.proxy.rlwy.net";
 $username = "root";
-$password = "Deep1432";
-$dbname = "auth_system";
-$port = 3306;
+$password = "uuEilzwNfhvWKZaCEOcIdDSRIHyChOZb";
+$dbname = "railway";
+$port = 39358;
 
 logDebug("Attempting database connection");
 
