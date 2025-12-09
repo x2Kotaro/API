@@ -5251,25 +5251,23 @@ end
 
 
 return ag
-end end function a.A()
-local aa=a.load'b'
+end end function a.z()
+local aa=a.load'a'
 local ab=aa.New
 
 local ac={}
 
-local ad=a.load'j'.New
+local ad=a.load'i'.New
 
 function ac.New(ae,af)
 af.Hover=false
 af.TextOffset=0
-af.ParentConfig=af
 af.IsButtons=af.Buttons and#af.Buttons>0 and true or false
 
 local ag={
 __type="Paragraph",
 Title=af.Title or"Paragraph",
 Desc=af.Desc or nil,
-
 Locked=af.Locked or false,
 }
 local ah=a.load'y'(af)
@@ -5281,19 +5279,27 @@ local descWrapperLabel = nil
 
 -- เพิ่ม DescWrapper สำหรับ Paragraph
 if af.Desc and af.Desc ~= "" then
-    -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
-    local titleFrame = ah.UIElements.Container.TitleFrame.TitleFrame
-    local UIListLayoutPadding = ah.UIElements.Container.UIListLayout
-    if UIListLayoutPadding then
-    UIListLayoutPadding.Padding = UDim.new(0, 7)
+    -- ✅ แก้ไข: หา UIListLayout อย่างถูกต้อง
+    local container = ah.UIElements.Container
+    if container then
+        local layout = container:FindFirstChildOfClass("UIListLayout")
+        if layout then
+            layout.Padding = UDim.new(0, 7)
+        end
     end
+    
+    -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
+    local titleFrame = ah.UIElements.Container:FindFirstChild("TitleFrame")
     if titleFrame then
-        for _, child in ipairs(titleFrame:GetChildren()) do
-            if child:IsA("TextLabel") and child.Name == "TextLabel" and child.LayoutOrder ~= -1 then
-                -- เช็คว่าเป็น Desc จริงๆ โดยดูจาก TextTransparency
-                if child.TextTransparency > 0.3 then
-                    child.Visible = false
-                    break
+        titleFrame = titleFrame:FindFirstChild("TitleFrame")
+        if titleFrame then
+            for _, child in ipairs(titleFrame:GetChildren()) do
+                if child:IsA("TextLabel") and child.Name == "TextLabel" and child.LayoutOrder ~= -1 then
+                    -- เช็คว่าเป็น Desc จริงๆ โดยดูจาก TextTransparency
+                    if child.TextTransparency > 0.3 then
+                        child.Visible = false
+                        break
+                    end
                 end
             end
         end
