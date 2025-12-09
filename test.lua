@@ -5404,6 +5404,8 @@ local ag=true
 af.ButtonFrame=a.load'z'{
 Title=af.Title,
 Desc=af.Desc,
+Hover=true,
+Scalable=true,
 Parent=ae.Parent,
 
 
@@ -5880,7 +5882,8 @@ Desc=ai.Desc,
 Window=ah.Window,
 Parent=ah.Parent,
 TextOffset=(52),
-Hover=false,
+Hover=true,
+Scalable = true,
 Tab=ah.Tab,
 Index=ah.Index,
 ElementTable=ai,
