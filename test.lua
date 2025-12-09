@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts 111
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -5251,55 +5251,49 @@ end
 
 
 return ag
-end end function a.z()
-local aa=a.load'a'
+end end function a.A()
+local aa=a.load'b'
 local ab=aa.New
 
 local ac={}
 
-local ad=a.load'i'.New
+local ad=a.load'j'.New
 
 function ac.New(ae,af)
 af.Hover=false
 af.TextOffset=0
+af.ParentConfig=af
 af.IsButtons=af.Buttons and#af.Buttons>0 and true or false
 
 local ag={
 __type="Paragraph",
 Title=af.Title or"Paragraph",
 Desc=af.Desc or nil,
+
 Locked=af.Locked or false,
 }
-local ah=a.load'y'(af)
+local ah=a.load'z'(af)
 
 ag.ParagraphFrame=ah
 
 -- ตัวแปรเก็บ reference ของ DescWrapper
 local descWrapperLabel = nil
 
--- เพิ่ม DescWrapper สำหรับ Paragraph
+-- เพิ่ม DescWrapper สําหรับ Paragraph
 if af.Desc and af.Desc ~= "" then
-    -- ✅ แก้ไข: หา UIListLayout อย่างถูกต้อง
-    local container = ah.UIElements.Container
-    if container then
-        local layout = container:FindFirstChildOfClass("UIListLayout")
-        if layout then
-            layout.Padding = UDim.new(0, 7)
-        end
-    end
-    
     -- หา Desc เดิมและซ่อนมัน (ไม่ใช่ Title)
-    local titleFrame = ah.UIElements.Container:FindFirstChild("TitleFrame")
+    local titleFrame = ah.UIElements.Container.TitleFrame.TitleFrame
+    local UIListLayoutPadding = ah.UIElements.Container.UIListLayout
+    if UIListLayoutPadding then
+        UIListLayoutPadding.Padding = UDim.new(0, 7)
+    end
     if titleFrame then
-        titleFrame = titleFrame:FindFirstChild("TitleFrame")
-        if titleFrame then
-            for _, child in ipairs(titleFrame:GetChildren()) do
-                if child:IsA("TextLabel") and child.Name == "TextLabel" and child.LayoutOrder ~= -1 then
-                    -- เช็คว่าเป็น Desc จริงๆ โดยดูจาก TextTransparency
-                    if child.TextTransparency > 0.3 then
-                        child.Visible = false
-                        break
-                    end
+        for _, child in ipairs(titleFrame:GetChildren()) do
+            if child:IsA("TextLabel") and child.Name == "TextLabel" and child.LayoutOrder ~= -1 then
+                -- เช็คว่าเป็น Desc จริงๆ โดยดูจาก TextTransparency
+                if child.TextTransparency > 0.3 then
+                    child.Visible = false
+                    break
                 end
             end
         end
