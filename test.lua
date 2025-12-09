@@ -5937,6 +5937,12 @@ end
 
 ai:Set(ak,false,ah.Window.NewElements)
 
+if ak and ah.Callback then
+    task.spawn(function()
+        task.wait(0.1)
+        ab.SafeCallback(ai.Callback, ak)
+    end)
+end
 
 if ah.Window.NewElements and am.Animate then
 aa.AddSignal(ai.ToggleFrame.UIElements.Main.InputBegan,function(an)
