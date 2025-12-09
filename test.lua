@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts 12312412312412
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -4998,31 +4998,24 @@ ag.UIElements.Main=aC
 ag.UIElements.Locked=as
 
 if ag.Hover then
-    aa.AddSignal(aC.MouseEnter,function()
-        if aj then
-            ad(aC,.05,{ImageTransparency=ag.Color and.15 or.9}):Play()
-        end
-    end)
-    
-    aa.AddSignal(aC.MouseButton1Down,function()
-        if aj then
-            n=true
-            if ag.Scalable then
-                ad(aC.UIScale,0.07,{Scale=0.985},Enum.EasingStyle.Exponential,Enum.EasingDirection.Out):Play()
-            end
-        end
-    end)
-    
-    aa.AddSignal(aC.InputEnded,function()
-        if aj then
-            ad(aC,.05,{ImageTransparency=ag.Color and.05 or.93}):Play()
-            if ag.Scalable then
-                ad(aC.UIScale,0.175,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
-            end
-            task.wait(0.16)
-            n=false
-        end
-    end)
+aa.AddSignal(aC.MouseEnter,function()
+if aj then
+ad(aC,.12,{ImageTransparency=ag.Color and.15 or.9}):Play()
+ad(aA,.12,{ImageTransparency=.9}):Play()
+ad(ay,.12,{ImageTransparency=.8}):Play()
+aa.AddSignal(aC.MouseMoved,function(aE,aF)
+aA.HoverGradient.Offset=Vector2.new(((aE-aC.AbsolutePosition.X)/aC.AbsoluteSize.X)-0.5,0)
+ay.HoverGradient.Offset=Vector2.new(((aE-aC.AbsolutePosition.X)/aC.AbsoluteSize.X)-0.5,0)
+end)
+end
+end)
+aa.AddSignal(aC.InputEnded,function()
+if aj then
+ad(aC,.12,{ImageTransparency=ag.Color and.05 or.93}):Play()
+ad(aA,.12,{ImageTransparency=1}):Play()
+ad(ay,.12,{ImageTransparency=1}):Play()
+end
+end)
 end
 
 function ag.SetTitle(aE,aF)
