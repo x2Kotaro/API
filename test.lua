@@ -5468,7 +5468,20 @@ end
 if af.Locked then
 af:Lock()
 end
-
+local ai = ac("UIScale", {
+    Scale = 1,
+    Parent = af.ButtonFrame.UIElements.Main
+})
+aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Down, function()
+    if ag then
+        ad(ai, 0.08, {Scale = 0.97}, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out):Play()
+    end
+end)
+aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Up, function()
+    if ag then
+        ad(ai, 0.2, {Scale = 1}, Enum.EasingStyle.Back, Enum.EasingDirection.Out):Play()
+    end
+end)
 aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Click,function()
 if ag then
 task.spawn(function()
@@ -5957,6 +5970,20 @@ end)
 
 
 else
+local ao = ac("UIScale", {
+    Scale = 1,
+    Parent = ai.ToggleFrame.UIElements.Main
+})
+aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Down, function()
+    if aj then
+        ad(ao, 0.08, {Scale = 0.97}, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out):Play()
+    end
+end)
+aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Up, function()
+    if aj then
+        ad(ao, 0.2, {Scale = 1}, Enum.EasingStyle.Back, Enum.EasingDirection.Out):Play()
+    end
+end)
 aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Click,function()
 ai:Set(not ai.Value,nil,ah.Window.NewElements)
 end)
