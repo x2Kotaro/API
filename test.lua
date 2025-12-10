@@ -2,7 +2,7 @@
      _      ___         ____  ______
     | | /| / (_)__  ___/ / / / /  _/
     | |/ |/ / / _ \/ _  / /_/ // /  
-    |__/|__/_/_//_/\_,_/\____/___/
+    |__/|__/_/_//_/\_,_/\____/___/ 1
     
     v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
     
@@ -4984,6 +4984,7 @@ or typeof(ag.Color)=="Color3"
 and ag.Color
 )or nil
 },{
+ab("UIScale",{Scale=1}),
 ag.UIElements.Container,
 ar,
 ab("UIPadding",{
@@ -4996,6 +4997,7 @@ PaddingBottom=UDim.new(0,ag.UIPadding),
 
 ag.UIElements.Main=aC
 ag.UIElements.Locked=as
+ag.UIElements.UIScale=aC:FindFirstChildWhichIsA("UIScale")
 
 if ag.Hover then
 aa.AddSignal(aC.MouseEnter,function()
@@ -5009,11 +5011,19 @@ ay.HoverGradient.Offset=Vector2.new(((aE-aC.AbsolutePosition.X)/aC.AbsoluteSize.
 end)
 end
 end)
+aa.AddSignal(aC.MouseButton1Down,function()
+if aj and ag.Scalable and ag.UIElements.UIScale then
+ad(ag.UIElements.UIScale,0.07,{Scale=0.985},Enum.EasingStyle.Exponential,Enum.EasingDirection.Out):Play()
+end
+end)
 aa.AddSignal(aC.InputEnded,function()
 if aj then
 ad(aC,.12,{ImageTransparency=ag.Color and.05 or.93}):Play()
 ad(aA,.12,{ImageTransparency=1}):Play()
 ad(ay,.12,{ImageTransparency=1}):Play()
+if ag.Scalable and ag.UIElements.UIScale then
+ad(ag.UIElements.UIScale,0.175,{Scale=1},Enum.EasingStyle.Back,Enum.EasingDirection.Out):Play()
+end
 end
 end)
 end
@@ -5468,20 +5478,7 @@ end
 if af.Locked then
 af:Lock()
 end
-local ai = ac("UIScale", {
-    Scale = 1,
-    Parent = af.ButtonFrame.UIElements.Main
-})
-aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Down, function()
-    if ag then
-        ad(ai, 0.08, {Scale = 0.97}, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out):Play()
-    end
-end)
-aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Up, function()
-    if ag then
-        ad(ai, 0.2, {Scale = 1}, Enum.EasingStyle.Back, Enum.EasingDirection.Out):Play()
-    end
-end)
+
 aa.AddSignal(af.ButtonFrame.UIElements.Main.MouseButton1Click,function()
 if ag then
 task.spawn(function()
@@ -5970,20 +5967,6 @@ end)
 
 
 else
-local ao = ac("UIScale", {
-    Scale = 1,
-    Parent = ai.ToggleFrame.UIElements.Main
-})
-aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Down, function()
-    if aj then
-        ad(ao, 0.08, {Scale = 0.97}, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out):Play()
-    end
-end)
-aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Up, function()
-    if aj then
-        ad(ao, 0.2, {Scale = 1}, Enum.EasingStyle.Back, Enum.EasingDirection.Out):Play()
-    end
-end)
 aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Click,function()
 ai:Set(not ai.Value,nil,ah.Window.NewElements)
 end)
