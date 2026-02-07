@@ -1,7 +1,7 @@
 -- https://github.com/LorekeeperZinnia/Dex
 
 --[[
-	Dex
+	Dex 1
 	Created by Moon
 	Modified for Infinite Yield
 
@@ -3192,7 +3192,6 @@ local EmbeddedModules = {
 							RightButtonIcon = iconFrame,
 							RowButton = newEntry.RowButton,
 							EditAttributeButton = newEntry.EditAttributeButton,
-							CopyAttributeButton = nameFrame.CopyAttributeButton,
 							ToggleAttributes = nameFrame.ToggleAttributes,
 							SoundPreview = valueFrame.SoundPreview,
 							SoundPreviewSlider = valueFrame.SoundPreview.TimeLine.Slider
