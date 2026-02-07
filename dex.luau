@@ -1,7 +1,7 @@
 -- https://github.com/LorekeeperZinnia/Dex
 
 --[[
-	Dex Version 0.1
+	Dex
 	Created by Moon
 	Modified for Infinite Yield
 
@@ -3044,7 +3044,9 @@ local EmbeddedModules = {
 					end
 				end)
 
-				nameFrame.PropName.MouseButton2Click:Connect(function()
+				nameFrame.InputBegan:Connect(function(input)
+					if input.UserInputType ~= Enum.UserInputType.MouseButton2 then return end
+					
 					local prop = viewList[index + Properties.Index]
 					if not prop or not prop.IsAttribute then return end
 					
