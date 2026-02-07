@@ -1,7 +1,7 @@
 -- https://github.com/LorekeeperZinnia/Dex
 
 --[[
-	Dex
+	Dex Version 0.1
 	Created by Moon
 	Modified for Infinite Yield
 
@@ -3044,6 +3044,34 @@ local EmbeddedModules = {
 					end
 				end)
 
+				nameFrame.PropName.MouseButton2Click:Connect(function()
+					local prop = viewList[index + Properties.Index]
+					if not prop or not prop.IsAttribute then return end
+					
+					local context = Lib.ContextMenu.new()
+					context.Width = 150
+					
+					context:Add({Name = "Copy Attribute Name", OnClick = function()
+						if env.setclipboard and prop.AttributeName then
+							env.setclipboard(prop.AttributeName)
+						end
+					end})
+					
+					context:Add({Name = "Copy Attribute Value", OnClick = function()
+						if env.setclipboard and prop.AttributeName then
+							local objs = Properties.GetSelection()
+							if #objs > 0 then
+								local val = objs[1]:GetAttribute(prop.AttributeName)
+								if val ~= nil then
+									env.setclipboard(tostring(val))
+								end
+							end
+						end
+					end})
+					
+					context:Show()
+				end)
+
 
 				valueFrame.ValueBox.MouseButton1Down:Connect(function()
 					local prop = viewList[index + Properties.Index]
@@ -3090,14 +3118,6 @@ local EmbeddedModules = {
 					Properties.DisplayAttributeContext(prop)
 				end)
 
-				nameFrame.CopyAttributeButton.MouseButton1Click:Connect(function()
-					local prop = viewList[index + Properties.Index]
-					if not prop or not prop.IsAttribute or not prop.AttributeName then return end
-					
-					if env.setclipboard then
-						env.setclipboard(prop.AttributeName)
-					end
-				end)
 
 				valueFrame.SoundPreview.ControlButton.MouseButton1Click:Connect(function()
 					if Properties.PreviewSound and Properties.PreviewSound.Playing then
@@ -3756,7 +3776,6 @@ local EmbeddedModules = {
 								nameFrame.BackgroundTransparency = 1
 								nameFrame.Size = UDim2.new(1,0,1,0)
 								editAttributeButton.Visible = false
-								guiElems.CopyAttributeButton.Visible = false
 
 								local showingAttrs = Settings.Properties.ShowAttributes
 								toggleAttributes.Position = UDim2.new(1,-85-leftOffset,0,0)
@@ -3770,9 +3789,8 @@ local EmbeddedModules = {
 								local tags = prop.Tags
 								local propObj = autoUpdateObjs[gName]
 
-								local attributeOffset = (prop.IsAttribute and 42 or 0)
+								local attributeOffset = (prop.IsAttribute and 20 or 0)
 								editAttributeButton.Visible = (prop.IsAttribute and not prop.RootType)
-								guiElems.CopyAttributeButton.Visible = (prop.IsAttribute and not prop.RootType)
 								toggleAttributes.Visible = false
 
 								-- Moving around the frames
@@ -4117,7 +4135,6 @@ local EmbeddedModules = {
 					{24,"TextButton",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Font=3,Name="EditAttributeButton",Parent={1},Position=UDim2.new(1,-20,0,0),Size=UDim2.new(0,20,0,22),Text="",TextColor3=Color3.new(1,1,1),TextSize=14,}},
 					{25,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://5034718180",ImageTransparency=0.20000000298023,Name="Icon",Parent={24},Position=UDim2.new(0,2,0,3),Size=UDim2.new(0,16,0,16),}},
 					{26,"TextButton",{AutoButtonColor=false,BackgroundColor3=Color3.new(0.2352941185236,0.2352941185236,0.2352941185236),BorderSizePixel=0,Font=3,Name="RowButton",Parent={1},Size=UDim2.new(1,0,1,0),Text="Add Attribute",TextColor3=Color3.new(1,1,1),TextSize=14,TextTransparency=0.10000000149012,Visible=false,}},
-					{27,"TextButton",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Font=3,Name="CopyAttributeButton",Parent={2},Position=UDim2.new(1,-42,0,0),Size=UDim2.new(0,18,0,22),Text="📋",TextColor3=Color3.new(1,1,1),TextSize=14,Visible=false,}},
 				})
 
 				local fullNameFrame = Lib.Frame.new()
