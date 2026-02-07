@@ -1,7 +1,7 @@
 -- https://github.com/LorekeeperZinnia/Dex
 
 --[[
-	Dex 1
+	Dex
 	Created by Moon
 	Modified for Infinite Yield
 
@@ -3044,36 +3044,6 @@ local EmbeddedModules = {
 					end
 				end)
 
-				nameFrame.InputBegan:Connect(function(input)
-					if input.UserInputType ~= Enum.UserInputType.MouseButton2 then return end
-					
-					local prop = viewList[index + Properties.Index]
-					if not prop or not prop.IsAttribute then return end
-					
-					local context = Lib.ContextMenu.new()
-					context.Width = 150
-					
-					context:Add({Name = "Copy Attribute Name", OnClick = function()
-						if env.setclipboard and prop.AttributeName then
-							env.setclipboard(prop.AttributeName)
-						end
-					end})
-					
-					context:Add({Name = "Copy Attribute Value", OnClick = function()
-						if env.setclipboard and prop.AttributeName then
-							local objs = Properties.GetSelection()
-							if #objs > 0 then
-								local val = objs[1]:GetAttribute(prop.AttributeName)
-								if val ~= nil then
-									env.setclipboard(tostring(val))
-								end
-							end
-						end
-					end})
-					
-					context:Show()
-				end)
-
 
 				valueFrame.ValueBox.MouseButton1Down:Connect(function()
 					local prop = viewList[index + Properties.Index]
@@ -3120,6 +3090,27 @@ local EmbeddedModules = {
 					Properties.DisplayAttributeContext(prop)
 				end)
 
+				nameFrame.PropNameBox.FocusLost:Connect(function(enterPressed)
+					local prop = viewList[index + Properties.Index]
+					if not prop or not prop.IsAttribute or not prop.AttributeName then return end
+					
+					local newName = nameFrame.PropNameBox.Text
+					if newName == "" or newName == prop.AttributeName then 
+						nameFrame.PropNameBox.Text = prop.AttributeName
+						return 
+					end
+					
+					-- Rename attribute
+					local objs = Properties.GetSelection()
+					for _, obj in ipairs(objs) do
+						local oldValue = obj:GetAttribute(prop.AttributeName)
+						obj:SetAttribute(prop.AttributeName, nil)
+						obj:SetAttribute(newName, oldValue)
+					end
+					
+					-- Update display
+					Properties.Refresh()
+				end)
 
 				valueFrame.SoundPreview.ControlButton.MouseButton1Click:Connect(function()
 					if Properties.PreviewSound and Properties.PreviewSound.Playing then
@@ -3175,28 +3166,29 @@ local EmbeddedModules = {
 
 				newEntry.Parent = propsFrame
 
-					return {
-						Gui = newEntry,
-						GuiElems = {
-							NameFrame = nameFrame,
-							ValueFrame = valueFrame,
-							PropName = nameFrame.PropName,
-							ValueBox = valueFrame.ValueBox,
-							Expand = nameFrame.Expand,
-							ColorButton = valueFrame.ColorButton,
-							ColorPreview = valueFrame.ColorButton.ColorPreview,
-							Gradient = valueFrame.ColorButton.ColorPreview.UIGradient,
-							EnumArrow = valueFrame.EnumArrow,
-							Checkbox = valueFrame.Checkbox,
-							RightButton = valueFrame.RightButton,
-							RightButtonIcon = iconFrame,
-							RowButton = newEntry.RowButton,
-							EditAttributeButton = newEntry.EditAttributeButton,
-							ToggleAttributes = nameFrame.ToggleAttributes,
-							SoundPreview = valueFrame.SoundPreview,
-							SoundPreviewSlider = valueFrame.SoundPreview.TimeLine.Slider
-						}
+				return {
+					Gui = newEntry,
+					GuiElems = {
+						NameFrame = nameFrame,
+						ValueFrame = valueFrame,
+						PropName = nameFrame.PropName,
+						PropNameBox = nameFrame.PropNameBox,
+						ValueBox = valueFrame.ValueBox,
+						Expand = nameFrame.Expand,
+						ColorButton = valueFrame.ColorButton,
+						ColorPreview = valueFrame.ColorButton.ColorPreview,
+						Gradient = valueFrame.ColorButton.ColorPreview.UIGradient,
+						EnumArrow = valueFrame.EnumArrow,
+						Checkbox = valueFrame.Checkbox,
+						RightButton = valueFrame.RightButton,
+						RightButtonIcon = iconFrame,
+						RowButton = newEntry.RowButton,
+						EditAttributeButton = newEntry.EditAttributeButton,
+						ToggleAttributes = nameFrame.ToggleAttributes,
+						SoundPreview = valueFrame.SoundPreview,
+						SoundPreviewSlider = valueFrame.SoundPreview.TimeLine.Slider
 					}
+				}
 			end
 
 			Properties.GetSoundPreviewEntry = function()
@@ -3810,6 +3802,18 @@ local EmbeddedModules = {
 								propNameBox.Font = Enum.Font.SourceSans
 								entry.BackgroundColor3 = Settings.Theme.Main2
 								valueFrame.Visible = true
+								
+								-- Show TextBox for Attribute names, Label for normal properties
+								if prop.IsAttribute and not prop.RootType then
+									propNameBox.Visible = false
+									guiElems.PropNameBox.Visible = true
+									guiElems.PropNameBox.Text = prop.DisplayName or nameArr[#nameArr]
+									guiElems.PropNameBox.Font = Enum.Font.SourceSans
+									guiElems.PropNameBox.TextColor3 = tags.ReadOnly and Settings.Theme.PlaceholderText or Settings.Theme.Text
+								else
+									propNameBox.Visible = true
+									guiElems.PropNameBox.Visible = false
+								end
 
 								expand.Visible = typeData.Category == "DataType" and Properties.ExpandableTypes[typeName] or Properties.ExpandableProps[gName]
 								propNameBox.TextColor3 = tags.ReadOnly and Settings.Theme.PlaceholderText or Settings.Theme.Text
@@ -4113,6 +4117,7 @@ local EmbeddedModules = {
 					{1,"TextButton",{AutoButtonColor=false,BackgroundColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),BorderColor3=Color3.new(0.1294117718935,0.1294117718935,0.1294117718935),Font=3,Name="Entry",Position=UDim2.new(0,1,0,1),Size=UDim2.new(0,250,0,22),Text="",TextSize=14,}},
 					{2,"Frame",{BackgroundColor3=Color3.new(0.04313725605607,0.35294118523598,0.68627452850342),BackgroundTransparency=1,BorderColor3=Color3.new(0.33725491166115,0.49019610881805,0.73725491762161),BorderSizePixel=0,Name="NameFrame",Parent={1},Position=UDim2.new(0,20,0,0),Size=UDim2.new(1,-40,1,0),}},
 					{3,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="PropName",Parent={2},Position=UDim2.new(0,2,0,0),Size=UDim2.new(1,-2,1,0),Text="Anchored",TextColor3=Color3.new(1,1,1),TextSize=14,TextTransparency=0.10000000149012,TextTruncate=1,TextXAlignment=0,}},
+					{27,"TextBox",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,ClearTextOnFocus=false,Font=3,Name="PropNameBox",Parent={2},Position=UDim2.new(0,2,0,0),Size=UDim2.new(1,-2,1,0),Text="",TextColor3=Color3.new(1,1,1),TextSize=14,TextTransparency=0.10000000149012,TextTruncate=1,TextXAlignment=0,Visible=false,}},
 					{4,"TextButton",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,ClipsDescendants=true,Font=3,Name="Expand",Parent={2},Position=UDim2.new(0,-20,0,1),Size=UDim2.new(0,20,0,20),Text="",TextSize=14,Visible=false,}},
 					{5,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://5642383285",ImageRectOffset=Vector2.new(144,16),ImageRectSize=Vector2.new(16,16),Name="Icon",Parent={4},Position=UDim2.new(0,2,0,2),ScaleType=4,Size=UDim2.new(0,16,0,16),}},
 					{6,"TextButton",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Font=4,Name="ToggleAttributes",Parent={2},Position=UDim2.new(1,-85,0,0),Size=UDim2.new(0,85,0,22),Text="[SETTING: OFF]",TextColor3=Color3.new(1,1,1),TextSize=14,TextTransparency=0.10000000149012,Visible=false,}},
