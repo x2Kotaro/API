@@ -1,5 +1,5 @@
 -- made by samet (joestar._3 on discord)
--- https://discord.gg/VhvTd5HV8d ๅ/-
+-- https://discord.gg/VhvTd5HV8d
 -- example at bottom
 
 if getgenv().Library then
@@ -1297,7 +1297,7 @@ local Library do
                     FontFace = Library.Font,
                     TextColor3 = FromRGB(100, 100, 100),
                     BorderColor3 = FromRGB(0, 0, 0),
-                    Text = "-",
+                    Text = "...",
                     AutoButtonColor = false,
                     Size = UDim2New(0, 0, 1, 0),
                     BorderSizePixel = 0,
@@ -1913,19 +1913,28 @@ local Library do
                     SortOrder = Enum.SortOrder.LayoutOrder
                 })
 
-                for _, DotColor in {FromRGB(255, 95, 86), FromRGB(255, 189, 46), FromRGB(39, 201, 63)} do
-                    local Dot = Instances:Create("Frame", {
+                local DotConfigs = {
+                    {Key = "DotClose", Color = FromRGB(255, 95, 86), Order = 1},   -- red   = close
+                    {Key = "DotMinimize", Color = FromRGB(255, 189, 46), Order = 2}, -- yellow = minimize
+                    {Key = "DotHide", Color = FromRGB(39, 201, 63), Order = 3},    -- green = hide
+                }
+
+                for _, Config in DotConfigs do
+                    Items[Config.Key] = Instances:Create("TextButton", {
                         Parent = Items["TrafficLights"].Instance,
                         Name = "\0",
+                        Text = "",
+                        AutoButtonColor = false,
+                        LayoutOrder = Config.Order,
                         BorderColor3 = FromRGB(0, 0, 0),
                         Size = UDim2New(0, 12, 0, 12),
                         BorderSizePixel = 0,
                         ZIndex = 10,
-                        BackgroundColor3 = DotColor
+                        BackgroundColor3 = Config.Color
                     })
 
                     Instances:Create("UICorner", {
-                        Parent = Dot.Instance,
+                        Parent = Items[Config.Key].Instance,
                         Name = "\0",
                         CornerRadius = UDimNew(1, 0)
                     })
@@ -2206,10 +2215,50 @@ local Library do
                 end
                 
                 NewTween.Tween.Completed:Connect(function()
-                    Debounce = false 
+                    Debounce = false
                     Items["MainFrame"].Instance.Visible = Window.IsOpen
                 end)
             end
+
+            -- Traffic light buttons
+            local Minimized = false
+            local FullSize = Items["MainFrame"].Instance.Size
+
+            function Window:SetMinimized(Bool)
+                Minimized = Bool
+                Items["MainFrame"].Instance.ClipsDescendants = true
+
+                if Bool then
+                    FullSize = Items["MainFrame"].Instance.Size
+                    Items["MainFrame"]:Tween(TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = UDim2New(0, FullSize.X.Offset, 0, 44)})
+                else
+                    Items["MainFrame"]:Tween(TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = FullSize})
+                end
+            end
+
+            local CloseConfirming = false
+
+            Items["DotClose"]:Connect("MouseButton1Down", function()
+                if CloseConfirming then
+                    Library:Unload()
+                else
+                    CloseConfirming = true
+                    Library:Notification("Press the red button again to close the menu", 3, nil)
+                    task.delay(3, function()
+                        CloseConfirming = false
+                    end)
+                end
+            end)
+
+            Items["DotMinimize"]:Connect("MouseButton1Down", function()
+                Window:SetMinimized(not Minimized)
+            end)
+
+            Items["DotHide"]:Connect("MouseButton1Down", function()
+                Window:SetOpen(false)
+                local KeyName = StringGSub(StringGSub(Library.MenuKeybind, "Enum.KeyCode.", ""), "Enum.UserInputType.", "")
+                Library:Notification("UI hidden - press "..KeyName.." to bring it back", 5, nil)
+            end)
 
             Library:Connect(UserInputService.InputBegan, function(Input)
                 if tostring(Input.KeyCode) == Library.MenuKeybind or tostring(Input.UserInputType) == Library.MenuKeybind then
@@ -3022,19 +3071,21 @@ local Library do
                     BackgroundColor3 = FromRGB(255, 255, 255)
                 })
 
-                Items["Value"] = Instances:Create("TextLabel", {
+                Items["Value"] = Instances:Create("TextBox", {
                     Parent = Items["Slider"].Instance,
                     Name = "\0",
                     FontFace = Library.Font,
                     TextColor3 = FromRGB(100, 100, 100),
                     BorderColor3 = FromRGB(0, 0, 0),
                     Text = "",
+                    ClearTextOnFocus = false,
                     AnchorPoint = Vector2New(1, 0),
                     Size = UDim2New(0, 0, 0, 17),
                     BackgroundTransparency = 1,
                     Position = UDim2New(1, 0, 0, 0),
                     BorderSizePixel = 0,
                     AutomaticSize = Enum.AutomaticSize.X,
+                    TextXAlignment = Enum.TextXAlignment.Right,
                     TextSize = 16,
                     BackgroundColor3 = FromRGB(255, 255, 255)
                 })
@@ -3179,13 +3230,23 @@ local Library do
                 end
             end)
 
-            Slider:Set(Slider.Default) 
+            Items["Value"]:Connect("FocusLost", function()
+                local NewValue = tonumber(string.match(Items["Value"].Instance.Text, "-?%d+%.?%d*"))
+
+                if NewValue then
+                    Slider:Set(NewValue)
+                else
+                    Slider:Set(Slider.Value)
+                end
+            end)
+
+            Slider:Set(Slider.Default)
 
             Library.SetFlags[Slider.Flag] = function(Value)
                 Slider:Set(Value)
             end
 
-            return Slider 
+            return Slider
         end
 
         Library.Sections.Dropdown = function(self, Data)
@@ -3542,6 +3603,8 @@ local Library do
 
                             Items["Value"].Instance.Text = "..."
                         end
+
+                        Dropdown:SetOpen(false)
                     end
 
                     if Dropdown.Callback then
