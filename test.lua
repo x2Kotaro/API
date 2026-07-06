@@ -3153,6 +3153,21 @@ Background=Color3.fromHex"#e4e4e7",
 Button=Color3.fromHex"#18181b",
 Icon=Color3.fromHex"#52525b",
 },
+Ocean={
+Name="Ocean",
+
+Accent=Color3.fromHex"#eef6ff",
+Dialog=Color3.fromHex"#dbeafe",
+Outline=Color3.fromHex"#1d4ed8",
+Text=Color3.fromHex"#0f2a52",
+Placeholder=Color3.fromHex"#6f92bd",
+Background=Color3.fromHex"#dcecfc",
+Button=Color3.fromHex"#3b82f6",
+Icon=Color3.fromHex"#3f6fa8",
+Toggle=Color3.fromHex"#38bdf8",
+Slider=Color3.fromHex"#2f80ed",
+Checkbox=Color3.fromHex"#2f80ed",
+},
 Rose={
 Name="Rose",
 
@@ -10412,7 +10427,7 @@ BackgroundImageTransparency=ar.BackgroundImageTransparency or 0,
 ShadowTransparency=ar.ShadowTransparency or 0.7,
 User=ar.User or{},
 Footer=ar.Footer or{},
-Topbar=ar.Topbar or{Height=52,ButtonsType="Default"},
+Topbar=ar.Topbar or{Height=52,ButtonsType="macOS"},
 
 Size=ar.Size,
 
@@ -10487,7 +10502,7 @@ math.clamp(au.Y.Offset,as.MinSize.Y,as.MaxSize.Y)
 )
 
 if as.Topbar=={}then
-as.Topbar={Height=52,ButtonsType="Default"}
+as.Topbar={Height=52,ButtonsType="macOS"}
 end
 
 if as.Folder then
@@ -12507,7 +12522,7 @@ end
 
 local aA=true
 
-local aB=aa.Themes[ay.Theme or"Dark"]
+local aB=aa.Themes[ay.Theme or"Ocean"]
 
 
 ao.SetTheme(aB)
@@ -12596,18 +12611,6 @@ aa.Window=aE
 if ay.Acrylic then
 ar.init()
 end
-
-
-
-
-
-
-
-
-
-
-
-
 
 return aE
 end
