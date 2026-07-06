@@ -9644,6 +9644,7 @@ am.SelectedTab=ao
 for ap,aq in next,am.Tabs do
 if not aq.Locked then
 aj(aq.UIElements.Main,0.15,{ImageTransparency=1}):Play()
+aj(aq.UIElements.Main.Outline,0.2,{ImageTransparency=1}):Play()
 
 aj(aq.UIElements.Main.Frame.TextLabel,0.15,{TextTransparency=0.3}):Play()
 if aq.UIElements.Icon and not aq.IconColor then
@@ -9652,7 +9653,9 @@ end
 aq.Selected=false
 end
 end
-aj(am.Tabs[ao].UIElements.Main,0.15,{ImageTransparency=0.93}):Play()
+local aT=af.GetThemeProperty("Slider",af.Theme)or af.GetThemeProperty("Button",af.Theme)or Color3.fromHex"#3B82F6"
+aj(am.Tabs[ao].UIElements.Main,0.2,{ImageTransparency=0.82,ImageColor3=aT}):Play()
+aj(am.Tabs[ao].UIElements.Main.Outline,0.2,{ImageTransparency=0.2,ImageColor3=aT}):Play()
 
 aj(am.Tabs[ao].UIElements.Main.Frame.TextLabel,0.15,{TextTransparency=0}):Play()
 if am.Tabs[ao].UIElements.Icon and not am.Tabs[ao].IconColor then
@@ -11295,8 +11298,7 @@ al(B.Outline,.15,{ImageTransparency=.75}):Play()
 
 else
 
-al(x.ImageLabel,.1,{ImageTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-al(x,.1,{Size=UDim2.new(0,11,0,11)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+al(B,.1,{Size=UDim2.new(0,16,0,16)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 end
 end)
 aj.AddSignal(B.MouseLeave,function()
@@ -11306,8 +11308,7 @@ al(B.Outline,.1,{ImageTransparency=1}):Play()
 
 else
 
-al(x.ImageLabel,.1,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-al(x,.1,{Size=UDim2.new(0,0,0,0)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+al(B,.1,{Size=UDim2.new(0,14,0,14)},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 end
 end)
 
