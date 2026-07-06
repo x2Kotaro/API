@@ -1,5 +1,5 @@
 -- made by samet (joestar._3 on discord)
--- https://discord.gg/VhvTd5HV8d
+-- https://discord.gg/VhvTd5HV8d ๅ/-
 -- example at bottom
 
 if getgenv().Library then
@@ -2098,51 +2098,65 @@ local Library do
                     ApplyStrokeMode = Enum.ApplyStrokeMode.Border
                 }):AddToTheme({Color = "Border"})
                 
-                Items["SubExpires"] = Instances:Create("TextLabel", {
+                -- Player avatar
+                Items["Avatar"] = Instances:Create("ImageLabel", {
+                    Parent = Items["Bottom_"].Instance,
+                    Name = "\0",
+                    AnchorPoint = Vector2New(0, 0.5),
+                    Position = UDim2New(0, 8, 0.5, 0),
+                    Size = UDim2New(0, 32, 0, 32),
+                    BorderColor3 = FromRGB(0, 0, 0),
+                    BorderSizePixel = 0,
+                    ScaleType = Enum.ScaleType.Fit,
+                    BackgroundColor3 = FromRGB(30, 33, 33),
+                    Image = "rbxthumb://type=AvatarHeadShot&id="..LocalPlayer.UserId.."&w=48&h=48"
+                })  Items["Avatar"]:AddToTheme({BackgroundColor3 = "Element"})
+
+                Instances:Create("UICorner", {
+                    Parent = Items["Avatar"].Instance,
+                    Name = "\0",
+                    CornerRadius = UDimNew(1, 0)
+                })
+
+                Instances:Create("UIStroke", {
+                    Parent = Items["Avatar"].Instance,
+                    Name = "\0",
+                    Color = FromRGB(30, 33, 33),
+                    ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                }):AddToTheme({Color = "Border 2"})
+
+                Items["PlayerName"] = Instances:Create("TextLabel", {
+                    Parent = Items["Bottom_"].Instance,
+                    Name = "\0",
+                    FontFace = Library.Font,
+                    TextColor3 = FromRGB(255, 255, 255),
+                    BorderColor3 = FromRGB(0, 0, 0),
+                    Text = LocalPlayer.DisplayName,
+                    Size = UDim2New(0, 0, 0, 15),
+                    BorderSizePixel = 0,
+                    BackgroundTransparency = 1,
+                    Position = UDim2New(0, 48, 0, 9),
+                    AutomaticSize = Enum.AutomaticSize.X,
+                    TextSize = 14,
+                    BackgroundColor3 = FromRGB(255, 255, 255)
+                })
+
+                Items["PlayerUser"] = Instances:Create("TextLabel", {
                     Parent = Items["Bottom_"].Instance,
                     Name = "\0",
                     FontFace = Library.Font,
                     TextColor3 = FromRGB(255, 255, 255),
                     TextTransparency = 0.5,
-                    Text = "Sub expires in "..Window.ExpiresIn,
+                    BorderColor3 = FromRGB(0, 0, 0),
+                    Text = "@"..LocalPlayer.Name,
                     Size = UDim2New(0, 0, 0, 15),
                     BorderSizePixel = 0,
                     BackgroundTransparency = 1,
-                    Position = UDim2New(0, 10, 0, 8),
-                    BorderColor3 = FromRGB(0, 0, 0),
+                    Position = UDim2New(0, 48, 0, 24),
                     AutomaticSize = Enum.AutomaticSize.X,
                     TextSize = 12,
                     BackgroundColor3 = FromRGB(255, 255, 255)
                 })
-                
-                Items["SessionDuration"] = Instances:Create("TextLabel", {
-                    Parent = Items["Bottom_"].Instance,
-                    Name = "\0",
-                    FontFace = Library.Font,
-                    TextColor3 = FromRGB(255, 255, 255),
-                    BorderColor3 = FromRGB(0, 0, 0),
-                    Text = "Session duration: ",
-                    Size = UDim2New(0, 0, 0, 15),
-                    BackgroundTransparency = 1,
-                    Position = UDim2New(0, 10, 0, 23),
-                    BorderSizePixel = 0,
-                    AutomaticSize = Enum.AutomaticSize.X,
-                    TextSize = 12,
-                    BackgroundColor3 = FromRGB(255, 255, 255)
-                })                
-
-                Library:Thread(function()
-                    while task.wait(1) do
-                        local SecondsPassed = MathFloor(tick() - StartTime)
-                        local MinutesPassed = MathFloor(SecondsPassed / 60)
-
-                        if MinutesPassed > 0 then
-                            SecondsPassed = SecondsPassed - MinutesPassed * 60
-                        end
-
-                        Items["SessionDuration"].Instance.Text = "Session duration: "..MinutesPassed..":"..SecondsPassed
-                    end
-                end)
 
                 Window.Items = Items
             end
@@ -2325,16 +2339,16 @@ local Library do
                 Instances:Create("UIPadding", {
                     Parent = Items["SubPages"].Instance,
                     Name = "\0",
-                    PaddingTop = UDimNew(0, 2),
-                    PaddingBottom = UDimNew(0, 2),
-                    PaddingRight = UDimNew(0, 2),
-                    PaddingLeft = UDimNew(0, 2)
+                    PaddingTop = UDimNew(0, 4),
+                    PaddingBottom = UDimNew(0, 4),
+                    PaddingRight = UDimNew(0, 4),
+                    PaddingLeft = UDimNew(0, 4)
                 })
                 
                 Instances:Create("UIListLayout", {
                     Parent = Items["SubPages"].Instance,
                     Name = "\0",
-                    Padding = UDimNew(0, 2),
+                    Padding = UDimNew(0, 6),
                     FillDirection = Enum.FillDirection.Horizontal,
                     SortOrder = Enum.SortOrder.LayoutOrder
                 })
@@ -2464,15 +2478,15 @@ local Library do
                 Instances:Create("UIPadding", {
                     Parent = Items["Inactive"].Instance,
                     Name = "\0",
-                    PaddingRight = UDimNew(0, 8),
-                    PaddingLeft = UDimNew(0, 8)
+                    PaddingRight = UDimNew(0, 14),
+                    PaddingLeft = UDimNew(0, 14)
                 })
-                
+
                 Instances:Create("UICorner", {
                     Parent = Items["Inactive"].Instance,
                     Name = "\0",
                     CornerRadius = UDimNew(0, 7)
-                })                
+                })
 
                 Items["Page"] = Instances:Create("Frame", {
                     Parent = Library.UnusedHolder.Instance,
