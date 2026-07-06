@@ -9192,7 +9192,7 @@ ImageTransparency=1,
 af.NewRoundFrame(ap.UICorner,"SquircleOutline",{
 Size=UDim2.new(1,0,1,0),
 ThemeTag={
-ImageColor3="Text",
+ImageColor3="Button",
 },
 ImageTransparency=1,
 Name="Outline"
@@ -9653,9 +9653,8 @@ end
 aq.Selected=false
 end
 end
-local aT=af.GetThemeProperty("Slider",af.Theme)or af.GetThemeProperty("Button",af.Theme)or Color3.fromHex"#3B82F6"
-aj(am.Tabs[ao].UIElements.Main,0.2,{ImageTransparency=0.82,ImageColor3=aT}):Play()
-aj(am.Tabs[ao].UIElements.Main.Outline,0.2,{ImageTransparency=0.2,ImageColor3=aT}):Play()
+aj(am.Tabs[ao].UIElements.Main,0.2,{ImageTransparency=0.82}):Play()
+aj(am.Tabs[ao].UIElements.Main.Outline,0.2,{ImageTransparency=0.15}):Play()
 
 aj(am.Tabs[ao].UIElements.Main.Frame.TextLabel,0.15,{TextTransparency=0}):Play()
 if am.Tabs[ao].UIElements.Icon and not am.Tabs[ao].IconColor then
@@ -11158,8 +11157,8 @@ Padding=UDim.new(0,as.UIPadding/2)
 ak("Frame",{
 AutomaticSize="XY",
 BackgroundTransparency=1,
-Position=UDim2.new(as.Topbar.ButtonsType=="Default"and 1 or 0,0,0.5,0),
-AnchorPoint=Vector2.new(as.Topbar.ButtonsType=="Default"and 1 or 0,0.5),
+Position=UDim2.new(1,0,0.5,0),
+AnchorPoint=Vector2.new(1,0.5),
 Name="Right",
 },{
 ak("UIListLayout",{
@@ -11188,9 +11187,6 @@ local l=as.UIElements.Main.Main.Topbar.Right.UIListLayout.AbsoluteContentSize.X/
 
 
 j=as.UIElements.Main.Main.Topbar.Left.AbsoluteSize.X/ar.WindUI.UIScale
-if as.Topbar.ButtonsType~="Default"then
-j=j+l+as.UIPadding-4
-end
 
 
 
@@ -11208,7 +11204,7 @@ as.UIElements.Main.Main.Topbar.Center.Size=UDim2.new(
 )
 end)
 
-if as.Topbar.ButtonsType~="Default"then
+if false then
 aj.AddSignal(as.UIElements.Main.Main.Topbar.Right:GetPropertyChangedSignal"AbsoluteSize",function()
 as.UIElements.Main.Main.Topbar.Left.Position=UDim2.new(0,(as.UIElements.Main.Main.Topbar.Right.AbsoluteSize.X/ar.WindUI.UIScale)+as.UIPadding-4,0,0)
 end)
