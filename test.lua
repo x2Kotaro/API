@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/ 1
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library1 for scripts
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -9790,67 +9790,17 @@ FillDirection="Vertical",
 Padding=UDim.new(0,ao.Gap),
 VerticalAlignment="Bottom",
 }),
-af("UIPadding",{
-PaddingLeft=UDim.new(0,14),
-}),
 })
 })
 
-local at=af("Frame",{
-Size=UDim2.new(0,2,1,-8),
-Position=UDim2.new(0,2,0.5,0),
-AnchorPoint=Vector2.new(0,0.5),
-BackgroundTransparency=1,
-ThemeTag={
-BackgroundColor3="Primary",
-},
-Name="AccentBar",
-Parent=as.Content,
-ZIndex=3,
-},{
-af("UICorner",{
-CornerRadius=UDim.new(0,1),
-}),
-})
-
-local au_tabCount=0
 
 function ap.Tab(au,av)
 if not ap.Expandable then
 ap.Expandable=true
 ar.Visible=true
 end
-au_tabCount=au_tabCount+1
-
-local aw=af("Frame",{
-Size=UDim2.new(1,0,0,0),
-AutomaticSize="Y",
-BackgroundTransparency=1,
-Parent=as.Content,
-Name="TabRow_"..au_tabCount,
-},{
-af("TextLabel",{
-Text="\226\128\162",
-Size=UDim2.new(0,14,1,0),
-Position=UDim2.new(0,-13,0,0),
-TextXAlignment="Center",
-TextYAlignment="Center",
-TextSize=8,
-BackgroundTransparency=1,
-ThemeTag={
-TextColor3="Primary",
-},
-TextTransparency=ap.Opened and 0.2 or 1,
-FontFace=Font.new(ae.Font,Enum.FontWeight.Bold),
-Name="Indicator",
-ZIndex=2,
-}),
-})
-
-av.Parent=aw
-local ax=aj.New(av,an)
-
-return ax
+av.Parent=as.Content
+return aj.New(av,an)
 end
 
 function ap.Open(au)
@@ -9861,12 +9811,6 @@ Size=UDim2.new(1,0,0,ap.HeaderSize+(as.Content.AbsoluteSize.Y/an))
 },Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 
 ah(ar.ImageLabel,0.1,{Rotation=180},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-ah(at,0.25,{BackgroundTransparency=0.35},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-for _,aw in next,as.Content:GetChildren()do
-if aw:FindFirstChild("Indicator")then
-ah(aw.Indicator,0.2,{TextTransparency=0.2},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-end
-end
 end
 end
 function ap.Close(au)
@@ -9876,12 +9820,6 @@ ah(as,0.26,{
 Size=UDim2.new(1,0,0,ap.HeaderSize)
 },Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 ah(ar.ImageLabel,0.1,{Rotation=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-ah(at,0.15,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-for _,aw in next,as.Content:GetChildren()do
-if aw:FindFirstChild("Indicator")then
-ah(aw.Indicator,0.15,{TextTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-end
-end
 end
 end
 
