@@ -4,8 +4,8 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/ 1
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
-    ๅ
+    v1.6.62  |  2025-12-09  |  Roblox UI Library1 for scripts
+    
     To view the source code, see the `src/` folder on the official GitHub repository.
     
     Author: Footagesus (Footages, .ftgs, oftgs)
@@ -9791,21 +9791,26 @@ Padding=UDim.new(0,ao.Gap),
 VerticalAlignment="Bottom",
 }),
 af("UIPadding",{
-PaddingLeft=UDim.new(0,18),
+PaddingLeft=UDim.new(0,14),
 }),
 })
 })
 
 local at=af("Frame",{
-Size=UDim2.new(0,1,1,-(ap.HeaderSize/2)-4),
-Position=UDim2.new(0,4,0,ap.HeaderSize/2),
+Size=UDim2.new(0,2,1,-8),
+Position=UDim2.new(0,2,0.5,0),
+AnchorPoint=Vector2.new(0,0.5),
 BackgroundTransparency=1,
 ThemeTag={
-BackgroundColor3="Text",
+BackgroundColor3="Primary",
 },
-Name="TreeLine",
-Parent=as,
-ZIndex=2,
+Name="AccentBar",
+Parent=as.Content,
+ZIndex=3,
+},{
+af("UICorner",{
+CornerRadius=UDim.new(0,1),
+}),
 })
 
 local au_tabCount=0
@@ -9814,7 +9819,6 @@ function ap.Tab(au,av)
 if not ap.Expandable then
 ap.Expandable=true
 ar.Visible=true
-at.Visible=true
 end
 au_tabCount=au_tabCount+1
 
@@ -9825,15 +9829,20 @@ BackgroundTransparency=1,
 Parent=as.Content,
 Name="TabRow_"..au_tabCount,
 },{
-af("Frame",{
-Size=UDim2.new(0,14,0,1),
-Position=UDim2.new(0,-14,0.5,0),
-AnchorPoint=Vector2.new(0,0.5),
-BackgroundTransparency=ap.Opened and 0.7 or 1,
+af("TextLabel",{
+Text="\226\128\162",
+Size=UDim2.new(0,14,1,0),
+Position=UDim2.new(0,-13,0,0),
+TextXAlignment="Center",
+TextYAlignment="Center",
+TextSize=8,
+BackgroundTransparency=1,
 ThemeTag={
-BackgroundColor3="Text",
+TextColor3="Primary",
 },
-Name="Branch",
+TextTransparency=ap.Opened and 0.2 or 1,
+FontFace=Font.new(ae.Font,Enum.FontWeight.Bold),
+Name="Indicator",
 ZIndex=2,
 }),
 })
@@ -9852,11 +9861,10 @@ Size=UDim2.new(1,0,0,ap.HeaderSize+(as.Content.AbsoluteSize.Y/an))
 },Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 
 ah(ar.ImageLabel,0.1,{Rotation=180},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
-at.Visible=true
-ah(at,0.2,{BackgroundTransparency=0.7},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ah(at,0.25,{BackgroundTransparency=0.35},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 for _,aw in next,as.Content:GetChildren()do
-if aw:FindFirstChild("Branch")then
-ah(aw.Branch,0.2,{BackgroundTransparency=0.7},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+if aw:FindFirstChild("Indicator")then
+ah(aw.Indicator,0.2,{TextTransparency=0.2},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 end
 end
 end
@@ -9870,8 +9878,8 @@ Size=UDim2.new(1,0,0,ap.HeaderSize)
 ah(ar.ImageLabel,0.1,{Rotation=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 ah(at,0.15,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 for _,aw in next,as.Content:GetChildren()do
-if aw:FindFirstChild("Branch")then
-ah(aw.Branch,0.15,{BackgroundTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+if aw:FindFirstChild("Indicator")then
+ah(aw.Indicator,0.15,{TextTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 end
 end
 end
