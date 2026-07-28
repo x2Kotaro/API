@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/ 1
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts1
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -9258,6 +9258,23 @@ PaddingBottom=UDim.new(0,ap.TabPaddingY),
 }),
 },true)
 
+if an.IsSectionChild then
+af("Frame",{
+Name="BranchLine",
+Size=UDim2.new(0,8,0,2),
+Position=UDim2.new(0,-10,0.5,-1),
+BackgroundTransparency=0.82,
+ThemeTag={
+BackgroundColor3="Text",
+},
+Parent=ap.UIElements.Main
+},{
+af("UICorner",{
+CornerRadius=UDim.new(1,0)
+})
+})
+end
+
 local ar=0
 local as
 local au
@@ -9790,6 +9807,28 @@ FillDirection="Vertical",
 Padding=UDim.new(0,ao.Gap),
 VerticalAlignment="Bottom",
 }),
+af("UIPadding",{
+PaddingLeft=UDim.new(0,20),
+PaddingRight=UDim.new(0,0),
+PaddingTop=UDim.new(0,2),
+PaddingBottom=UDim.new(0,2),
+})
+})
+})
+
+local treeLine=af("Frame",{
+Name="TreeLine",
+Size=UDim2.new(0,2,1,-ap.HeaderSize-6),
+Position=UDim2.new(0,16,0,ap.HeaderSize+2),
+BackgroundTransparency=0.82,
+ThemeTag={
+BackgroundColor3="Text",
+},
+Visible=false,
+Parent=as
+},{
+af("UICorner",{
+CornerRadius=UDim.new(1,0)
 })
 })
 
@@ -9798,8 +9837,10 @@ function ap.Tab(au,av)
 if not ap.Expandable then
 ap.Expandable=true
 ar.Visible=true
+treeLine.Visible=true
 end
 av.Parent=as.Content
+av.IsSectionChild=true
 return aj.New(av,an)
 end
 
