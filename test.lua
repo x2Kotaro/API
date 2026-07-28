@@ -2,9 +2,9 @@
      _      ___         ____  ______
     | | /| / (_)__  ___/ / / / /  _/
     | |/ |/ / / _ \/ _  / /_/ // /  
-    |__/|__/_/_//_/\_,_/\____/___/ 1
+    |__/|__/_/_//_/\_,_/\____/___/ 1/-
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library for scriptsๅ
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -9767,7 +9767,7 @@ AnchorPoint=Vector2.new(0.5,0),
 ImageTransparency=1,
 Visible=false,
 ThemeTag={
-ImageColor3="Primary"
+ImageColor3="Text"
 }
 })
 
