@@ -9696,6 +9696,9 @@ Opened=ak.Opened or false,
 HeaderSize=42,
 IconSize=18,
 
+TreeX=12,
+TreeIndent=22,
+
 Expandable=false,
 }
 
@@ -9733,12 +9736,25 @@ ImageTransparency=.7,
 })
 })
 
+local at=af("Frame",{
+Name="TreeTrunk",
+Size=UDim2.new(0,1,0,0),
+Position=UDim2.new(0,ap.TreeX,0,ap.HeaderSize),
+BackgroundTransparency=.85,
+BorderSizePixel=0,
+Visible=false,
+ThemeTag={
+BackgroundColor3="Text"
+}
+})
+
 local as=af("Frame",{
 Size=UDim2.new(1,0,0,ap.HeaderSize),
 BackgroundTransparency=1,
 Parent=al,
 ClipsDescendants=true,
 },{
+at,
 af("TextButton",{
 Size=UDim2.new(1,0,0,ap.HeaderSize),
 BackgroundTransparency=1,
@@ -9790,8 +9806,24 @@ FillDirection="Vertical",
 Padding=UDim.new(0,ao.Gap),
 VerticalAlignment="Bottom",
 }),
+af("UIPadding",{
+PaddingLeft=UDim.new(0,ap.TreeIndent)
+}),
 })
 })
+
+local aA
+
+local function aB()
+if not ap.Expandable or not aA then
+at.Visible=false
+return
+end
+at.Visible=true
+local aC=as.Content.UIListLayout.AbsoluteContentSize.Y/an
+local aD=aA.AbsoluteSize.Y/an
+at.Size=UDim2.new(0,1,0,math.max(aC-(aD/2),0))
+end
 
 
 function ap.Tab(au,av)
@@ -9800,7 +9832,36 @@ ap.Expandable=true
 ar.Visible=true
 end
 av.Parent=as.Content
-return aj.New(av,an)
+local aC=aj.New(av,an)
+
+local aD=aC.UIElements and aC.UIElements.Main
+if aD then
+aA=aD
+
+local aE=af("Frame",{
+Name="TreeBranch",
+Parent=aD,
+Size=UDim2.new(0,ap.TreeIndent-ap.TreeX,0,1),
+Position=UDim2.new(0,0,0,0),
+AnchorPoint=Vector2.new(1,0),
+BackgroundTransparency=.85,
+BorderSizePixel=0,
+ThemeTag={
+BackgroundColor3="Text"
+}
+})
+
+local function aF()
+aE.Position=UDim2.new(0,0,0,math.floor((aD.AbsoluteSize.Y/an)/2))
+aB()
+end
+
+ae.AddSignal(aD:GetPropertyChangedSignal"AbsoluteSize",aF)
+aF()
+end
+
+aB()
+return aC
 end
 
 function ap.Open(au)
@@ -9834,6 +9895,7 @@ end
 end)
 
 ae.AddSignal(as.Content.UIListLayout:GetPropertyChangedSignal"AbsoluteContentSize",function()
+aB()
 if ap.Opened then
 ap:Open()
 end
