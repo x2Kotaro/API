@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/ 1
     
-    v1.6.62  |  2025-12-09  |  Roblox UI Library for scripts
+    v1.6.62  |  2025-12-09  |  Roblox UI Library for scriptsๅ
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -9696,8 +9696,9 @@ Opened=ak.Opened or false,
 HeaderSize=42,
 IconSize=18,
 
-TreeX=12,
-TreeIndent=22,
+RailX=13,
+RailWidth=2,
+Indent=24,
 
 Expandable=false,
 }
@@ -9736,15 +9737,37 @@ ImageTransparency=.7,
 })
 })
 
-local at=af("Frame",{
-Name="TreeTrunk",
-Size=UDim2.new(0,1,0,0),
-Position=UDim2.new(0,ap.TreeX,0,ap.HeaderSize),
-BackgroundTransparency=.85,
-BorderSizePixel=0,
+local at=ae.NewRoundFrame(99,"Squircle",{
+Name="Rail",
+Size=UDim2.new(0,ap.RailWidth,0,0),
+Position=UDim2.new(0,ap.RailX,0,ap.HeaderSize),
+AnchorPoint=Vector2.new(0.5,0),
+ImageTransparency=.9,
 Visible=false,
 ThemeTag={
-BackgroundColor3="Text"
+ImageColor3="Text"
+}
+},{
+af("UIGradient",{
+Rotation=90,
+Transparency=NumberSequence.new{
+NumberSequenceKeypoint.new(0,1),
+NumberSequenceKeypoint.new(0.14,0),
+NumberSequenceKeypoint.new(0.86,0),
+NumberSequenceKeypoint.new(1,1),
+}
+})
+})
+
+local aw=ae.NewRoundFrame(99,"Squircle",{
+Name="RailIndicator",
+Size=UDim2.new(0,ap.RailWidth,0,0),
+Position=UDim2.new(0,ap.RailX,0,ap.HeaderSize),
+AnchorPoint=Vector2.new(0.5,0),
+ImageTransparency=1,
+Visible=false,
+ThemeTag={
+ImageColor3="Primary"
 }
 })
 
@@ -9754,7 +9777,7 @@ BackgroundTransparency=1,
 Parent=al,
 ClipsDescendants=true,
 },{
-at,
+at,aw,
 af("TextButton",{
 Size=UDim2.new(1,0,0,ap.HeaderSize),
 BackgroundTransparency=1,
@@ -9807,22 +9830,41 @@ Padding=UDim.new(0,ao.Gap),
 VerticalAlignment="Bottom",
 }),
 af("UIPadding",{
-PaddingLeft=UDim.new(0,ap.TreeIndent)
+PaddingLeft=UDim.new(0,ap.Indent)
 }),
 })
 })
 
 local aA
+local aB=false
 
-local function aB()
-if not ap.Expandable or not aA then
-at.Visible=false
+local function aC()
+at.Visible=ap.Expandable
+at.Size=UDim2.new(0,ap.RailWidth,0,as.Content.UIListLayout.AbsoluteContentSize.Y/an)
+end
+
+local function aD(aE)
+if aE then aA=aE end
+if not aA then
+aw.Visible=false
 return
 end
-at.Visible=true
-local aC=as.Content.UIListLayout.AbsoluteContentSize.Y/an
-local aD=aA.AbsoluteSize.Y/an
-at.Size=UDim2.new(0,1,0,math.max(aC-(aD/2),0))
+
+local aF=(aA.AbsolutePosition.Y-as.Content.AbsolutePosition.Y)/an
+local b=aA.AbsoluteSize.Y/an
+local d=math.max(b-14,10)
+local f=UDim2.new(0,ap.RailX,0,ap.HeaderSize+aF+((b-d)/2))
+local g=UDim2.new(0,ap.RailWidth,0,d)
+
+if aw.Visible and aB then
+ah(aw,0.22,{Position=f,Size=g},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+else
+aw.Visible=true
+aw.Position=f
+aw.Size=g
+ah(aw,0.15,{ImageTransparency=0},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+aB=true
+end
 end
 
 
@@ -9832,36 +9874,30 @@ ap.Expandable=true
 ar.Visible=true
 end
 av.Parent=as.Content
-local aC=aj.New(av,an)
+local aE=aj.New(av,an)
 
-local aD=aC.UIElements and aC.UIElements.Main
-if aD then
-aA=aD
+local aF=aE.UIElements and aE.UIElements.Main
+if aF then
 
-local aE=af("Frame",{
-Name="TreeBranch",
-Parent=aD,
-Size=UDim2.new(0,ap.TreeIndent-ap.TreeX,0,1),
-Position=UDim2.new(0,0,0,0),
-AnchorPoint=Vector2.new(1,0),
-BackgroundTransparency=.85,
-BorderSizePixel=0,
-ThemeTag={
-BackgroundColor3="Text"
-}
-})
-
-local function aF()
-aE.Position=UDim2.new(0,0,0,math.floor((aD.AbsoluteSize.Y/an)/2))
-aB()
+ae.AddSignal(aF:GetPropertyChangedSignal"ImageTransparency",function()
+if aF.ImageTransparency<.95 then
+aD(aF)
+elseif aA==aF then
+aA=nil
+aB=false
+ah(aw,0.12,{ImageTransparency=1},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+task.delay(.12,function()
+if not aA then aw.Visible=false end
+end)
+end
+end)
+ae.AddSignal(aF:GetPropertyChangedSignal"AbsoluteSize",function()
+if aA==aF then aD()end
+end)
 end
 
-ae.AddSignal(aD:GetPropertyChangedSignal"AbsoluteSize",aF)
-aF()
-end
-
-aB()
-return aC
+aC()
+return aE
 end
 
 function ap.Open(au)
@@ -9895,7 +9931,8 @@ end
 end)
 
 ae.AddSignal(as.Content.UIListLayout:GetPropertyChangedSignal"AbsoluteContentSize",function()
-aB()
+aC()
+aD()
 if ap.Opened then
 ap:Open()
 end
